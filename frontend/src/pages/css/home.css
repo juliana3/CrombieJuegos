@@ -14,7 +14,7 @@ html, body {
 .home-container {
   min-height: 100vh; /* altura completa del viewport */
   width: 100%;
-  background-image: url('../img/fondo.svg'); /* tu fondo */
+  background-image: url('fondo.svg'); /* tu fondo */
   background-size: cover;      /* ocupa todo el contenedor */
   background-position: center; /* centrado */
   background-repeat: no-repeat;
@@ -93,7 +93,7 @@ html, body {
 ============================= */
 @media (max-width: 768px) {
     .home-container {
-    background-image: url('../img/fondotablet.svg');
+    background-image: url('fondotablet.svg');
     position: fixed
   }
   .start-game-button {
