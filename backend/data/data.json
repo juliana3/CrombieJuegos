@@ -1,83 +1,116 @@
-//Aca van las preguntas, respuestas y premios y la configuracion (preuntas por turno, etc)
-
 {
   "categorias": {
-    "ciencia": {
+    "Backend": {
       "facil": [
         {
-          "pregunta": "¿Cuál es el planeta más cercano al Sol?",
-          "opciones": ["Venus", "Mercurio", "Marte", "Júpiter"],
-          "respuesta_correcta": "Mercurio"
+          "pregunta": "¿Qué es un API en desarrollo Backend?",
+          "opciones": ["Una base de datos", "Una interfaz de programación de aplicaciones", "Un servidor web", "Un lenguaje de programación"],
+          "respuesta_correcta": "Una interfaz de programación de aplicaciones"
         },
         {
-          "pregunta": "¿Qué gas respiramos principalmente?",
-          "opciones": ["Oxígeno", "Dióxido de carbono", "Nitrógeno", "Hidrógeno"],
-          "respuesta_correcta": "Nitrógeno"
+          "pregunta": "¿Qué significa HTTP?",
+          "opciones": ["Hyper Transfer Protocol", "Hyper Text Transfer Protocol", "Hyper Text Transport Protocol", "Hyper Transport Protocol"],
+          "respuesta_correcta": "Hyper Text Transfer Protocol"
         }
       ],
       "medio": [
         {
-          "pregunta": "¿Qué científico propuso la teoría de la relatividad?",
-          "opciones": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"],
-          "respuesta_correcta": "Albert Einstein"
+          "pregunta": "¿Qué es un servidor RESTful?",
+          "opciones": ["Un servidor que usa SOAP", "Un servidor basado en protocolos como HTTP", "Un servidor que usa JavaScript", "Un servidor que almacena bases de datos"],
+          "respuesta_correcta": "Un servidor basado en protocolos como HTTP"
+        },
+        {
+          "pregunta": "¿Cuál es el lenguaje más usado para desarrollo de aplicaciones backend?",
+          "opciones": ["Python", "JavaScript", "Ruby", "Java"],
+          "respuesta_correcta": "JavaScript"
         }
       ],
       "dificil": [
         {
-          "pregunta": "¿Cuál es la fórmula química del ácido sulfúrico?",
-          "opciones": ["H2SO4", "HNO3", "HCl", "H2CO3"],
-          "respuesta_correcta": "H2SO4"
+          "pregunta": "¿Qué es una base de datos NoSQL?",
+          "opciones": ["Una base de datos relacional", "Una base de datos que no usa SQL", "Una base de datos basada en archivos", "Una base de datos que solo almacena texto"],
+          "respuesta_correcta": "Una base de datos que no usa SQL"
         },
         {
-          "pregunta": "¿Qué partícula subatómica tiene una carga negativa?",
-          "opciones": ["Protón", "Neutrón", "Electrón", "Positrón"],
-          "respuesta_correcta": "Electrón"
+          "pregunta": "¿Qué es un microservicio?",
+          "opciones": ["Un servicio que responde a una solicitud", "Un componente que realiza una función pequeña dentro de un sistema", "Un servidor web", "Un servicio de base de datos"],
+          "respuesta_correcta": "Un componente que realiza una función pequeña dentro de un sistema"
         }
       ]
     },
-    "historia": {
+    "Frontend": {
       "facil": [
         {
-          "pregunta": "¿En qué año llegó Cristóbal Colón a América?",
-          "opciones": ["1492", "1500", "1453", "1498"],
-          "respuesta_correcta": "1492"
+          "pregunta": "¿Qué es HTML?",
+          "opciones": ["Un lenguaje de programación", "Un lenguaje de marcado", "Un tipo de base de datos", "Un servidor web"],
+          "respuesta_correcta": "Un lenguaje de marcado"
+        },
+        {
+          "pregunta": "¿Qué hace CSS?",
+          "opciones": ["Diseña la estructura de la página", "Agrega interactividad a la página", "Estiliza y da formato a la página", "Gestiona bases de datos"],
+          "respuesta_correcta": "Estiliza y da formato a la página"
         }
       ],
       "medio": [
         {
-          "pregunta": "¿Quién fue el primer emperador romano?",
-          "opciones": ["Julio César", "Augusto", "Nerón", "Calígula"],
-          "respuesta_correcta": "Augusto"
+          "pregunta": "¿Qué es el DOM?",
+          "opciones": ["El código fuente de una página", "La estructura de un sitio web", "Una interfaz de programación", "Un objeto en JavaScript"],
+          "respuesta_correcta": "La estructura de un sitio web"
+        },
+        {
+          "pregunta": "¿Qué es React?",
+          "opciones": ["Un framework de CSS", "Una librería de JavaScript para construir interfaces de usuario", "Un lenguaje de programación", "Una base de datos"],
+          "respuesta_correcta": "Una librería de JavaScript para construir interfaces de usuario"
         }
       ],
       "dificil": [
         {
-          "pregunta": "¿Cuál fue la capital del Imperio Bizantino?",
-          "opciones": ["Roma", "Atenas", "Constantinopla", "Alejandría"],
-          "respuesta_correcta": "Constantinopla"
+          "pregunta": "¿Qué significa JSX en React?",
+          "opciones": ["JavaScript XML", "JavaScript Extension", "JSON Standard Exchange", "JavaScript eXtension"],
+          "respuesta_correcta": "JavaScript XML"
+        },
+        {
+          "pregunta": "¿Qué es el Virtual DOM en React?",
+          "opciones": ["Una representación de la interfaz de usuario en memoria", "El DOM real del navegador", "El servidor donde se almacenan los archivos", "Una herramienta de diseño gráfico"],
+          "respuesta_correcta": "Una representación de la interfaz de usuario en memoria"
         }
       ]
     },
-    "deportes": {
+    "Crombie": {
       "facil": [
         {
-          "pregunta": "¿Cuántos jugadores hay en un equipo de fútbol en el campo?",
-          "opciones": ["9", "10", "11", "12"],
-          "respuesta_correcta": "11"
+          "pregunta": "¿Qué tipo de productos ofrece Crombie?",
+          "opciones": ["Tecnología", "Ropa y accesorios", "Alimentos", "Herramientas de software"],
+          "respuesta_correcta": "Ropa y accesorios"
+        },
+        {
+          "pregunta": "¿En qué país tiene su sede principal Crombie?",
+          "opciones": ["Estados Unidos", "Reino Unido", "Canadá", "Australia"],
+          "respuesta_correcta": "Reino Unido"
         }
       ],
       "medio": [
         {
-          "pregunta": "¿En qué país se originaron los Juegos Olímpicos?",
-          "opciones": ["Italia", "Grecia", "Francia", "Egipto"],
-          "respuesta_correcta": "Grecia"
+          "pregunta": "¿Quién es el fundador de Crombie?",
+          "opciones": ["John Crombie", "James Crombie", "William Crombie", "Mark Crombie"],
+          "respuesta_correcta": "John Crombie"
+        },
+        {
+          "pregunta": "¿Qué tipo de tejidos son más conocidos en las prendas de Crombie?",
+          "opciones": ["Lana", "Seda", "Algodón", "Poliéster"],
+          "respuesta_correcta": "Lana"
         }
       ],
       "dificil": [
         {
-          "pregunta": "¿Quién ganó el mundial de fútbol en 1986?",
-          "opciones": ["Brasil", "Alemania", "Argentina", "Italia"],
-          "respuesta_correcta": "Argentina"
+          "pregunta": "¿En qué año fue fundada Crombie?",
+          "opciones": ["1823", "1872", "1910", "1955"],
+          "respuesta_correcta": "1805"
+        },
+        {
+          "pregunta": "¿Qué tipo de clientes suele atender Crombie principalmente?",
+          "opciones": ["Grandes empresas", "Clientes minoristas de lujo", "Gobiernos", "Escuelas y universidades"],
+          "respuesta_correcta": "Clientes minoristas de lujo"
         }
       ]
     }
