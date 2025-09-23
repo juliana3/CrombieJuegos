@@ -36,6 +36,7 @@ html, body {
 }
 .header-img {
     margin-top: 40px;
+    width: 200px;
 }
 /* Botón "Iniciar Juego" */
 .start-game-button {
