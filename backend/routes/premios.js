@@ -8,24 +8,33 @@
 
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
+//define el almacenamiento en memoria
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 const premiosController = require('../controllers/premiosController');
 
 // Rutas para manejar los premios
 
 //LISTA LOS PREMIOS
-router.get('/', premiosController.ListarPremios);
+router.get('/', premiosController.listarPremios);
+
+//SUBIR IMAGEN PREMIO
+router.post('/', upload.single('imagen-premio'), premiosController.agregarPremio)
 
 //AGREGAR PREMIO
-router.post('/', premiosController.AgregarPremio);
+router.post('/', premiosController.agregarPremio);
 
 //EDITAR PREMIO
-router.put('/:nombre', premiosController.EditarPremio);
+router.put('/:nombre', premiosController.editarPremio);
 
 //ELIMINAR PREMIO
-router.delete('/:nombre', premiosController.EliminarPremio);
+router.delete('/:nombre', premiosController.eliminarPremio);
 
 //DESCONTAR STOCK
-router.put('/stock/:nombre', premiosController.DescontarStock);
+router.put('/stock/:nombre', premiosController.descontarStock);
 
 //ACTIVAR/DESACTIVAR PREMIO
 router.put('/estado/:nombre', premiosController.cambiarEstadoPremio);
