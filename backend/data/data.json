@@ -1,5 +1,5 @@
 {
-"categorias": {
+  "categorias": {
     "Backend": {
       "facil": [
         {
@@ -24,7 +24,7 @@
           "opciones": ["Python", "JavaScript", "Ruby", "Java"],
           "respuesta_correcta": "JavaScript"
         }
-      ],
+      ], 
       "dificil": [
         {
           "pregunta": "¿Qué es una base de datos NoSQL?",
