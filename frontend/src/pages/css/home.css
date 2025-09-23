@@ -35,7 +35,7 @@ html, body {
   flex: 1; /* ocupa todo el espacio disponible para centrar verticalmente */
 }
 .header-img {
-    margin-top: 40px;
+    margin-top: 70px;
     width: 200px;
 }
 /* Botón "Iniciar Juego" */
