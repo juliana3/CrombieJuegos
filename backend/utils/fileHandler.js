@@ -1,71 +1,83 @@
-//**
 // Maneja la lectura y escritura de archivos JSON
-// 
 const fs = require('fs/promises');
 const path = require('path');
 
-// Esta función solo lee y devuelve los datos
-async function leerDatos() {
-    try {
-        const jsonPath = path.join(__dirname, '../data/data.json');
-        const jsonData = await fs.readFile(jsonPath, 'utf-8');
-        const data = JSON.parse(jsonData);
-        return data;  // Devuelve los datos leídos
-    } catch (error) {
-        throw new Error('Error al leer el archivo JSON');  // Lanza un error si algo falla
-    }
-}
-
-async function leerPremios() {
-    try {
-        const jsonPath = path.join(__dirname, '../data/premios.json');
-        const jsonData = await fs.readFile(jsonPath, 'utf-8');
-        const data = JSON.parse(jsonData);
-        return data;  // Devuelve los datos leídos
-    } catch (error) {
-        throw new Error('Error al leer el archivo JSON');  // Lanza un error si algo falla
-    }
-}
+// Paths a los archivos JSON
+const preguntasPath = path.join(__dirname, '../data/data.json');
+const premiosPath = path.join(__dirname, '../data/premios.json');
 
 
-export async function obtenerPremios(objDatos){
- try {
-    const datos = await leerPremios()
-    console.log("Datos obtenidos para premios:", datos)
-
-    // Estructura de estadísticas con valores por defecto
-    const premios = {
-      buzo  {}
-        
-      }
-    }
-
-    return {
-      globales: datos.estadisticas || estadisticasDefault,
-      porPalabra: datos.estadisticasPorPalabra || {},
-      historial: datos.historial || [],
-    }
+// Lee todas las categorías y preguntas
+async function leerPreguntas() {
+  try {
+    const jsonData = await fs.readFile(preguntasPath, 'utf-8');
+    return JSON.parse(jsonData);
   } catch (error) {
-    console.error("Error obteniendo estadísticas:", error)
-    return {
-      globales: {
-        partidasJugadas: 0,
-        partidasGanadas: 0,
-        partidasPerdidas: 0,
-        porcentajeExito: 0,
-        tiempoTotalJugado: 0,
-      },
-      porPalabra: {},
-      historial: [],
-    }
+    console.error("Error al leer preguntas:", error);
+    return { categorias: {} };
   }
+}
 
-
+// Escribe en el archivo de preguntas
+async function guardarPreguntas(data) {
+  try {
+    await fs.writeFile(preguntasPath, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
+  } catch (error) {
+    console.error("Error al guardar preguntas:", error);
+    return false;
+  }
 }
 
 
+// Lee todos los premios
+async function leerPremios() {
+  try {
+    const jsonData = await fs.readFile(premiosPath, 'utf-8');
+    return JSON.parse(jsonData).premios || {};
+  } catch (error) {
+    console.error("Error al leer premios:", error);
+    return {};
+  }
+}
 
-module.exports = { leerDatos, leerPremios };
+// Escribe en el archivo de premios
+async function guardarPremios(data) {
+  try {
+    await fs.writeFile(premiosPath, JSON.stringify({ premios: data }, null, 2), 'utf-8');
+    return true;
+  } catch (error) {
+    console.error("Error al guardar premios:", error);
+    return false;
+  }
+}
+
+
+// Devuelve premios activos (para ruleta o sorteos)
+async function obtenerPremiosActivos() {
+  try {
+    const premios = await leerPremios();
+    const activos = Object.entries(premios)
+      .filter(([_, p]) => p.activo && p.cantidad > 0)
+      .map(([nombre, p]) => ({
+        nombre,
+        cantidad: p.cantidad,
+        imagen: p.imagen
+      }));
+    return activos;
+  } catch (error) {
+    console.error("Error obteniendo premios activos:", error);
+    return [];
+  }
+}
+
+module.exports = {
+  leerPreguntas,
+  guardarPreguntas,
+  leerPremios,
+  guardarPremios,
+  obtenerPremiosActivos
+};
 
 
 /*export async function leerDatos() {
