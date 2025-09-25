@@ -1,9 +1,11 @@
-import Home from './pages/Home.jsx'
+import { Routes, Route } from "react-router-dom"; // solo Routes y Route
+import Home from "./pages/Home.jsx";
+
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 }
 

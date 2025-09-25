@@ -1,21 +1,21 @@
-import "../pages/css/home.css"
+import "../pages/css/home.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="home-container">
 
-        <img class="header-img" src="cropped2.svg" alt="Logo"/>
+      <img className="header-img" src="cropped2.svg" alt="Logo" />
 
       {/* Main Content - Botón central */}
       <main className="main-content">
         <button
           className="start-game-button"
-          onClick={() => {
-            // Aquí puedes agregar la lógica para iniciar el juego
-            console.log("Iniciar juego clicked")
-          }}
+          onClick={() => navigate()} // 👈 ahora navega
         >
-          Iniciar Juego:
+          Iniciar Juego
         </button>
       </main>
 
@@ -23,14 +23,11 @@ export default function Home() {
       <footer className="footer-section">
         <button
           className="gestor-button"
-          onClick={() => {
-            // Aquí puedes agregar la lógica para el gestor
-            console.log("Gestor clicked")
-          }}
+          onClick={() => navigate()} // 👈 ahora navega
         >
-          gestor
+          Ajustes
         </button>
       </footer>
     </div>
-  )
+  );
 }
