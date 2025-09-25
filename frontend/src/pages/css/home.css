@@ -22,7 +22,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; /* para posicionar el botón gestor */
+  position: relative;
 }
 
 /* =============================
@@ -40,6 +40,7 @@ html, body {
 }
 /* Botón "Iniciar Juego" */
 .start-game-button {
+  margin-top: -70px;
   background: #00bfff; /* celeste */
   color: white;
   border: none;
