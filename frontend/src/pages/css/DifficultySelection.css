@@ -1,0 +1,105 @@
+/* difficultyselection.css */
+
+.contenedor-dificultad {
+  min-height: 100vh; /* altura completa del viewport */
+  width: 100%;
+  background-image: url('fondo.svg'); /* tu fondo */
+  background-size: cover;      /* ocupa todo el contenedor */
+  background-position: center; /* centrado */
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.h1 {
+  color: white !important;
+}
+
+.botones-dificultad {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    /* ✅ REDUCE EL ESPACIO: 20px es mucho más razonable que 100px */
+    gap: 20px; 
+    
+    /* Añade un margen para separar el grupo de botones del título */
+    margin-top: 40px; 
+}
+
+.boton-facil,
+.boton-intermedio,
+.boton-dificil {
+  background: #00bfff; /* celeste */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  min-width: 400px;
+  padding: 15px 50px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 191, 255, 0.3);
+}
+
+.boton-facil:hover,
+.boton-intermedio:hover,
+.boton-dificil:hover {
+  background: #009acd; /* celeste más oscuro al hover */
+  transform: translateY(-2px);
+}
+
+.boton-facil:active,
+.boton-intermedio:active,
+.boton-dificil:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 768px) {
+  .contenedor-dificultad {
+    background-image: url('fondotablet.svg');
+    /* Para centrar todo el contenido (título y botones) horizontalmente en la pantalla */
+    align-items: center; 
+        
+    /* Ajusta o elimina el padding lateral si lo tenías para desktop */
+    padding-left: 0;
+    padding-right: 0;
+        
+    /* Puedes usar position: fixed; si quieres que el fondo ocupe la ventana completa */
+    position: fixed; 
+    }
+  .botones-dificultad {
+    /* Para centrar los botones individuales dentro de este contenedor */
+    align-items: center;
+        
+    /* Opcional: Centrar el contenedor de botones si tiene ancho limitado */
+    margin: 0 auto; 
+  }
+  .h1 {
+    color: white !important;
+    text-align: center;
+    font-size: 2.5rem; 
+    
+    /* 1. Establece el posicionamiento relativo */
+    position: relative; 
+    
+    /* 2. Mueve la posición de la caja hacia arriba */
+    top: -50px; /* Ajusta este valor (ej: -50px) para subirlo */
+    
+    /* Mantenemos el margen inferior para separarlo de los botones */
+    margin-bottom: 40px; 
+  }
+  .boton-facil,
+  .boton-intermedio,
+  .boton-dificil {
+    font-size: 18px;
+    padding: 16px 28px;
+    /* Si quieres que NO se estiren al 100% de ancho: */
+     width: auto; 
+  }
+}

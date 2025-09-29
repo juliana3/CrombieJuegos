@@ -5,7 +5,7 @@ const ruletaColores = [
   "#FF3366", "#33C466", "#FF3366", "#33C466", "#25B1E1", "#25B1E1", "#FFC433", "#FFC433"
 ];
 
-function Ruleta({ items, onSpinEnd }) {
+function JuegoRuleta({ items, onSpinEnd }) {
   const ruletaRef = useRef(null);
   const [isSpinning, setIsSpinning] = useState(false);
 
@@ -122,52 +122,52 @@ function Ruleta({ items, onSpinEnd }) {
         
         <defs>
           <linearGradient id="paint0_linear_182_59" x1="349.152" y1="0.878416" x2="350.614" y2="698.866" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#E84564"/>
-            <stop offset="0.39" stop-color="#FBC136"/>
-            <stop offset="0.7" stop-color="#4EB066"/>
-            <stop offset="1" stop-color="#25AFDF"/>
+            <stop stopColor="#E84564"/>
+            <stop offset="0.39" stopColor="#FBC136"/>
+            <stop offset="0.7" stopColor="#4EB066"/>
+            <stop offset="1" stopColor="#25AFDF"/>
           </linearGradient>
           <linearGradient id="paint1_linear_182_59" x1="584.052" y1="583.054" x2="89.3821" y2="90.4535" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#000604"/>
-            <stop offset="0.4" stop-color="#303030"/>
-            <stop offset="1" stop-color="#000604"/>
+            <stop stopColor="#000604"/>
+            <stop offset="0.4" stopColor="#303030"/>
+            <stop offset="1" stopColor="#000604"/>
           </linearGradient>
           <linearGradient id="paint2_linear_182_59" x1="546.099" y1="152.841" x2="159.217" y2="541.352" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#25AFDF"/>
-            <stop offset="0.33" stop-color="#4EB066"/>
-            <stop offset="0.65" stop-color="#FBC136"/>
-            <stop offset="1" stop-color="#E84564"/>
+            <stop stopColor="#25AFDF"/>
+            <stop offset="0.33" stopColor="#4EB066"/>
+            <stop offset="0.65" stopColor="#FBC136"/>
+            <stop offset="1" stopColor="#E84564"/>
           </linearGradient>
           <radialGradient id="paint3_radial_182_59" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(349.883 349.878) rotate(89.8801) scale(290.662 290.667)">
-            <stop offset="0.81" stop-color="white"/>
-            <stop offset="0.87" stop-color="#FCFCFD"/>
-            <stop offset="0.91" stop-color="#F3F4F6"/>
-            <stop offset="0.94" stop-color="#E9ECF0"/>
-            <stop offset="0.97" stop-color="#B9C3CE"/>
-            <stop offset="1" stop-color="#899BAD"/>
+            <stop offset="0.81" stopColor="white"/>
+            <stop offset="0.87" stopColor="#FCFCFD"/>
+            <stop offset="0.91" stopColor="#F3F4F6"/>
+            <stop offset="0.94" stopColor="#E9ECF0"/>
+            <stop offset="0.97" stopColor="#B9C3CE"/>
+            <stop offset="1" stopColor="#899BAD"/>
           </radialGradient>
           <radialGradient id="paint4_radial_182_59" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340.732 341.869) rotate(89.8801) scale(53.0834 53.0843)">
-            <stop offset="0.63" stop-color="#662E29"/>
-            <stop offset="0.66" stop-color="#75423E"/>
-            <stop offset="0.78" stop-color="#AF9290"/>
-            <stop offset="0.88" stop-color="#DACDCB"/>
-            <stop offset="0.96" stop-color="#F4F1F0"/>
-            <stop offset="1" stop-color="white"/>
+            <stop offset="0.63" stopColor="#662E29"/>
+            <stop offset="0.66" stopColor="#75423E"/>
+            <stop offset="0.78" stopColor="#AF9290"/>
+            <stop offset="0.88" stopColor="#DACDCB"/>
+            <stop offset="0.96" stopColor="#F4F1F0"/>
+            <stop offset="1" stopColor="white"/>
           </radialGradient>
           <linearGradient id="paint5_linear_182_59" x1="375.792" y1="323.879" x2="315.189" y2="384.726" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#25AFDF"/>
-            <stop offset="0.33" stop-color="#4EB066"/>
-            <stop offset="0.65" stop-color="#FBC136"/>
-            <stop offset="1" stop-color="#E84564"/>
+            <stop stopColor="#25AFDF"/>
+            <stop offset="0.33" stopColor="#4EB066"/>
+            <stop offset="0.65" stopColor="#FBC136"/>
+            <stop offset="1" stopColor="#E84564"/>
           </linearGradient>
           <linearGradient id="paint6_linear_182_59" x1="379.72" y1="379.624" x2="307.111" y2="307.317" gradientUnits="userSpaceOnUse">
-            <stop offset="0.28" stop-color="#303030"/>
-            <stop offset="1" stop-color="#000604"/>
+            <stop offset="0.28" stopColor="#303030"/>
+            <stop offset="1" stopColor="#000604"/>
           </linearGradient>
           <linearGradient id="paint7_linear_182_59" x1="592.498" y1="106.252" x2="108.278" y2="592.496" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#000604"/>
-            <stop offset="0.4" stop-color="#303030"/>
-            <stop offset="1" stop-color="#000604"/>
+            <stop stopColor="#000604"/>
+            <stop offset="0.4" stopColor="#303030"/>
+            <stop offset="1" stopColor="#000604"/>
           </linearGradient>
         </defs>
       </svg>
@@ -181,4 +181,4 @@ function Ruleta({ items, onSpinEnd }) {
   );
 }
 
-export default Ruleta;
+export default JuegoRuleta;

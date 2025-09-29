@@ -1,7 +1,7 @@
 // src/pages/Juego.jsx
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import Ruleta from "../components/juegoRuleta";
+import { useNavigate, useParams } from 'react-router-dom';
+import JuegoRuleta from "../components/juegoRuleta";
 import PreguntaCard from "../components/preguntaCard";
 
 // Obtén la URL de la API desde la variable de entorno
@@ -15,15 +15,22 @@ const mezclarCategorias = (array) => {
   return array;
 };
 
-function Juego() {
+function Ruleta() {
   const navigate = useNavigate();
+  const { dificultad: dificultadElegida } = useParams(); 
   const [faseDelJuego, setFaseDelJuego] = useState("cargando");
-  const [dificultadElegida, setDificultadElegida] = useState(null);
   const [juegoData, setJuegoData] = useState(null);
   const [error, setError] = useState(null);
   const [preguntaActual, setPreguntaActual] = useState(null);
 
   useEffect(() => {
+    if (!dificultadElegida) {
+      console.error("No se proporcionó la dificultad en la URL.");
+      // Podrías redirigir a la página de selección de dificultad o a la Home
+      // navigate('/'); 
+      setFaseDelJuego("error");
+      return;
+    }
     const fetchData = async () => {
       try {
         const response = await fetch(`http://localhost:3000/api/data`); 
@@ -32,7 +39,7 @@ function Juego() {
         }
         const data = await response.json();
         setJuegoData(data);
-        setFaseDelJuego("elegirDificultad");
+        setFaseDelJuego("ruletaCategorias");
       } catch (err) {
         console.error("No se pudo cargar la información del juego:", err);
         setError(err);
@@ -40,7 +47,7 @@ function Juego() {
       }
     };
     fetchData();
-  }, []);
+  }, [dificultadElegida]);
 
   const categoriasDesdeAPI = juegoData ? Object.keys(juegoData.categorias) : [];
   const categoriasAMezclar = [...categoriasDesdeAPI.slice(0, 3), "Sorteo", "Sorteo", "Perdiste", "Perdiste", "Perdiste"];
@@ -54,34 +61,35 @@ function Juego() {
       angulo
     };
   });
-  
-  const dificultades = ["facil", "medio", "dificil"];
 
-  const handleElegirDificultad = (dificultad) => {
-    setDificultadElegida(dificultad);
+  const volverALaRuleta = () => {
     setFaseDelJuego("ruletaCategorias");
   };
 
   const handleCategoriaSeleccionada = (categoria) => {
-  if (categoria === "Sorteo") {
-    alert("¡Felicidades! Estás participando en un sorteo.");
-    navigate('/');
-    return;
-  }
+    if (categoria === "Sorteo") {
+      setFaseDelJuego("ganasteSorteo");
+      return;
+    }
 
-  if (categoria === "Perdiste") {
-    alert("Lo sentimos, has perdido en esta ronda.");
-    navigate('/');
-    return;
-  }
+    if (categoria === "Perdiste") {
+      setFaseDelJuego("perdisteRonda");
+      return;
+    }
 
-  const preguntas = juegoData.categorias[categoria][dificultadElegida];
-  const preguntaAleatoria = preguntas[Math.floor(Math.random() * preguntas.length)];
-  
-  setPreguntaActual(preguntaAleatoria);
-  setFaseDelJuego("preguntasCard");
-};
-  
+    const preguntas = juegoData.categorias[categoria][dificultadElegida];
+    if (!preguntas || preguntas.length === 0) {
+        setFaseDelJuego("ruletaCategorias"); 
+        return;
+    }
+    
+    const preguntaAleatoria = preguntas[Math.floor(Math.random() * preguntas.length)];
+    
+    const preguntaConCategoria = { ...preguntaAleatoria, categoria }; 
+    setPreguntaActual(preguntaConCategoria);
+    setFaseDelJuego("preguntasCard");
+  };
+    
   if (faseDelJuego === "cargando") {
     return <div className="loading-screen">Cargando datos del juego...</div>;
   }
@@ -92,31 +100,38 @@ function Juego() {
 
   return (
     <div className="game-page-container">
-      {faseDelJuego === "elegirDificultad" && (
-        <>
-          <h1>Selecciona una Dificultad</h1>
-          {dificultades.map((dificultad) => (
-            <button key={dificultad} onClick={() => handleElegirDificultad(dificultad)}>
-              {dificultad.charAt(0).toUpperCase() + dificultad.slice(1)}
-            </button>
-          ))}
-        </>
-      )}
-
       {faseDelJuego === "ruletaCategorias" && (
-        <>
-          <Ruleta 
+        <div className="ruleta-fase">
+          <JuegoRuleta 
             items={categoriasConAngulos} 
             onSpinEnd={handleCategoriaSeleccionada} 
           />
-        </>
+        </div>
       )}
 
       {faseDelJuego === "preguntasCard" && (
         <PreguntaCard pregunta={preguntaActual} />
       )}
+
+      {/* FASE: Ganaste Sorteo (Tarjeta de Mensaje) */}
+      {faseDelJuego === "ganasteSorteo" && (
+        <div className="mensaje-card sorteo-ganado">
+          <button className="close-btn" onClick={volverALaRuleta}>X</button>
+          <h1>🎉 ¡Felicidades! 🎉</h1>
+          <p>¡Has caído en la casilla **SORTEO**! Estás participando por grandes premios.</p>
+        </div>
+      )}
+
+      {/* FASE: Perdiste Ronda (Tarjeta de Mensaje) */}
+      {faseDelJuego === "perdisteRonda" && (
+        <div className="mensaje-card ronda-perdida">
+          <button className="close-btn" onClick={volverALaRuleta}>X</button>
+          <h1>😔 Lo Sentimos 😔</h1>
+          <p>Has caído en la casilla **PERDISTE**. La ronda ha terminado para ti.</p>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Juego;
+export default Ruleta;
