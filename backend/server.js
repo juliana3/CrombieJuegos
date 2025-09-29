@@ -1,11 +1,17 @@
 const express = require('express');
+<<<<<<< HEAD
 const emailsRoutes = require('./routes/emails.js');
 const premiosRoutes = require('./routes/premios.js');
 const { leerDatos } = require('./utils/fileHandler.js');
+=======
+const preguntasRoutes = require('./routes/preguntas'); // Importa las rutas de preguntas
+const { leerPreguntas } = require('./utils/fileHandler');
+>>>>>>> f6daf3fa524d219ef6f5f90b339a515865fa0425
 
 const app = express();
-const puerto = 3000;
+const puerto = 3032;
 
+<<<<<<< HEAD
 app.use(express.json());
 app.use(emailsRoutes);
 app.use(premiosRoutes);
@@ -40,8 +46,24 @@ app.listen(puerto, async () => {
     
     // Usamos JSON.stringify para imprimir la estructura completa de los datos
     //console.log('Intentando leer los datos del json:', JSON.stringify(datos, null, 2));
+=======
+// Middleware para las rutas de preguntas
+app.use(express.json());
+
+app.use(preguntasRoutes);
+
+app.listen(puerto, async () => {
+  try {
+    console.log(`Servidor levantado en http://localhost:${puerto}`);
+    
+    // Usamos JSON.stringify para imprimir la estructura completa de las preguntas
+>>>>>>> f6daf3fa524d219ef6f5f90b339a515865fa0425
   } catch (error) {
-    console.error("Error al leer los datos en el inicio del servidor:", error);
+    console.error("Error al levantar servidor:", error);
   }
+<<<<<<< HEAD
 });
 
+=======
+});
+>>>>>>> f6daf3fa524d219ef6f5f90b339a515865fa0425

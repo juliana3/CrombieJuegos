@@ -3,116 +3,209 @@
     "Backend": {
       "facil": [
         {
-          "pregunta": "¿Qué es un API en desarrollo Backend?",
-          "opciones": ["Una base de datos", "Una interfaz de programación de aplicaciones", "Un servidor web", "Un lenguaje de programación"],
-          "respuesta_correcta": "Una interfaz de programación de aplicaciones"
-        },
-        {
-          "pregunta": "¿Qué significa HTTP?",
-          "opciones": ["Hyper Transfer Protocol", "Hyper Text Transfer Protocol", "Hyper Text Transport Protocol", "Hyper Transport Protocol"],
-          "respuesta_correcta": "Hyper Text Transfer Protocol"
+          "pregunta": "¿Qué es una API RESTful?",
+          "opciones": [
+            "Una API que usa SOAP",
+            "Una API que sigue el estilo arquitectónico REST",
+            "Una API basada en WebSockets",
+            "Una API que se comunica mediante sockets"
+          ],
+          "respuesta_correcta": "Una API que sigue el estilo arquitectónico REST"
         }
       ],
       "medio": [
         {
           "pregunta": "¿Qué es un servidor RESTful?",
-          "opciones": ["Un servidor que usa SOAP", "Un servidor basado en protocolos como HTTP", "Un servidor que usa JavaScript", "Un servidor que almacena bases de datos"],
+          "opciones": [
+            "Un servidor que usa SOAP",
+            "Un servidor basado en protocolos como HTTP",
+            "Un servidor que usa JavaScript",
+            "Un servidor que almacena bases de datos"
+          ],
           "respuesta_correcta": "Un servidor basado en protocolos como HTTP"
         },
         {
           "pregunta": "¿Cuál es el lenguaje más usado para desarrollo de aplicaciones backend?",
-          "opciones": ["Python", "JavaScript", "Ruby", "Java"],
+          "opciones": [
+            "Python",
+            "JavaScript",
+            "Ruby",
+            "Java"
+          ],
           "respuesta_correcta": "JavaScript"
+        },
+        {
+          "pregunta": "¿Qué es un servidor RESTful?",
+          "opciones": [
+            "Un servidor basado en protocolos como HTTP",
+            "Un servidor que usa SOAP",
+            "Un servidor que usa JavaScript",
+            "Un servidor que almacena bases de datos"
+          ],
+          "respuesta_correcta": "Un servidor basado en protocolos como HTTP"
         }
-      ], 
+      ],
       "dificil": [
         {
           "pregunta": "¿Qué es una base de datos NoSQL?",
-          "opciones": ["Una base de datos relacional", "Una base de datos que no usa SQL", "Una base de datos basada en archivos", "Una base de datos que solo almacena texto"],
+          "opciones": [
+            "Una base de datos relacional",
+            "Una base de datos que no usa SQL",
+            "Una base de datos basada en archivos",
+            "Una base de datos que solo almacena texto"
+          ],
           "respuesta_correcta": "Una base de datos que no usa SQL"
         },
         {
           "pregunta": "¿Qué es un microservicio?",
-          "opciones": ["Un servicio que responde a una solicitud", "Un componente que realiza una función pequeña dentro de un sistema", "Un servidor web", "Un servicio de base de datos"],
+          "opciones": [
+            "Un servicio que responde a una solicitud",
+            "Un componente que realiza una función pequeña dentro de un sistema",
+            "Un servidor web",
+            "Un servicio de base de datos"
+          ],
           "respuesta_correcta": "Un componente que realiza una función pequeña dentro de un sistema"
         }
-      ]
+      ],
+      "visible": true
     },
     "Frontend": {
       "facil": [
         {
           "pregunta": "¿Qué es HTML?",
-          "opciones": ["Un lenguaje de programación", "Un lenguaje de marcado", "Un tipo de base de datos", "Un servidor web"],
+          "opciones": [
+            "Un lenguaje de programación",
+            "Un lenguaje de marcado",
+            "Un tipo de base de datos",
+            "Un servidor web"
+          ],
           "respuesta_correcta": "Un lenguaje de marcado"
         },
         {
           "pregunta": "¿Qué hace CSS?",
-          "opciones": ["Diseña la estructura de la página", "Agrega interactividad a la página", "Estiliza y da formato a la página", "Gestiona bases de datos"],
+          "opciones": [
+            "Diseña la estructura de la página",
+            "Agrega interactividad a la página",
+            "Estiliza y da formato a la página",
+            "Gestiona bases de datos"
+          ],
           "respuesta_correcta": "Estiliza y da formato a la página"
         }
       ],
       "medio": [
         {
           "pregunta": "¿Qué es el DOM?",
-          "opciones": ["El código fuente de una página", "La estructura de un sitio web", "Una interfaz de programación", "Un objeto en JavaScript"],
+          "opciones": [
+            "El código fuente de una página",
+            "La estructura de un sitio web",
+            "Una interfaz de programación",
+            "Un objeto en JavaScript"
+          ],
           "respuesta_correcta": "La estructura de un sitio web"
         },
         {
           "pregunta": "¿Qué es React?",
-          "opciones": ["Un framework de CSS", "Una librería de JavaScript para construir interfaces de usuario", "Un lenguaje de programación", "Una base de datos"],
+          "opciones": [
+            "Un framework de CSS",
+            "Una librería de JavaScript para construir interfaces de usuario",
+            "Un lenguaje de programación",
+            "Una base de datos"
+          ],
           "respuesta_correcta": "Una librería de JavaScript para construir interfaces de usuario"
         }
       ],
       "dificil": [
         {
           "pregunta": "¿Qué significa JSX en React?",
-          "opciones": ["JavaScript XML", "JavaScript Extension", "JSON Standard Exchange", "JavaScript eXtension"],
+          "opciones": [
+            "JavaScript XML",
+            "JavaScript Extension",
+            "JSON Standard Exchange",
+            "JavaScript eXtension"
+          ],
           "respuesta_correcta": "JavaScript XML"
         },
         {
           "pregunta": "¿Qué es el Virtual DOM en React?",
-          "opciones": ["Una representación de la interfaz de usuario en memoria", "El DOM real del navegador", "El servidor donde se almacenan los archivos", "Una herramienta de diseño gráfico"],
+          "opciones": [
+            "Una representación de la interfaz de usuario en memoria",
+            "El DOM real del navegador",
+            "El servidor donde se almacenan los archivos",
+            "Una herramienta de diseño gráfico"
+          ],
           "respuesta_correcta": "Una representación de la interfaz de usuario en memoria"
         }
-      ]
+      ],
+      "visible": false
     },
     "Crombie": {
       "facil": [
         {
           "pregunta": "¿Qué tipo de productos ofrece Crombie?",
-          "opciones": ["Tecnología", "Ropa y accesorios", "Alimentos", "Herramientas de software"],
+          "opciones": [
+            "Tecnología",
+            "Ropa y accesorios",
+            "Alimentos",
+            "Herramientas de software"
+          ],
           "respuesta_correcta": "Ropa y accesorios"
         },
         {
           "pregunta": "¿En qué país tiene su sede principal Crombie?",
-          "opciones": ["Estados Unidos", "Reino Unido", "Canadá", "Australia"],
+          "opciones": [
+            "Estados Unidos",
+            "Reino Unido",
+            "Canadá",
+            "Australia"
+          ],
           "respuesta_correcta": "Reino Unido"
         }
       ],
       "medio": [
         {
           "pregunta": "¿Quién es el fundador de Crombie?",
-          "opciones": ["John Crombie", "James Crombie", "William Crombie", "Mark Crombie"],
+          "opciones": [
+            "John Crombie",
+            "James Crombie",
+            "William Crombie",
+            "Mark Crombie"
+          ],
           "respuesta_correcta": "John Crombie"
         },
         {
           "pregunta": "¿Qué tipo de tejidos son más conocidos en las prendas de Crombie?",
-          "opciones": ["Lana", "Seda", "Algodón", "Poliéster"],
+          "opciones": [
+            "Lana",
+            "Seda",
+            "Algodón",
+            "Poliéster"
+          ],
           "respuesta_correcta": "Lana"
         }
       ],
       "dificil": [
         {
           "pregunta": "¿En qué año fue fundada Crombie?",
-          "opciones": ["1823", "1872", "1910", "1955"],
+          "opciones": [
+            "1823",
+            "1872",
+            "1910",
+            "1955"
+          ],
           "respuesta_correcta": "1805"
         },
         {
           "pregunta": "¿Qué tipo de clientes suele atender Crombie principalmente?",
-          "opciones": ["Grandes empresas", "Clientes minoristas de lujo", "Gobiernos", "Escuelas y universidades"],
+          "opciones": [
+            "Grandes empresas",
+            "Clientes minoristas de lujo",
+            "Gobiernos",
+            "Escuelas y universidades"
+          ],
           "respuesta_correcta": "Clientes minoristas de lujo"
         }
-      ]
+      ],
+      "visible": false
     }
   }
 }
