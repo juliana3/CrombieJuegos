@@ -3,24 +3,14 @@
     "Backend": {
       "facil": [
         {
-          "pregunta": "¿Qué es un API en desarrollo Backend?",
+          "pregunta": "¿Qué es una API RESTful?",
           "opciones": [
-            "Una base de datos",
-            "Una interfaz de programación de aplicaciones",
-            "Un servidor web",
-            "Un lenguaje de programación"
+            "Una API que usa SOAP",
+            "Una API que sigue el estilo arquitectónico REST",
+            "Una API basada en WebSockets",
+            "Una API que se comunica mediante sockets"
           ],
-          "respuesta_correcta": "Una interfaz de programación de aplicaciones"
-        },
-        {
-          "pregunta": "¿Qué significa HTTP?",
-          "opciones": [
-            "Hyper Transfer Protocol",
-            "Hyper Text Transfer Protocol",
-            "Hyper Text Transport Protocol",
-            "Hyper Transport Protocol"
-          ],
-          "respuesta_correcta": "Hyper Text Transfer Protocol"
+          "respuesta_correcta": "Una API que sigue el estilo arquitectónico REST"
         }
       ],
       "medio": [
@@ -76,7 +66,8 @@
           ],
           "respuesta_correcta": "Un componente que realiza una función pequeña dentro de un sistema"
         }
-      ]
+      ],
+      "visible": true
     },
     "Frontend": {
       "facil": [
@@ -144,7 +135,8 @@
           ],
           "respuesta_correcta": "Una representación de la interfaz de usuario en memoria"
         }
-      ]
+      ],
+      "visible": false
     },
     "Crombie": {
       "facil": [
@@ -212,7 +204,8 @@
           ],
           "respuesta_correcta": "Clientes minoristas de lujo"
         }
-      ]
+      ],
+      "visible": false
     }
   }
 }

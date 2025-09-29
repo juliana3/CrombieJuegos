@@ -72,7 +72,7 @@ exports.agregarPregunta = async (req, res) => {
 // Body: { pregunta?, respuesta?, incorrectas? }
 exports.editarPregunta = async (req, res) => {
   const { categoria, dificultad, index } = req.params;
-  const { pregunta, respuesta, incorrectas } = req.body;
+  const { pregunta, respuesta_correcta, opciones } = req.body;
 
   const idx = parseInt(index, 10);
   if (Number.isNaN(idx) || idx < 0) {
@@ -98,22 +98,11 @@ exports.editarPregunta = async (req, res) => {
 
     // Actualizamos campos si vienen
     if (pregunta) preguntaExistente.pregunta = pregunta;
-    if (respuesta) {
-      // si vienen incorrectas junto con respuesta, reemplazamos opciones completas
-      if (Array.isArray(incorrectas) && incorrectas.length === 3) {
-        preguntaExistente.opciones = [respuesta, ...incorrectas];
-      } else {
-        // si no vienen incorrectas, buscamos mantener el orden: reemplazamos respuesta_correcta y mantenemos las otras opciones (si existieran)
-        preguntaExistente.respuesta_correcta = respuesta;
-        // si no tiene opciones, recrearlas (simple)
-        if (!Array.isArray(preguntaExistente.opciones) || preguntaExistente.opciones.length < 4) {
-          preguntaExistente.opciones = [respuesta, ...(incorrectas && incorrectas.length === 3 ? incorrectas : [])];
-        }
-      }
-      preguntaExistente.respuesta_correcta = respuesta;
-    } else if (Array.isArray(incorrectas) && incorrectas.length === 3) {
-      // si solo vienen incorrectas, reemplazamos manteniendo respuesta_correcta actual
-      preguntaExistente.opciones = [preguntaExistente.respuesta_correcta, ...incorrectas];
+    if (respuesta_correcta) {
+      preguntaExistente.respuesta_correcta = respuesta_correcta;
+    }
+    if (opciones && Array.isArray(opciones) && opciones.length === 4) {
+      preguntaExistente.opciones = opciones;
     }
 
     const ok = await guardarPreguntas(preguntasData);
@@ -162,26 +151,31 @@ exports.eliminarPregunta = async (req, res) => {
 };
 
 // Cambia la visibilidad de la categoría (habilitado/deshabilitado)
-exports.cambiarVisibilidadCategoria = async (req, res) => {
+exports.cambiarVisibilidadCategoria = async (req, res, visible) => {
   const { categoria } = req.params;
+
   try {
     const preguntasData = await leerPreguntas();
     if (!preguntasData.categorias || !preguntasData.categorias[categoria]) {
       return res.status(404).json({ error: 'Categoría no encontrada' });
     }
 
-    // Toggle: si no existe, lo creamos y lo ponemos en false (por seguridad)
+    // Asignamos directamente el valor de "visible" recibido en la solicitud
     const catObj = preguntasData.categorias[categoria];
-    catObj.visible = !catObj.visible;
+    catObj.visible = visible;
+
+    // Guardamos los datos modificados
     const ok = await guardarPreguntas(preguntasData);
     if (!ok) throw new Error('No se pudo guardar preguntas');
 
+    // Respondemos con la categoría y su nuevo estado de visibilidad
     return res.json({ categoria, visible: catObj.visible });
   } catch (error) {
     console.error('Error cambiarVisibilidadCategoria:', error);
     return res.status(500).json({ error: 'Error al cambiar la visibilidad de la categoría' });
   }
 };
+
 
 
 //editar pregunta 

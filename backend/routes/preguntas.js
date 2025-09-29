@@ -35,16 +35,49 @@ router.post('/api/agregarpregunta', async (req, res) => {
     }
 });
 
-
-
 // Endpoint PUT para editar una pregunta
-router.put('/api/preguntas/:categoria/:dificultad/:index', editarPregunta);
-
+router.put('/api/editarpreguntas/:categoria/:dificultad/:index', async(req,res) =>{
+    try{
+        const resultado = await editarPregunta(req,res);
+        return resultado;   
+    } catch (error){
+        console.error('Error en el endopint PUT /editarpreguntas',error);
+    }
+});
 // Endpoint DELETE para eliminar una pregunta
-router.delete('/api/preguntas/:categoria/:dificultad/:index', eliminarPregunta);
+router.delete('/api/preguntas/:categoria/:dificultad/:index', async (req,res) =>{
+  try{
+    const resultado = await eliminarPregunta(req,res);
+    return resultado;
+  } catch (error) {
+    console.error('Error en el endpoint DELETE /api/preguntas/:categoria/:dificultad/:index', error);
+    return res.status(500).json({ error: 'Error al eliminar la pregunta' });
+  }
+});
 
 // Endpoint PATCH para cambiar la visibilidad de una categoría
-router.patch('/api/categorias/:categoria/visibilidad', cambiarVisibilidadCategoria);
+router.patch('/api/categorias/:categoria/visibilidad/:visible', async (req, res) => {
+  const { categoria, visible } = req.params; // Obtenemos la categoría y el valor de "visible" desde la URL
+
+  // Verificamos que el valor de "visible" sea un booleano válido ("true" o "false")
+  const isVisible = (visible === 'true'); // Convertimos la cadena 'true' o 'false' a un booleano
+
+  // Si el valor de "visible" no es 'true' ni 'false', respondemos con un error
+  if (visible !== 'true' && visible !== 'false') {
+    return res.status(400).json({ error: 'El valor de "visible" debe ser "true" o "false"' });
+  }
+
+  try {
+    // Llamamos a la función que cambiará la visibilidad de la categoría
+    const resultado = await cambiarVisibilidadCategoria(req, res, isVisible);
+
+    // Devolvemos el resultado de la operación
+    return resultado;
+  } catch (error) {
+    console.error('Error en el endpoint PATCH /api/categorias/:categoria/visibilidad', error);
+    return res.status(500).json({ error: 'Error al cambiar la visibilidad de la categoría' });
+  }
+});
 
 
 // Exportar el router para usarlo en el server.js
