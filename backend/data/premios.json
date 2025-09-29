@@ -1,25 +1,29 @@
 {
-    "premios":{
-        "buzo":{
-        "activo": true,
-        "cantidad": 5,
-        "imagen": "id de la imagen guardada en drive"
-        },
-        "remera":{
-        "activo": true,
-        "cantidad": 10,
-        "imagen": "id de la imagen guardada en drive"
-        },
-        "botella":{
-        "activo": true,
-        "cantidad": 15,
-        "imagen": "id de la imagen guardada en drive"
-        },
-        "vaso_termico":{
-        "activo": true,
-        "cantidad": 20,
-        "imagen": "id de la imagen guardada en drive"
-        }
-
+  "premios": {
+    "buzo": {
+      "activo": true,
+      "cantidad": 5,
+      "imagen": "id de la imagen guardada en drive"
+    },
+    "remera": {
+      "activo": true,
+      "cantidad": 10,
+      "imagen": "id de la imagen guardada en drive"
+    },
+    "botella": {
+      "activo": true,
+      "cantidad": 15,
+      "imagen": "id de la imagen guardada en drive"
+    },
+    "vaso_termico": {
+      "activo": true,
+      "cantidad": 20,
+      "imagen": "id de la imagen guardada en drive"
+    },
+    "La": {
+      "activo": false,
+      "cantidad": 0,
+      "imagen": "19PKapbFlfUZWWLg9XOamCxptxCCe76O-"
     }
+  }
 }

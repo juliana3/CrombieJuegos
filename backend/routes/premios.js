@@ -1,4 +1,4 @@
-/// Aca va la logica para manejar el CRUD de premios
+/// PREMIOS.JS --> Aca va la logica para manejar el CRUD de premios
 
 //**
 // POST / PUT / DELETE / GET de los premios
@@ -21,22 +21,22 @@ const premiosController = require('../controllers/premiosController');
 //LISTA LOS PREMIOS
 router.get('/', premiosController.listarPremios);
 
-//SUBIR IMAGEN PREMIO
-router.post('/', upload.single('imagen-premio'), premiosController.agregarPremio)
-
-//AGREGAR PREMIO
-router.post('/', premiosController.agregarPremio);
+//agregar PREMIO con img opcional
+router.post('/crear', upload.single('imagen-premio'), premiosController.agregarPremio)
 
 //EDITAR PREMIO
-router.put('/:nombre', premiosController.editarPremio);
+router.put('/:nombre', upload.single('imagen-premio'), premiosController.editarPremio);
 
 //ELIMINAR PREMIO
 router.delete('/:nombre', premiosController.eliminarPremio);
 
-//DESCONTAR STOCK
+//DESCONTAR STOCK (cuando ganan un premio)
 router.put('/stock/:nombre', premiosController.descontarStock);
 
 //ACTIVAR/DESACTIVAR PREMIO
 router.put('/estado/:nombre', premiosController.cambiarEstadoPremio);
+
+//MODIFICAR CANTIDAD (+ o - premios disppnibles para el evento)
+router.patch('/:nombre/cantidad', premiosController.modificarCantidadPremio);
 
 module.exports = router;

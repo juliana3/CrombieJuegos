@@ -1,3 +1,4 @@
+//GOOGLEHANDLER.JS --> Manejo de Google Drive y Google Sheets
 const { google } = require('googleapis');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -62,13 +63,14 @@ const subirImagenADrive = async (imageBuffer, nombreArchivo) => {
         });
 
         const fileId = uploadedFile.data.id;
-        log.info(`Archivo ${nombreArchivo} subido correctamente a Google Drive con ID: ${fileId}`);
+        console.log(`Archivo ${nombreArchivo} subido correctamente a Google Drive con ID: ${fileId}`);
         return fileId;
     } catch (e) {
-        log.error(`Error al subir el archivo a Drive:`, e);
+        console.error(`Error al subir el archivo a Drive:`, e);
         return null;
     }
 };
+
 
 // --- Funciones para Google Sheets ---
 
@@ -112,14 +114,15 @@ const guardarDatosEnSheets = async (nombre, apellido, email) => {
     try {
         await sheetsService.spreadsheets.values.append({
             spreadsheetId: ID_HOJA_SHEETS_MAILS,
-            range: 'Hoja1!A1', // Escribe en la primera fila disponible de la hoja
+            range: 'eventos!A1', // Escribe en la primera fila disponible de la hoja
             valueInputOption: 'USER_ENTERED',
             resource,
         });
-        log.info(`Datos del usuario ${nombre} ${apellido} guardados en Google Sheets.`);
+        console.log(`Datos del usuario ${nombre} ${apellido} guardados en Google Sheets.`);
         return true;
     } catch (e) {
-        log.error(`Error al guardar los datos en Google Sheets:`, e);
+        console.log(`Error al guardar los datos en Google Sheets:`, e);
+        console.error(`Error al guardar los datos en Google Sheets:`, e);
         return false;
     }
 };
