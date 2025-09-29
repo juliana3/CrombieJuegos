@@ -131,6 +131,7 @@ const guardarDatosEnSheets = async (nombre, apellido, email) => {
 
 // Exportamos las funciones que serán utilizadas por otros módulos
 module.exports = {
+    getDriveService,
     subirImagenADrive,
     guardarDatosEnSheets,
 };

@@ -11,5 +11,4 @@ const configRoutes = require('./routes/config');
 const app = express();
 app.use(express.json()); // Middleware para JSON
 app.use('/preguntas', preguntasRoutes); // Conecta las rutas de preguntas
-app.use('/premios', premiosRoutes); // Conecta las rutas de premios
 app.use('/config', configRoutes); // Conecta las rutas de configuración

@@ -16,27 +16,39 @@ const upload = multer({ storage: storage });
 
 const premiosController = require('../controllers/premiosController');
 
+
+// Función de utilidad para manejar errores asíncronos (async/await)
+// Envuelve las funciones del controlador para que los errores sean atrapados y respondan con 500
+const asyncHandler = (fn) => (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => {
+        console.error('Error en el endpoint:', req.path, err);
+        // Si el controlador no maneja el error, devolvemos un error 500 genérico.
+        res.status(500).json({ error: 'Error interno del servidor al procesar la solicitud.' });
+    });
+};
+
+
 // Rutas para manejar los premios
 
-//LISTA LOS PREMIOS
-router.get('/', premiosController.listarPremios); //FUNCIONA
+//LISTA LOS PREMIOS // FUNCIONAAAAA
+router.get('/api/premios', asyncHandler(premiosController.listarPremios));
 
-//agregar PREMIO con img opcional 
-router.post('/crear', upload.single('imagen-premio'), premiosController.agregarPremio) //FUNCIONA
+//agregar PREMIO con img opcional  ///FUNCIONAAAAAAAAAA
+router.post('/api/premios/crear', upload.single('imagen-premio'), asyncHandler(premiosController.agregarPremio)) 
 
-//EDITAR PREMIO
-router.put('/:nombre', upload.single('imagen-premio'), premiosController.editarPremio);
+//EDITAR PREMIO   // FUNCIONAAAAAAA
+router.put('/api/premios/editar/:nombre', upload.single('imagen-premio'), asyncHandler(premiosController.editarPremio));
 
-//ELIMINAR PREMIO
-router.delete('/:nombre', premiosController.eliminarPremio);
+//ELIMINAR PREMIO    // FUNCIONAAAAAA
+router.delete('/api/premios/eliminar/:nombre', asyncHandler(premiosController.eliminarPremio));
 
-//DESCONTAR STOCK (cuando ganan un premio)
-router.put('/stock/:nombre', premiosController.descontarStock);
+//DESCONTAR STOCK (cuando ganan un premio)    ///FUNCIONAAAAAA
+router.put('/api/premios/stock/:nombre', asyncHandler(premiosController.descontarStock));
 
-//ACTIVAR/DESACTIVAR PREMIO
-router.put('/estado/:nombre', premiosController.cambiarEstadoPremio);
+//ACTIVAR/DESACTIVAR PREMIO   //FUNCIONAAAAAA
+router.put('/api/premios/estado/:nombre/:valor', asyncHandler(premiosController.cambiarEstadoPremio));
 
-//MODIFICAR CANTIDAD (+ o - premios disppnibles para el evento)
-router.patch('/:nombre/cantidad', premiosController.modificarCantidadPremio);
+//MODIFICAR CANTIDAD (+ o - premios disppnibles para el evento)   //FUNCIONAAAAAA
+router.patch('/api/premios/cantidad/:nombre/:cantidad', asyncHandler(premiosController.modificarCantidadPremio));
 
 module.exports = router;
