@@ -10,6 +10,14 @@ input{
   background: #d2e1e5;
 }
 
+.acepta-mails {
+  color: #d2e1e5;          /* blanco sobre fondo */
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;   /* separa un poco del botón */
+  line-height: 1.4;
+}
+
 /* Contenedor principal */
 .dashboard-container {
   min-height: 100vh;

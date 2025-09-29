@@ -64,6 +64,10 @@ function Dashboard() {
           required
         />
 
+        <p className="acepta-mails">
+          Al continuar, acepta recibir mails
+        </p>
+
         <button type="submit" className="continuar-button">
           Continuar
         </button>
