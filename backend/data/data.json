@@ -10,7 +10,17 @@
             "Una API basada en WebSockets",
             "Una API que se comunica mediante sockets"
           ],
-          "respuesta_correcta": "Una API que sigue el estilo arquitectónico REST"
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Qué significa SQL?",
+          "opciones": [
+            "Structured Query Language",
+            "Simple Question Logic",
+            "Standard Query List",
+            "Server Query Link"
+          ],
+          "respuesta_correcta": 1
         }
       ],
       "medio": [
@@ -32,7 +42,7 @@
             "Ruby",
             "Java"
           ],
-          "respuesta_correcta": "JavaScript"
+          "respuesta_correcta": "2"
         },
         {
           "pregunta": "¿Qué es un servidor RESTful?",
@@ -42,7 +52,7 @@
             "Un servidor que usa JavaScript",
             "Un servidor que almacena bases de datos"
           ],
-          "respuesta_correcta": "Un servidor basado en protocolos como HTTP"
+          "respuesta_correcta": "1"
         }
       ],
       "dificil": [
@@ -54,7 +64,7 @@
             "Una base de datos basada en archivos",
             "Una base de datos que solo almacena texto"
           ],
-          "respuesta_correcta": "Una base de datos que no usa SQL"
+          "respuesta_correcta": "2"
         },
         {
           "pregunta": "¿Qué es un microservicio?",
@@ -64,10 +74,10 @@
             "Un servidor web",
             "Un servicio de base de datos"
           ],
-          "respuesta_correcta": "Un componente que realiza una función pequeña dentro de un sistema"
+          "respuesta_correcta": "2"
         }
       ],
-      "visible": true
+      "visible": false
     },
     "Frontend": {
       "facil": [
@@ -79,7 +89,7 @@
             "Un tipo de base de datos",
             "Un servidor web"
           ],
-          "respuesta_correcta": "Un lenguaje de marcado"
+          "respuesta_correcta": "2"
         },
         {
           "pregunta": "¿Qué hace CSS?",
@@ -89,7 +99,7 @@
             "Estiliza y da formato a la página",
             "Gestiona bases de datos"
           ],
-          "respuesta_correcta": "Estiliza y da formato a la página"
+          "respuesta_correcta": "3"
         }
       ],
       "medio": [
@@ -101,7 +111,7 @@
             "Una interfaz de programación",
             "Un objeto en JavaScript"
           ],
-          "respuesta_correcta": "La estructura de un sitio web"
+          "respuesta_correcta": "2"
         },
         {
           "pregunta": "¿Qué es React?",
@@ -111,7 +121,7 @@
             "Un lenguaje de programación",
             "Una base de datos"
           ],
-          "respuesta_correcta": "Una librería de JavaScript para construir interfaces de usuario"
+          "respuesta_correcta": "2"
         }
       ],
       "dificil": [
@@ -123,7 +133,7 @@
             "JSON Standard Exchange",
             "JavaScript eXtension"
           ],
-          "respuesta_correcta": "JavaScript XML"
+          "respuesta_correcta": "1"
         },
         {
           "pregunta": "¿Qué es el Virtual DOM en React?",
@@ -133,7 +143,7 @@
             "El servidor donde se almacenan los archivos",
             "Una herramienta de diseño gráfico"
           ],
-          "respuesta_correcta": "Una representación de la interfaz de usuario en memoria"
+          "respuesta_correcta": "1"
         }
       ],
       "visible": false
@@ -141,24 +151,14 @@
     "Crombie": {
       "facil": [
         {
-          "pregunta": "¿Qué tipo de productos ofrece Crombie?",
-          "opciones": [
-            "Tecnología",
-            "Ropa y accesorios",
-            "Alimentos",
-            "Herramientas de software"
-          ],
-          "respuesta_correcta": "Ropa y accesorios"
-        },
-        {
           "pregunta": "¿En qué país tiene su sede principal Crombie?",
           "opciones": [
             "Estados Unidos",
             "Reino Unido",
             "Canadá",
-            "Australia"
+            "Argentina"
           ],
-          "respuesta_correcta": "Reino Unido"
+          "respuesta_correcta": "4"
         }
       ],
       "medio": [
@@ -170,7 +170,7 @@
             "William Crombie",
             "Mark Crombie"
           ],
-          "respuesta_correcta": "John Crombie"
+          "respuesta_correcta": "1"
         },
         {
           "pregunta": "¿Qué tipo de tejidos son más conocidos en las prendas de Crombie?",
@@ -180,7 +180,7 @@
             "Algodón",
             "Poliéster"
           ],
-          "respuesta_correcta": "Lana"
+          "respuesta_correcta": "1"
         }
       ],
       "dificil": [
@@ -192,7 +192,7 @@
             "1910",
             "1955"
           ],
-          "respuesta_correcta": "1805"
+          "respuesta_correcta": "1"
         },
         {
           "pregunta": "¿Qué tipo de clientes suele atender Crombie principalmente?",
@@ -202,7 +202,7 @@
             "Gobiernos",
             "Escuelas y universidades"
           ],
-          "respuesta_correcta": "Clientes minoristas de lujo"
+          "respuesta_correcta": "2"
         }
       ],
       "visible": false

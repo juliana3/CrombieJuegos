@@ -28,12 +28,13 @@ exports.listarPreguntas = async () => {
 
 // Agrega una pregunta a una categoría y dificultad
 exports.agregarPregunta = async (req, res) => {
-  const { categoria, dificultad = 'facil', pregunta, respuesta_correcta, opciones } = req.body;
+const { categoria, dificultad = 'facil', pregunta, respuesta_correcta, opciones } = req.body;
 
-  if (!categoria || !pregunta || !respuesta_correcta || !Array.isArray(opciones) || opciones.length !== 4) {
-    return res.status(400).json({ error: 'Faltan campos requeridos o formato incorrecto. Esperado: categoria, dificultad, pregunta, respuesta_correcta, opciones[4].' });
-  }
-
+if (!categoria || !pregunta || typeof respuesta_correcta !== 'number' || respuesta_correcta < 1 || respuesta_correcta > 4 || !Array.isArray(opciones) || opciones.length !== 4) {
+  return res.status(400).json({ 
+    error: 'Faltan campos requeridos o formato incorrecto. Esperado: categoria, dificultad, pregunta, respuesta_correcta (número 1-4), opciones[4].' 
+  });
+}
   const dif = dificultad.toLowerCase();
   if (!validarDificultad(dif)) {
     return res.status(400).json({ error: `Dificultad inválida. Valores permitidos: ${VALID_DIFICULTADES.join(', ')}` });
@@ -49,12 +50,11 @@ exports.agregarPregunta = async (req, res) => {
     }
 
     // Formato interno: { pregunta, opciones: [...], respuesta_correcta }
-    const nuevaPregunta = {
-      pregunta,
-      opciones: opciones,
-      respuesta_correcta: respuesta_correcta
-    };
-
+ const nuevaPregunta = {
+  pregunta,
+  opciones,
+  respuesta_correcta // ahora es un número 1–4
+};
     preguntasData.categorias[categoria][dif].push(nuevaPregunta);
 
     const ok = await guardarPreguntas(preguntasData);
@@ -98,9 +98,11 @@ exports.editarPregunta = async (req, res) => {
 
     // Actualizamos campos si vienen
     if (pregunta) preguntaExistente.pregunta = pregunta;
-    if (respuesta_correcta) {
-      preguntaExistente.respuesta_correcta = respuesta_correcta;
-    }
+if (typeof respuesta_correcta === 'number' && respuesta_correcta >= 1 && respuesta_correcta <= 4) {
+  preguntaExistente.respuesta_correcta = respuesta_correcta;
+}
+
+
     if (opciones && Array.isArray(opciones) && opciones.length === 4) {
       preguntaExistente.opciones = opciones;
     }

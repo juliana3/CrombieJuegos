@@ -13,7 +13,7 @@ const { google } = require('googleapis');
 // Listar todos los premios
 exports.listarPremios = (req, res) => {
     try {
-        const premiosData = fileHandler.leerDatos(premiosPath)
+        const premiosData = fileHandler.leerPremios()
         res.json(premiosData.premios);
     } catch (error) {
         console.error(error);
