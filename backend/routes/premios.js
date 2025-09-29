@@ -19,10 +19,10 @@ const premiosController = require('../controllers/premiosController');
 // Rutas para manejar los premios
 
 //LISTA LOS PREMIOS
-router.get('/', premiosController.listarPremios);
+router.get('/', premiosController.listarPremios); //FUNCIONA
 
-//agregar PREMIO con img opcional
-router.post('/crear', upload.single('imagen-premio'), premiosController.agregarPremio)
+//agregar PREMIO con img opcional 
+router.post('/crear', upload.single('imagen-premio'), premiosController.agregarPremio) //FUNCIONA
 
 //EDITAR PREMIO
 router.put('/:nombre', upload.single('imagen-premio'), premiosController.editarPremio);
