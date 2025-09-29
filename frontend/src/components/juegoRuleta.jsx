@@ -5,7 +5,7 @@ const ruletaColores = [
   "#FF3366", "#33C466", "#FF3366", "#33C466", "#25B1E1", "#25B1E1", "#FFC433", "#FFC433"
 ];
 
-function Ruleta({ items, onSpinEnd }) {
+function JuegoRuleta({ items = [], onSpinEnd }) {
   const ruletaRef = useRef(null);
   const [isSpinning, setIsSpinning] = useState(false);
 
@@ -172,4 +172,4 @@ function Ruleta({ items, onSpinEnd }) {
   );
 }
 
-export default Ruleta;
+export default JuegoRuleta;

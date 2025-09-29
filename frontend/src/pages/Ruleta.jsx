@@ -1,8 +1,7 @@
 // src/pages/Juego.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import Ruleta from "../components/juegoRuleta";
-import PreguntaCard from "../components/preguntaCard";
+import JuegoRuleta from "../components/juegoRuleta";
 
 // Obtén la URL de la API desde la variable de entorno
 // const API_URL = process.env.REACT_APP_API_URL; 
@@ -15,7 +14,7 @@ const mezclarCategorias = (array) => {
   return array;
 };
 
-function Juego() {
+function Ruleta() {
   const navigate = useNavigate();
   const [faseDelJuego, setFaseDelJuego] = useState("cargando");
   const [dificultadElegida, setDificultadElegida] = useState(null);
@@ -92,20 +91,10 @@ function Juego() {
 
   return (
     <div className="game-page-container">
-      {faseDelJuego === "elegirDificultad" && (
-        <>
-          <h1>Selecciona una Dificultad</h1>
-          {dificultades.map((dificultad) => (
-            <button key={dificultad} onClick={() => handleElegirDificultad(dificultad)}>
-              {dificultad.charAt(0).toUpperCase() + dificultad.slice(1)}
-            </button>
-          ))}
-        </>
-      )}
 
       {faseDelJuego === "ruletaCategorias" && (
         <>
-          <Ruleta 
+          <JuegoRuleta 
             items={categoriasConAngulos} 
             onSpinEnd={handleCategoriaSeleccionada} 
           />
@@ -119,4 +108,4 @@ function Juego() {
   );
 }
 
-export default Juego;
+export default Ruleta;

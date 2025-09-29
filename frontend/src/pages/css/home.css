@@ -25,6 +25,11 @@ html, body {
   position: relative;
 }
 
+.header-img {
+    margin-top: 70px;
+    width: 200px;
+}
+
 /* =============================
    Main Content - Botón central
 ============================= */

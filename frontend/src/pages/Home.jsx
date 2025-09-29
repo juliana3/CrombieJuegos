@@ -13,7 +13,7 @@ export default function Home() {
       <main className="main-content">
         <button
           className="start-game-button"
-          onClick={() => navigate("/Juego")} // 👈 ahora navega
+          onClick={() => navigate("/DifficultySelection")}
         >
           Iniciar Juego
         </button>
@@ -23,7 +23,7 @@ export default function Home() {
       <footer className="footer-section">
         <button
           className="gestor-button"
-          onClick={() => navigate()} // 👈 ahora navega
+          onClick={() => navigate()} 
         >
           Ajustes
         </button>
