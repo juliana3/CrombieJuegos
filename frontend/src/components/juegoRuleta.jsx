@@ -41,11 +41,11 @@ function JuegoRuleta({ items, onSpinEnd }) {
   return (
     <div className="ruleta-container">
       <svg 
-        width="700"
-        height="700"
         viewBox="0 0 700 700"
+        preserveAspectRatio="xMidYMid meet"
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
+        style={{ width: '100%', height: '100%' }}
       >
         {/* 1. Grupo del fondo estático */}
         <g id="ruleta-fondo-estatico">

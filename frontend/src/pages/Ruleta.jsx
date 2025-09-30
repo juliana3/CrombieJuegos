@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import JuegoRuleta from "../components/juegoRuleta";
 import PreguntaCard from "../components/preguntaCard";
+import "./css/Ruleta.css";
 
 // Obtén la URL de la API desde la variable de entorno
 // const API_URL = process.env.REACT_APP_API_URL; 
