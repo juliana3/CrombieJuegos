@@ -1,0 +1,34 @@
+{
+  "premios": {
+    "buzo": {
+      "activo": true,
+      "cantidad": 5,
+      "imagen": null
+    },
+    "remera": {
+      "activo": false,
+      "cantidad": 10,
+      "imagen": null
+    },
+    "botella": {
+      "activo": true,
+      "cantidad": 15,
+      "imagen": null
+    },
+    "vaso_termico": {
+      "activo": true,
+      "cantidad": 20,
+      "imagen": null
+    },
+    "La": {
+      "activo": false,
+      "cantidad": 0,
+      "imagen": null
+    },
+    "remeruli": {
+      "activo": true,
+      "cantidad": 8,
+      "imagen": null
+    }
+  }
+}
