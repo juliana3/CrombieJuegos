@@ -12,7 +12,7 @@ function DifficultySelection() {
     const manejarSeleccion = (nivel) => {
         // La función es ahora síncrona, limpia y solo guarda el estado.
         setDificultad(nivel); 
-        navigate(`/ruleta/${nivel}`);
+        navigate(`/registro/${nivel}`);
         // Aquí es donde, en el futuro, podrías agregar la navegación:
         // navigate(`/juego/${nivel}`); 
     };
