@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 import JuegoRuleta from "../components/juegoRuleta";
 import PreguntaCard from "../components/preguntaCard";
 import "./css/Ruleta.css";
@@ -22,6 +24,7 @@ function Ruleta() {
   const [juegoData, setJuegoData] = useState(null);
   const [error, setError] = useState(null);
   const [preguntaActual, setPreguntaActual] = useState(null);
+  const { width, height } = useWindowSize(); 
 
   useEffect(() => {
     if (!dificultadElegida) {
@@ -102,9 +105,9 @@ function Ruleta() {
     <div className="game-page-container">
       {faseDelJuego === "ruletaCategorias" && (
         <div className="ruleta-fase">
-          <JuegoRuleta 
-            items={categoriasConAngulos} 
-            onSpinEnd={handleCategoriaSeleccionada} 
+          <JuegoRuleta
+            items={categoriasConAngulos}
+            onSpinEnd={handleCategoriaSeleccionada}
           />
         </div>
       )}
@@ -115,19 +118,30 @@ function Ruleta() {
 
       {/* FASE: Ganaste Sorteo (Tarjeta de Mensaje) */}
       {faseDelJuego === "ganasteSorteo" && (
-        <div className="mensaje-card sorteo-ganado">
-          <button className="close-btn" onClick={volverALaRuleta}>X</button>
-          <h1>🎉 ¡Felicidades! 🎉</h1>
-          <p>¡Has caído en la casilla **SORTEO**! Estás participando por grandes premios.</p>
+        <div className="modal-overlay">
+          <Confetti
+          width={width}
+          height={height}
+          numberOfPieces={400} // Puedes ajustar la cantidad
+          recycle={false} // ¡Importante! Hace que dispare una vez y luego desaparezca
+          tweenDuration={5000} // Duración del efecto (en milisegundos)
+        />
+          <div className="mensaje-card sorteo-ganado">
+            <button className="close-btn" onClick={volverALaRuleta}>X</button>
+            <h1>🎉 ¡Felicidades! 🎉</h1>
+            <p>¡Has caído en la casilla **SORTEO**! Estás participando por grandes premios.</p>
+          </div>
         </div>
       )}
 
       {/* FASE: Perdiste Ronda (Tarjeta de Mensaje) */}
       {faseDelJuego === "perdisteRonda" && (
-        <div className="mensaje-card ronda-perdida">
-          <button className="close-btn" onClick={volverALaRuleta}>X</button>
-          <h1>😔 Lo Sentimos 😔</h1>
-          <p>Has caído en la casilla **PERDISTE**. La ronda ha terminado para ti.</p>
+        <div className="modal-overlay">
+          <div className="mensaje-card ronda-perdida">
+            <button className="close-btn" onClick={volverALaRuleta}>X</button>
+            <h1>😔 Lo Sentimos 😔</h1>
+            <p> Has caído en la casilla **PERDISTE**. La ronda ha terminado para ti.</p>
+          </div>
         </div>
       )}
     </div>
