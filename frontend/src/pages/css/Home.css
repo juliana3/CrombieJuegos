@@ -1,23 +1,6 @@
-/* =============================
-   Reset y altura completa
-============================= */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
-/* =============================
-   Contenedor principal
-============================= */
 .home-container {
   min-height: 100vh; /* altura completa del viewport */
   width: 100%;
-  background-image: url('fondo.svg'); /* tu fondo */
-  background-size: cover;      /* ocupa todo el contenedor */
-  background-position: center; /* centrado */
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,9 +8,6 @@ html, body {
   position: relative;
 }
 
-/* =============================
-   Main Content - Botón central
-============================= */
 .main-content {
   display: flex;
   justify-content: center;
@@ -70,6 +50,7 @@ html, body {
   bottom: 40px; /* separado del borde inferior */
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -94,10 +75,6 @@ html, body {
    Responsive Design
 ============================= */
 @media (max-width: 768px) {
-    .home-container {
-    background-image: url('fondotablet.svg');
-    position: fixed
-  }
   .start-game-button {
     font-size: 18px;
     padding: 16px 28px;

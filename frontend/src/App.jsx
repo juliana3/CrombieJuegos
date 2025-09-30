@@ -10,13 +10,15 @@ import './App.css';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/configuracion" element={<Configuracion />} />
-      <Route path="/seleccion-dificultad" element={<DifficultySelection />} /> 
-      <Route path="/registro/:dificultad" element={<Dashboard />} />
-      <Route path="/ruleta/:dificultad" element={<Ruleta />} />
-    </Routes>
+    <div className="app-global-container">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/configuracion" element={<Configuracion />} />
+        <Route path="/seleccion-dificultad" element={<DifficultySelection />} />
+        <Route path="/registro/:dificultad" element={<Dashboard />} />
+        <Route path="/ruleta/:dificultad" element={<Ruleta />} />
+      </Routes>
+    </div>
   );
 }
 

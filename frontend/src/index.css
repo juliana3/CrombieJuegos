@@ -1,0 +1,36 @@
+:root {
+  --color-boton: #00bfff; /* Celeste principal */
+  --color-boton-hover: #009acd; /* Celeste más oscuro para hover */
+  
+  /* Colores de texto y fondo */
+  --color-text-light: white; /* Texto claro (usado en botones) */
+  --color-text-dark: #1f2c39; /* Placeholder para texto oscuro (un azul oscuro/casi negro) */
+  --color-background-dark: black; /* Fondo oscuro si es necesario (se aplica en App.css) */
+  --color-background-light: #f4f4f4; /* Placeholder para fondo claro */
+  --color-input: #d2e1e5;
+
+  /* Puedes agregar las variables específicas del PDF aquí */
+  --crombie-verde: #33c566;
+  --crombie-celeste: #25b2e2;
+  --crombie-amarillo: #ffc533;
+  --crombie-rosa: #ff3366;
+  --crombie-violeta: #923392;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #root { 
+  height: 100%;
+  max-width: 100%; 
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; 
+}
+
+input{
+  background: var(--color-input);
+}
