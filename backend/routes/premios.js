@@ -51,4 +51,7 @@ router.put('/api/premios/estado/:nombre/:valor', asyncHandler(premiosController.
 //MODIFICAR CANTIDAD (+ o - premios disppnibles para el evento)   //FUNCIONAAAAAA
 router.patch('/api/premios/cantidad/:nombre/:cantidad', asyncHandler(premiosController.modificarCantidadPremio));
 
+//MOSTRAR LOS PREMIOS ACTIVOS (estado=true)  //FUNCIONAAAAAA
+router.get('/api/premios/activos', asyncHandler(premiosController.listarPremiosActivos));
+
 module.exports = router;

@@ -5,10 +5,9 @@
 //activa - desactiva premios
 
 const path = require('path');
-const {leerPremios, guardarPremios} = require('../utils/fileHandler');
+const {leerPremios, guardarPremios, obtenerPremiosActivos} = require('../utils/fileHandler');
 const googleDrive = require('../utils/googleHandler')
 const { google } = require('googleapis');
-const ID_UNIDAD_COMPARTIDA = process.env.ID_UNIDAD_COMPARTIDA; 
 
 
 // Listar todos los premios
@@ -22,7 +21,6 @@ exports.listarPremios = async (req, res) => {
     }
 };
 
-// Asegúrate de que esta ruta sea correcta para tu proyecto
 
 // Agregar un nuevo premio  //FUNCIONA
 exports.agregarPremio = async (req, res) => {
@@ -294,3 +292,14 @@ exports.modificarCantidadPremio = async (req, res) => {
         res.status(500).json({ error: 'Error al modificar la cantidad del premio' });
     }
 };
+
+// LISTAR PREMIOS ACTIVOS (estado=true)  // FUNCIONA
+exports.listarPremiosActivos = async (req, res) => {
+    try {
+        const premiosActivos = await obtenerPremiosActivos()
+        return res.status(200).json(premiosActivos || {});
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Error al obtener la lista de premios activos' });
+    }
+}

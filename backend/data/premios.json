@@ -6,7 +6,7 @@
       "imagen": null
     },
     "remera": {
-      "activo": true,
+      "activo": false,
       "cantidad": 10,
       "imagen": null
     },
