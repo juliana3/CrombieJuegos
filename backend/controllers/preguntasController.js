@@ -26,6 +26,22 @@ exports.listarPreguntas = async () => {
   }
 };
 
+//Lista solamente las categorias con sus nombres y visibilidad
+exports.listarCategorias = async () => {
+  try {
+    const preguntasData = await leerPreguntas();
+    // Mapeamos las categorías para devolver solo el nombre y la visibilidad
+    return Object.entries(preguntasData.categorias).map(([nombre, datos]) => ({
+      nombre,
+      visible: datos.visible
+    }));
+  } catch (error) {
+    console.error('Error en la lógica de listarCategorias:', error);
+    throw new Error('Error al intentar leer las categorías desde el controlador');
+  }
+};
+
+
 // Agrega una pregunta a una categoría y dificultad
 exports.agregarPregunta = async (req, res) => {
 const { categoria, dificultad = 'facil', pregunta, respuesta_correcta, opciones } = req.body;

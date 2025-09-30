@@ -5,13 +5,12 @@
 
 const express = require('express');
 // Asegúrate de importar todas las funciones que usarás.
-const { listarPreguntas, agregarPregunta, editarPregunta, eliminarPregunta, cambiarVisibilidadCategoria } = require('../controllers/preguntasController');
+const { listarPreguntas,listarCategorias, agregarPregunta, editarPregunta, eliminarPregunta, cambiarVisibilidadCategoria } = require('../controllers/preguntasController');
 const router = express.Router();
 
 // Definir el endpoint GET para listar las preguntas
 router.get('/api/preguntas', async (req, res) => {
   try {
-    // La llamada es la misma, pero ahora la función SÍ devuelve los datos.
     const preguntas = await listarPreguntas();
     res.status(200).json(preguntas);
   } catch (error) {
@@ -19,6 +18,19 @@ router.get('/api/preguntas', async (req, res) => {
     res.status(500).json({ error: 'Error al leer las preguntas' });
   }
 });
+
+// Definir el endpoint GET para listar solo las categorías y su visibilidad
+router.get('/api/categorias', async (req, res) => {
+  try {
+    const categorias = await listarCategorias();
+    res.status(200).json(categorias);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al leer las categorías' });
+  }
+});
+
+
 
 // backend/routes/preguntas.js
 // Endpoint POST para agregar preguntas
