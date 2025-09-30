@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 // Importa el archivo de rutas que crearemos a continuación
 const preguntasRoutes = require('./routes/preguntas');
+const premiosRoutes = require('./routes/premios');
 
 const app = express();
 const puerto = 3000;
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // **Línea clave:** Todas las rutas definidas en preguntasRoutes comenzarán con /api
 app.use(preguntasRoutes);
+app.use(premiosRoutes);
 
 // Middleware para manejar rutas no encontradas (404)
 app.use((req, res, next) => {

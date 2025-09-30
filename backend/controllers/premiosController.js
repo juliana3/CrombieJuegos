@@ -303,3 +303,25 @@ exports.listarPremiosActivos = async (req, res) => {
         return res.status(500).json({ error: 'Error al obtener la lista de premios activos' });
     }
 }
+
+
+// Obtener imagen de premio por su ID de Drive
+exports.obtenerImagenPremio = async (req, res) => {
+  const { driveId } = req.params;
+  
+  try {
+    const driveService = await googleDrive.getDriveService();
+      
+    const response = await driveService.files.get(
+      { fileId: driveId, alt: 'media' },
+      { responseType: 'stream' }
+    );
+    
+    res.setHeader('Content-Type', 'image/jpeg');
+    response.data.pipe(res);
+    
+  } catch (error) {
+    console.error('Error al obtener imagen:', error);
+    res.status(404).send('Imagen no encontrada');
+  }
+}

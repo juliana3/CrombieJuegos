@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./css/Dashboard.css"; // CSS separado para estilos
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Dashboard() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+
+  const { dificultad: dificultadElegida } = useParams(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +34,8 @@ function Dashboard() {
       // Redirigir después de presionar continuar
       navigate("/siguiente"); // Ajusta la ruta que quieras
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
+      //console.error("Error al enviar los datos:", error);
+      navigate(`/ruleta/${dificultadElegida}`); // Ajusta la ruta que quieras
     }
   };
 
@@ -47,21 +50,21 @@ function Dashboard() {
           placeholder="Nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
-          required
+          //required
         />
         <input
           type="text"
           placeholder="Apellido"
           value={apellido}
           onChange={(e) => setApellido(e.target.value)}
-          required
+         // required
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
+          //required
         />
 
         <p className="acepta-mails">

@@ -1,0 +1,23 @@
+.app-global-container { 
+  min-height: 100vh; 
+  width: 100%;
+  background-image: url('fondo.svg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  
+  /* Estilos de layout que aplican a todas las páginas */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido horizontalmente */
+  justify-content: center; /* Centra el contenido verticalmente si es necesario */
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .app-global-container {
+    background-image: url('fondotablet.svg'); 
+    /* Si quieres el efecto fijo: */
+    /* position: fixed; */
+  }
+}

@@ -25,7 +25,7 @@ function Ruleta() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/data`); 
+        const response = await fetch(`http://localhost:3000/api/preguntas`); 
         if (!response.ok) {
           throw new Error(`Error en la carga: ${response.statusText}`);
         }

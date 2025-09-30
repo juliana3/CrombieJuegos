@@ -63,6 +63,7 @@ const subirImagenADrive = async (imageBuffer, nombreArchivo) => {
         });
 
         const fileId = uploadedFile.data.id;
+        
         console.log(`Archivo ${nombreArchivo} subido correctamente a Google Drive con ID: ${fileId}`);
         return fileId;
     } catch (e) {

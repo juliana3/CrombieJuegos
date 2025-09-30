@@ -12,7 +12,7 @@ function DifficultySelection() {
 
     const manejarSeleccion = (nivel) => {
         setDificultad(nivel);
-        navigate(`/juego/${nivel}`);
+        navigate(`/registro/${nivel}`);
     };
 
     return (
@@ -25,19 +25,19 @@ function DifficultySelection() {
             <div className="botones-dificultad">
                 <button 
                     className='boton-facil' 
-                    onClick={() => navigate('/Dashboard')}
+                    onClick={() => manejarSeleccion('facil')}
                 >
                     Fácil
                 </button>
                 <button 
                     className='boton-intermedio' 
-                    onClick={() => navigate('/Dashboard')}
+                    onClick={() => manejarSeleccion('intermedio')}
                 >
                     Intermedio
                 </button>
                 <button 
                     className='boton-dificil' 
-                    onClick={() => navigate('/Dashboard')}
+                    onClick={() => manejarSeleccion('dificil')}
                 >
                     Difícil
                 </button>

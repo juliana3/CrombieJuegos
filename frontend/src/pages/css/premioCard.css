@@ -1,0 +1,203 @@
+/* PaginaPremio.css */
+
+.premio-card-container {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('fondo_premio.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .premio-card-container {
+    background-image: url('fondo-_premio_tablet.svg');
+  }
+}
+
+/* Loading y Error */
+.loading-message,
+.error-message {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Letrero GANASTE */
+.ganaste-badge {
+  margin-bottom: 3rem;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.badge-border-animated {
+  position: relative;
+  padding: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #22d3ee, #a3e635, #fde047, #fb923c, #f87171, #e879f9, #818cf8, #22d3ee);
+  background-size: 200% 200%;
+  animation: gradient-rotate 3s linear infinite;
+}
+
+@keyframes gradient-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.badge-inner {
+  background: white;
+  border-radius: 9999px;
+  padding: 2rem 4rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.ganaste-text {
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: black;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* Premio Display */
+.premio-display {
+  margin-bottom: 3rem;
+  transition: transform 0.3s ease;
+}
+
+.premio-display:hover {
+  transform: scale(1.05);
+}
+
+.premio-imagen {
+  max-width: 100rem;
+  max-height: 82rem;
+  object-fit: contain;
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
+}
+
+.premio-placeholder {
+  background-color: #1f2937;
+  color: white;
+  padding: 3rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo Crombie */
+.crombie-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+}
+
+.logo-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.line-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.line {
+  height: 4px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.line-long {
+  width: 32px;
+}
+
+.line-short {
+  width: 16px;
+}
+
+.line-medium {
+  width: 24px;
+}
+
+.line-medium-short {
+  width: 20px;
+}
+
+.crombie-text {
+  font-size: 3rem;
+  font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ganaste-text {
+    font-size: 3rem;
+  }
+
+  .badge-inner {
+    padding: 1.5rem 3rem;
+  }
+
+  .premio-imagen {
+    max-width: 20rem;
+    max-height: 18rem;
+  }
+
+  .crombie-text {
+    font-size: 2rem;
+  }
+
+  .premio-placeholder {
+    font-size: 1.5rem;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ganaste-text {
+    font-size: 2.5rem;
+  }
+
+  .badge-inner {
+    padding: 1rem 2rem;
+  }
+
+  .premio-imagen {
+    max-width: 16rem;
+    max-height: 14rem;
+  }
+
+  .crombie-text {
+    font-size: 1.5rem;
+  }
+}

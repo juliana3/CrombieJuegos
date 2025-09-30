@@ -1,10 +1,5 @@
 {
   "premios": {
-    "buzo": {
-      "activo": true,
-      "cantidad": 5,
-      "imagen": null
-    },
     "remera": {
       "activo": false,
       "cantidad": 10,
@@ -12,12 +7,12 @@
     },
     "botella": {
       "activo": true,
-      "cantidad": 15,
+      "cantidad": 0,
       "imagen": null
     },
     "vaso_termico": {
       "activo": true,
-      "cantidad": 20,
+      "cantidad": 0,
       "imagen": null
     },
     "La": {
@@ -27,8 +22,13 @@
     },
     "remeruli": {
       "activo": true,
-      "cantidad": 8,
+      "cantidad": 0,
       "imagen": null
+    },
+    "Buzo": {
+      "activo": true,
+      "cantidad": 12,
+      "imagen": "1qKZwvQddFOWM8sbZAbG6BKYfCgSTQY2-"
     }
   }
 }
