@@ -6,7 +6,6 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  box-sizing: border-box; /* Asegura que padding y border no afecten el tamaño total */
 }
 
 /* =============================
@@ -15,7 +14,7 @@ html, body {
 .home-container {
   min-height: 100vh; /* altura completa del viewport */
   width: 100%;
-  background-image: url('fondo.svg'); /* fondo por defecto */
+  background-image: url('fondo.svg'); /* tu fondo */
   background-size: cover;      /* ocupa todo el contenedor */
   background-position: center; /* centrado */
   background-repeat: no-repeat;
@@ -24,7 +23,11 @@ html, body {
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 0 20px; /* Un poco de margen interno para pequeños dispositivos */
+}
+
+.header-img {
+    margin-top: 70px;
+    width: 200px;
 }
 
 /* =============================
@@ -35,17 +38,13 @@ html, body {
   justify-content: center;
   align-items: center;
   flex: 1; /* ocupa todo el espacio disponible para centrar verticalmente */
-  width: 100%; /* Asegura que tome todo el ancho disponible */
 }
-
 .header-img {
-  margin-top: 70px;
-  width: 200px;
-  max-width: 100%; /* Asegura que no se sobrepase en pantallas pequeñas */
+    margin-top: 70px;
+    width: 200px;
 }
-
 /* Botón "Iniciar Juego" */
-.start-game-button, .gestor-button {
+.start-game-button {
   margin-top: -70px;
   background: #00bfff; /* celeste */
   color: white;
@@ -57,15 +56,14 @@ html, body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 15px rgba(0, 191, 255, 0.3);
-  display: inline-block;
 }
 
-.start-game-button:hover, .gestor-button:hover {
+.start-game-button:hover {
   background: #009acd; /* celeste más oscuro al hover */
   transform: translateY(-2px);
 }
 
-.start-game-button:active, .gestor-button:active {
+.start-game-button:active {
   transform: translateY(1px);
 }
 
@@ -73,8 +71,8 @@ html, body {
    Footer Section - Botón gestor
 ============================= */
 .footer-section {
-  position: relative; /* Cambié de absolute a relative para mejor flexibilidad */
-  margin-top: 20px; /* Asegura que el pie de página no quede pegado al borde */
+  position: absolute;
+  bottom: 40px; /* separado del borde inferior */
   display: flex;
   justify-content: center;
   width: 100%;
@@ -90,7 +88,6 @@ html, body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: inline-block;
 }
 
 .gestor-button:hover {
@@ -102,13 +99,10 @@ html, body {
    Responsive Design
 ============================= */
 @media (max-width: 768px) {
-  /* Ajustes para pantallas más pequeñas */
-  .home-container {
-    background-image: url('fondotablet.svg'); /* Fondo adaptado */
-    position: relative; /* Evitar el uso de 'fixed' en móviles */
-    padding: 0 10px; /* Margen más pequeño */
+    .home-container {
+    background-image: url('fondotablet.svg');
+    position: fixed
   }
-
   .start-game-button {
     font-size: 18px;
     padding: 16px 28px;
@@ -117,15 +111,5 @@ html, body {
   .gestor-button {
     font-size: 14px;
     padding: 8px 20px;
-  }
-
-  /* Asegurarse de que la imagen en header sea más pequeña */
-  .header-img {
-    margin-top: 50px; /* Reduce el espacio superior en móviles */
-    width: 150px; /* Hacer que la imagen se ajuste al tamaño pequeño */
-  }
-
-  .footer-section {
-    margin-top: 20px; /* Separación del pie de página para dispositivos pequeños */
   }
 }

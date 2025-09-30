@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       // Redirige cualquier petición que empiece con /api al backend
       '/api': {
-        target: 'http://localhost:3032', // Tu servidor backend
+        target: 'http://localhost:3000', // Tu servidor backend
         changeOrigin: true, // Necesario para evitar errores de CORS
       },
     },
