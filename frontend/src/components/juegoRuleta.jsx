@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import "./Ruleta.css";
+import "../pages/css/Ruleta.css";
 
 const ruletaColores = [
   "#FF3366", "#33C466", "#FF3366", "#33C466", "#25B1E1", "#25B1E1", "#FFC433", "#FFC433"

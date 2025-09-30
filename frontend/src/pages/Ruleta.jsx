@@ -1,4 +1,3 @@
-// src/pages/Juego.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import JuegoRuleta from "../components/juegoRuleta";
@@ -33,7 +32,7 @@ function Ruleta() {
     }
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/data`); 
+        const response = await fetch('/api/preguntas'); 
         if (!response.ok) {
           throw new Error(`Error en la carga: ${response.statusText}`);
         }
@@ -49,7 +48,7 @@ function Ruleta() {
     fetchData();
   }, [dificultadElegida]);
 
-  const categoriasDesdeAPI = juegoData ? Object.keys(juegoData.categorias) : [];
+  const categoriasDesdeAPI = juegoData ? Object.keys(juegoData) : [];
   const categoriasAMezclar = [...categoriasDesdeAPI.slice(0, 3), "Sorteo", "Sorteo", "Perdiste", "Perdiste", "Perdiste"];
 
   // Baraja y luego asigna los ángulos
