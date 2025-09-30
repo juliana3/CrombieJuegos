@@ -5,7 +5,7 @@ const cors = require('cors');
 const preguntasRoutes = require('./routes/preguntas');
 
 const app = express();
-const puerto = 3032;
+const puerto = 3000;
 
 // Configurar CORS para permitir peticiones desde tu frontend
 app.use(cors({

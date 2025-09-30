@@ -5,23 +5,22 @@
 //activa - desactiva premios
 
 const path = require('path');
-const fileHandler = require('../utils/fileHandler');
+const {leerPremios, guardarPremios, obtenerPremiosActivos} = require('../utils/fileHandler');
 const googleDrive = require('../utils/googleHandler')
-const premiosPath = path.join(__dirname, '..', 'data', 'premios.json');
 const { google } = require('googleapis');
 
+
 // Listar todos los premios
-exports.listarPremios = (req, res) => {
+exports.listarPremios = async (req, res) => {
     try {
-        const premiosData = fileHandler.leerPremios()
-        res.json(premiosData.premios);
+        const premiosData = await leerPremios()
+        return res.status(200).json(premiosData || {});
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al listar los premios' });
+        return res.status(500).json({ error: 'Error al obtener la lista de premios' });
     }
 };
 
-// Asegúrate de que esta ruta sea correcta para tu proyecto
 
 // Agregar un nuevo premio  //FUNCIONA
 exports.agregarPremio = async (req, res) => {
@@ -33,9 +32,9 @@ exports.agregarPremio = async (req, res) => {
             return res.status(400).json({ message: 'El nombre del premio es obligatorio.' });
         }
 
-        const premiosData = await fileHandler.leerDatos(premiosPath);
+        const premiosData = await leerPremios();
 
-        if (premiosData.premios[nombre]){
+        if (premiosData[nombre]){
             return res.status(400).json({ message: 'El premio ya existe' });
         }
 
@@ -53,8 +52,8 @@ exports.agregarPremio = async (req, res) => {
         }
 
         // Guarda los datos en el archivo JSON
-        premiosData.premios[nombre] = nuevoPremio;
-        await fileHandler.escribirDatos(premiosPath, premiosData);
+        premiosData[nombre] = nuevoPremio;
+        await guardarPremios(premiosData);
 
         res.status(201).json({nombre, ...nuevoPremio});
     } catch (error) {
@@ -64,40 +63,54 @@ exports.agregarPremio = async (req, res) => {
 };
 
 
-// EDITAR NOMBRE O IMAGEN DEL PREMIO // FUNCIONA, pero..
-//TODO: FIJARME POR QUE SUBE LA FOO MAS DE UNA VEZ SI YA ESTA EL PREMIO, O CUANDO SSE EDITAAAAAA
+// EDITAR NOMBRE O IMAGEN DEL PREMIO // FUNCIONA
 exports.editarPremio = async (req, res) => {
     const { nombre } = req.params;
     const { nuevoNombre } = req.body;
 
     try {
-        const premiosData = await fileHandler.leerDatos(premiosPath); // Usa 'await'
+        const premiosData = await leerPremios(); // Usa 'await'
         
-        if (!premiosData.premios[nombre]) {
+        if (!premiosData[nombre]) {
             return res.status(404).json({ message: 'Premio no encontrado' });
         }
 
-        const premio = premiosData.premios[nombre];
+        const premio = premiosData[nombre];
 
         // Se usa para las operaciones de renombrar o borrar en Drive
-        const auth = await googleDrive.getAuthService();
-        const drive = google.drive({ version: 'v3', auth });
+        const drive = await googleDrive.getDriveService(); // Obtiene la instancia de drive lista para usar
+
+        // Comprobación de seguridad
+        if (!drive) {
+            console.error('No se pudo obtener el servicio de Google Drive.');
+            return res.status(500).json({ error: 'Error de autenticación con Google Drive' });
+        }
 
         // Renombrar premio (sin imagen nueva)
         if (nuevoNombre && !req.file) {
             if (premio.imagen) {
                 // Renombrar imagen en Drive
-                await drive.files.update({
-                    fileId: premio.imagen,
-                    resource: { name: `${nuevoNombre}.jpg` },
-                    supportsAllDrives: true,
-                });
+                try {
+                    await drive.files.update({
+                        fileId: premio.imagen,
+                        resource: { name: `${nuevoNombre}.jpg` },
+                        supportsAllDrives: true,
+                    });
+                    console.log(`Imagen renombrada en Drive a ${nuevoNombre}.jpg`);
+                } catch (e) {
+                    if (e.code === 404) {
+                        console.warn(`Archivo anterior '${premio.imagen}' no se encontró en Drive, se ignora.`);
+                    }else{
+                        throw e;
+                    }
+                }
+                
             }
 
             // Actualizar en JSON
-            premiosData.premios[nuevoNombre] = { ...premio };
-            delete premiosData.premios[nombre];
-            await fileHandler.escribirDatos(premiosPath, premiosData); // Usa 'await'
+            premiosData[nuevoNombre] = { ...premio };
+            delete premiosData[nombre];
+            await guardarPremios(premiosData); // Usa 'await'
             
             return res.status(200).json({ message: 'Nombre actualizado correctamente' });
         }
@@ -106,10 +119,20 @@ exports.editarPremio = async (req, res) => {
         if (req.file) {
             // Borrar imagen anterior en Drive si existía
             if (premio.imagen) {
-                await drive.files.delete({
-                    fileId: premio.imagen,
-                    supportsAllDrives: true,
-                });
+                try{
+                    await drive.files.delete({
+                        fileId: premio.imagen,
+                        supportsAllDrives: true,
+                    });
+                    console.log(`Imagen anterior de ${nombre} eliminada en Drive`);
+                }catch(e){
+                    if (e.code === 404) {
+                        console.warn(`Archivo anterior '${premio.imagen}' no se encontró en Drive, se ignora.`);
+                    }else{
+                        throw e;
+                    }
+                }
+                
             }
 
             // Subir nueva imagen
@@ -118,13 +141,14 @@ exports.editarPremio = async (req, res) => {
 
             // Actualizar JSON
             if (nuevoNombre) {
-                premiosData.premios[nuevoNombre] = { ...premio, imagen: fileIdNuevo };
-                delete premiosData.premios[nombre];
+                premiosData[nuevoNombre] = { ...premio, imagen: fileIdNuevo };
+                delete premiosData[nombre];
             } else {
-                premiosData.premios[nombre].imagen = fileIdNuevo;
+                premiosData[nombre].imagen = fileIdNuevo;
             }
 
-            await fileHandler.escribirDatos(premiosPath, premiosData); // Usa 'await'
+            await guardarPremios(premiosData); // Usa 'await'
+
             return res.status(200).json({ message: 'Imagen actualizada correctamente', fileId: fileIdNuevo });
         }
 
@@ -137,18 +161,18 @@ exports.editarPremio = async (req, res) => {
 };
 
 
-// Eliminar un premio
+// Eliminar un premio   //FUNCIONA
 exports.eliminarPremio = async (req, res) => {
     const { nombre } = req.params;
 
     try {
-        const premiosData = fileHandler.leerDatos(premiosPath);
+        const premiosData = await leerPremios();
 
-        if (!premiosData.premios[nombre]) {
+        if (!premiosData[nombre]) {
             return res.status(404).json({ message: 'Premio no encontrado' });
         }
 
-        const premio = premiosData.premios[nombre];
+        const premio = premiosData[nombre];
 
         // Si tiene imagen en Drive, la borramos
         if (premio.imagen) {
@@ -158,6 +182,7 @@ exports.eliminarPremio = async (req, res) => {
                     await driveService.files.delete({
                         fileId: premio.imagen,
                         supportsAllDrives: true,
+
                     });
                     console.log(`Imagen de ${nombre} eliminada en Drive`);
                 } catch (e) {
@@ -168,8 +193,8 @@ exports.eliminarPremio = async (req, res) => {
         }
 
         // Eliminar del JSON
-        delete premiosData.premios[nombre];
-        fileHandler.escribirDatos(premiosPath, premiosData);
+        delete premiosData[nombre];
+        await guardarPremios(premiosData);
 
         res.json({ message: `Premio '${nombre}' eliminado correctamente` });
     } catch (error) {
@@ -179,24 +204,25 @@ exports.eliminarPremio = async (req, res) => {
 };
 
 
-// CAMBIAR ESTADO (activar / desactivar)
-exports.cambiarEstadoPremio = (req, res) => {
-    const { nombre } = req.params;
-    const { activo } = req.body; // true o false
+// CAMBIAR ESTADO (activar / desactivar)  // FUNCIONA
+exports.cambiarEstadoPremio = async (req, res) => {
+    const { nombre, valor } = req.params;
 
     try {
-        const premiosData = fileHandler.leerDatos(premiosPath);
+        const premiosData = await leerPremios();
 
-        if (!premiosData.premios[nombre]) {
+        if (!premiosData[nombre]) {
             return res.status(404).json({ message: 'Premio no encontrado' });
         }
 
-        premiosData.premios[nombre].activo = Boolean(activo);
-        fileHandler.escribirDatos(premiosPath, premiosData);
+        const esta_activado = valor === 'true' || valor === '1';
+
+        premiosData[nombre].activo = esta_activado;
+        await guardarPremios(premiosData);
 
         res.json({
-            message: `Premio '${nombre}' ${activo ? 'activado' : 'desactivado'} correctamente`,
-            premio: { nombre, ...premiosData.premios[nombre] }
+            message: `Premio '${nombre}' ${esta_activado ? 'activado' : 'desactivado'} correctamente`,
+            premio: { nombre, ...premiosData[nombre] }
         });
     } catch (error) {
         console.error(error);
@@ -204,18 +230,18 @@ exports.cambiarEstadoPremio = (req, res) => {
     }
 };
 
-// DESCONTAR STOCK AL GANAR UN PREMIO
-exports.descontarStock = (req, res) => {
+// DESCONTAR STOCK AL GANAR UN PREMIO  // FUNCIONA
+exports.descontarStock = async (req, res) => {
     const { nombre } = req.params;
 
     try {
-        const premiosData = fileHandler.leerDatos(premiosPath);
+        const premiosData = await leerPremios();
 
-        if (!premiosData.premios[nombre]) {
+        if (!premiosData[nombre]) {
             return res.status(404).json({ message: 'Premio no encontrado' });
         }
 
-        const premio = premiosData.premios[nombre];
+        const premio = premiosData[nombre];
 
         if (premio.cantidad <= 0) {
             return res.status(400).json({ message: 'Sin stock disponible' });
@@ -223,7 +249,7 @@ exports.descontarStock = (req, res) => {
 
         premio.cantidad -= 1;
 
-        fileHandler.escribirDatos(premiosPath, premiosData);
+        await guardarPremios(premiosData);
 
         res.json({
             message: `Se descontó 1 unidad del premio '${nombre}'.`,
@@ -236,34 +262,44 @@ exports.descontarStock = (req, res) => {
 };
 
 
-// MODIFICAR CANTIDAD DE PREMIOS DISPONIBLES (+ o -)
-exports.modificarCantidadPremio = (req, res) => {
-    const { nombre } = req.params;
-    const { cantidad } = req.body; // número nuevo
+// MODIFICAR CANTIDAD DE PREMIOS DISPONIBLES (+ o -)  //FUNCIONA
+exports.modificarCantidadPremio = async (req, res) => {
+    const { nombre, cantidad } = req.params;
 
     try {
-        const premiosData = fileHandler.leerDatos(premiosPath);
+        const premiosData = await leerPremios();
 
-        if (!premiosData.premios[nombre]) {
+        if (!premiosData[nombre]) {
             return res.status(404).json({ message: 'Premio no encontrado' });
         }
 
-        const nuevaCantidad = parseInt(cantidad, 10); //convierte a int y lopone en base 10
+        const nuevaCantidad = parseInt(cantidad, 10); //convierte a int y lo pone en base 10
 
         if (isNaN(nuevaCantidad) || nuevaCantidad < 0) {
             return res.status(400).json({ message: 'La cantidad debe ser un número mayor o igual a 0' });
         }
 
-        premiosData.premios[nombre].cantidad = nuevaCantidad;
+        premiosData[nombre].cantidad = nuevaCantidad;
 
-        fileHandler.escribirDatos(premiosPath, premiosData);
+        await guardarPremios(premiosData);
 
         res.json({
             message: `Cantidad del premio '${nombre}' actualizada a ${nuevaCantidad}.`,
-            premio: { nombre, ...premiosData.premios[nombre] }
+            premio: { nombre, ...premiosData[nombre] }
         });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al modificar la cantidad del premio' });
     }
 };
+
+// LISTAR PREMIOS ACTIVOS (estado=true)  // FUNCIONA
+exports.listarPremiosActivos = async (req, res) => {
+    try {
+        const premiosActivos = await obtenerPremiosActivos()
+        return res.status(200).json(premiosActivos || {});
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Error al obtener la lista de premios activos' });
+    }
+}

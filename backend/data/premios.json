@@ -3,27 +3,32 @@
     "buzo": {
       "activo": true,
       "cantidad": 5,
-      "imagen": "id de la imagen guardada en drive"
+      "imagen": null
     },
     "remera": {
-      "activo": true,
+      "activo": false,
       "cantidad": 10,
-      "imagen": "id de la imagen guardada en drive"
+      "imagen": null
     },
     "botella": {
       "activo": true,
       "cantidad": 15,
-      "imagen": "id de la imagen guardada en drive"
+      "imagen": null
     },
     "vaso_termico": {
       "activo": true,
       "cantidad": 20,
-      "imagen": "id de la imagen guardada en drive"
+      "imagen": null
     },
     "La": {
       "activo": false,
       "cantidad": 0,
-      "imagen": "19PKapbFlfUZWWLg9XOamCxptxCCe76O-"
+      "imagen": null
+    },
+    "remeruli": {
+      "activo": true,
+      "cantidad": 8,
+      "imagen": null
     }
   }
 }
