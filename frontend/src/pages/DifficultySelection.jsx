@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 import './css/DifficultySelection.css'; 
 import Dashboard from "./Dashboard";
 
-
-
-
 function DifficultySelection() {
     const [dificultad, setDificultad] = useState('');
     const navigate = useNavigate();

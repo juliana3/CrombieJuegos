@@ -1,0 +1,419 @@
+/* === VARIABLES GLOBALES === */
+:root {
+  --font-family: 'Poppins', sans-serif;
+
+  /* Colores */
+  --color-primary: #5a67d8;
+  --color-primary-light: #6b7cff;
+  --color-secondary: #214178;
+  --color-text: #2d3748;
+  --color-text-light: #718096;
+  --color-bg: #f4f7fc;
+  --color-white: #ffffff;
+  --color-gray: #e2e8f0;
+
+  /* Sombras */
+  --shadow-light: 0 4px 10px rgba(0,0,0,0.05);
+  --shadow-medium: 0 6px 15px rgba(0,0,0,0.08);
+  --shadow-strong: 0 8px 25px rgba(0,0,0,0.12);
+
+  /* Tipografía */
+  --h1-size: 2.8rem;
+  --h2-size: 1.8rem;
+  --h3-size: 1.6rem;
+  --text-base: 1rem;
+
+  /* Bordes */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+}
+
+/* === ESTILOS GLOBALES === */
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  background-image: url('fondo.svg');  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+}
+
+/* === TÍTULOS === */
+.nombre {
+  font-size: var(--h1-size);
+  font-weight: 700;
+  color: var(--color-primary-light);
+  text-align: center;
+  margin: 20px 0 30px 0;
+   box-shadow:rgba(10, 25, 47, 0.7);
+   padding: 10px;
+   
+}
+
+/* === CONTENEDOR === */
+.contenido {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  
+  /* fondo semitransparente (blanco con opacidad) */
+  background: rgba(255, 255, 255, 0.099);
+  
+  /* sombra más suave y con transparencia */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  
+  /* bordes redondeados */
+  border-radius: var(--radius-md);
+  
+  /* opcional: un borde muy sutil con color degradado o traslúcido */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  /* para “cortar” el fondo dentro del borde si el fondo interior debe mostrarse */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* === BOTÓN VOLVER === */
+.volver {
+  margin: 20px;
+}
+.volver a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--color-white);
+    background: rgba(253, 253, 253, 0);
+
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+.volver a:hover {
+  background: rgba(250, 246, 246, 0.09);
+  color: var(--color-white);
+}
+
+/* === CONTENEDOR DE CATEGORÍAS + BOTÓN AGREGAR === */
+.agregar-categorias {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Título a la izquierda, icono a la derecha */
+  margin-bottom: 15px;
+  padding: 0 5px;
+}
+
+/* Texto "Categorías" */
+.agregar-categorias p {
+  font-size: var(--h3-size);
+  font-weight: 600;
+  margin: 0;
+  color: hsl(191, 50%, 70%);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ícono de agregar categoría */
+.icon-agregar-categoria {
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #48bb78; /* verde inicial */
+  background: rgba(72, 187, 120, 0.1); /* circulito suave */
+  border-radius: 50%;
+  padding: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Hover con efecto "glow" */
+.icon-agregar-categoria:hover {
+  transform: scale(1.15) rotate(90deg); /* animación divertida */
+  color: #38a169; /* verde más intenso */
+  background: rgba(72, 187, 120, 0.2);
+  box-shadow: 0 0 5px #48bb78, 0 0 10px rgba(72, 187, 120, 0.6);
+}
+
+
+
+
+/* === LISTADO DE CATEGORÍAS === */
+.categorias > p {
+  font-size: var(--h3-size);
+  font-weight: 600;
+  margin-left: 120px;
+  color: hsl(191, 50%, 60%);
+  /*border-bottom: 1px solid var(--color-gray);*/
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.categorias ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categoria-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+    /* fondo semitransparente (blanco con opacidad) */
+  background: rgba(255, 255, 255, 0.099);
+  
+  /* sombra más suave y con transparencia */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  
+  /* bordes redondeados */
+  border-radius: var(--radius-md);
+  
+  /* opcional: un borde muy sutil con color degradado o traslúcido */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  /* para “cortar” el fondo dentro del borde si el fondo interior debe mostrarse */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin-bottom: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  border-left: 5px solid transparent;
+}
+.categoria-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-strong);
+  border-left: 5px solid var(--color-primary);
+}
+.categoria-item span {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-gray);
+  flex: 1;
+}
+
+/* === ÍCONOS DE ACCIONES === */
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.acciones-pregunta {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre el ícono de editar y el de borrar */
+}
+
+.icon-ver, .icon-agregar, .icon-editar, .icon-mostrar,
+.icon-ocultar, .icon-eliminar {
+  cursor: pointer;
+  font-size: 1.5rem; /* más grandes */
+  color: #cbd5e0; /* gris claro */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 36%;
+  padding: 0.6rem;
+  transition: all 0.25s ease;
+}
+
+/* Hover general */
+.icon-ver:hover,
+.icon-agregar:hover,
+.icon-editar:hover,
+.icon-mostrar:hover,
+.icon-ocultar:hover,
+.icon-eliminar:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 1px currentColor, 0 0 5px currentColor;
+}
+
+/* Colores específicos con glow */
+.icon-ver:hover {
+  color: #9f7aea; /* púrpura */
+}
+
+.icon-agregar:hover {
+  color: #48bb78; /* verde */
+}
+
+.icon-editar:hover {
+  color: #4299e1; /* azul */
+}
+
+.icon-mostrar:hover {
+  color: #38a169; /* verde oscuro */
+}
+
+.icon-ocultar:hover {
+  color: #f6ad55; /* naranja */
+}
+
+.icon-eliminar:hover {
+  color: #f56565; /* rojo */
+}
+
+
+
+/* === MODAL === */
+.modal {
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(10, 25, 47, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+.modal-content {
+  
+  /* fondo semitransparente (blanco con opacidad) */
+  background: rgba(255, 255, 255, 0.099);
+  
+  /* sombra más suave y con transparencia */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  padding: 30px 40px;
+  border-radius: var(--radius-md);
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideInUp 0.4s ease;
+}
+.modal-content h3 {
+    font-size: var(--h2-size);
+  color: var(--color-white);
+  margin-bottom: 25px;
+}
+.modal-content h4 {
+  
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-gray);
+  margin: 20px 0 10px;
+  
+}
+
+
+
+/* === LISTADO EN MODAL === */
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+.modal-content li {
+  
+    background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 1px currentColor, 0 0 5px currentColor;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border: 1px solid var(--color-gray);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: var(--color-white); 
+  background: rgba(255, 255, 255, 0.05);
+  
+}
+.modal-content li:hover{
+  transform: translateX(5px);
+  box-shadow: var(--shadow-light);
+}
+.modal-content li .icon {
+  color: var(--color-text-light);
+}
+.modal-content li .icon-borrar {
+  color: var(--color-text-light);
+}
+
+
+
+.modal-content li .icon:hover {
+  color: var(--color-primary);
+}
+.modal-content li .icon-borrar:hover{
+  color: #9a0202;
+}
+
+/* === FORMULARIOS EN MODAL === */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-content label {
+  margin: 1px;
+  font-size: 0.95rem;
+  font-weight: 00;
+  color: var(--color-white);
+}
+.modal-content input,
+.modal-content select {
+  
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--color-gray);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  font-family: var(--font-family);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+.modal-content input:focus,
+.modal-content select:focus {
+  
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(90,103,216,0.3);
+}
+
+/* === FOOTER MODAL === */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-gray);
+}
+.modal-footer button {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+.modal-footer button:first-child {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.modal-footer button:last-child {
+  background: var(--color-gray);
+  color: var(--color-text);
+}
+.modal-footer button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-light);
+}
+ 
+/* === ANIMACIONES === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+

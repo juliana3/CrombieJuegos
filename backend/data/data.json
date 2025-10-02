@@ -1,84 +1,5 @@
 {
   "categorias": {
-    "Backend": {
-      "facil": [
-        {
-          "pregunta": "¿Qué es una API RESTful?",
-          "opciones": [
-            "Una API que usa SOAP",
-            "Una API que sigue el estilo arquitectónico REST",
-            "Una API basada en WebSockets",
-            "Una API que se comunica mediante sockets"
-          ],
-          "respuesta_correcta": "2"
-        },
-        {
-          "pregunta": "¿Qué significa SQL?",
-          "opciones": [
-            "Structured Query Language",
-            "Simple Question Logic",
-            "Standard Query List",
-            "Server Query Link"
-          ],
-          "respuesta_correcta": 1
-        }
-      ],
-      "medio": [
-        {
-          "pregunta": "¿Qué es un servidor RESTful?",
-          "opciones": [
-            "Un servidor que usa SOAP",
-            "Un servidor basado en protocolos como HTTP",
-            "Un servidor que usa JavaScript",
-            "Un servidor que almacena bases de datos"
-          ],
-          "respuesta_correcta": "Un servidor basado en protocolos como HTTP"
-        },
-        {
-          "pregunta": "¿Cuál es el lenguaje más usado para desarrollo de aplicaciones backend?",
-          "opciones": [
-            "Python",
-            "JavaScript",
-            "Ruby",
-            "Java"
-          ],
-          "respuesta_correcta": "2"
-        },
-        {
-          "pregunta": "¿Qué es un servidor RESTful?",
-          "opciones": [
-            "Un servidor basado en protocolos como HTTP",
-            "Un servidor que usa SOAP",
-            "Un servidor que usa JavaScript",
-            "Un servidor que almacena bases de datos"
-          ],
-          "respuesta_correcta": "1"
-        }
-      ],
-      "dificil": [
-        {
-          "pregunta": "¿Qué es una base de datos NoSQL?",
-          "opciones": [
-            "Una base de datos relacional",
-            "Una base de datos que no usa SQL",
-            "Una base de datos basada en archivos",
-            "Una base de datos que solo almacena texto"
-          ],
-          "respuesta_correcta": "2"
-        },
-        {
-          "pregunta": "¿Qué es un microservicio?",
-          "opciones": [
-            "Un servicio que responde a una solicitud",
-            "Un componente que realiza una función pequeña dentro de un sistema",
-            "Un servidor web",
-            "Un servicio de base de datos"
-          ],
-          "respuesta_correcta": "2"
-        }
-      ],
-      "visible": false
-    },
     "Frontend": {
       "facil": [
         {
@@ -90,16 +11,6 @@
             "Un servidor web"
           ],
           "respuesta_correcta": "2"
-        },
-        {
-          "pregunta": "¿Qué hace CSS?",
-          "opciones": [
-            "Diseña la estructura de la página",
-            "Agrega interactividad a la página",
-            "Estiliza y da formato a la página",
-            "Gestiona bases de datos"
-          ],
-          "respuesta_correcta": "3"
         }
       ],
       "medio": [
@@ -146,7 +57,7 @@
           "respuesta_correcta": "1"
         }
       ],
-      "visible": false
+      "visible": true
     },
     "Crombie": {
       "facil": [
@@ -205,7 +116,7 @@
           "respuesta_correcta": "2"
         }
       ],
-      "visible": false
+      "visible": true
     }
   }
 }

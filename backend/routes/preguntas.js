@@ -5,7 +5,7 @@
 
 const express = require('express');
 // Asegúrate de importar todas las funciones que usarás.
-const { listarPreguntas,listarCategorias, agregarPregunta, editarPregunta, eliminarPregunta, cambiarVisibilidadCategoria } = require('../controllers/preguntasController');
+const { listarPreguntas,listarCategorias, agregarPregunta, editarPregunta, eliminarPregunta, eliminarCategoria ,cambiarVisibilidadCategoria,crearCategoria } = require('../controllers/preguntasController');
 const router = express.Router();
 
 // Definir el endpoint GET para listar las preguntas
@@ -47,6 +47,21 @@ router.post('/api/agregarpregunta', async (req, res) => {
     }
 });
 
+//Agregar una nueva categoria
+router.post('/api/crearcategoria', async (req, res) => {
+    try {
+        // Llamamos al controlador de la función agregarPregunta
+        const resultado = await crearCategoria(req, res);
+        // Si la respuesta del controlador es una respuesta con error, ya la maneja dentro del controlador
+        // Así que solo devolvemos el resultado aquí
+        return resultado;
+    } catch (error) {
+        console.error('Error en el endpoint POST /api/crearcategoria:', error);
+        return res.status(500).json({ error: 'Error al agregar la categoria' });
+    }
+});
+
+
 // Endpoint PUT para editar una pregunta
 router.put('/api/editarpreguntas/:categoria/:dificultad/:index', async(req,res) =>{
     try{
@@ -66,6 +81,17 @@ router.delete('/api/preguntas/:categoria/:dificultad/:index', async (req,res) =>
     return res.status(500).json({ error: 'Error al eliminar la pregunta' });
   }
 });
+
+router.delete('/api/categorias/:categoria', async (req, res) => {
+  try {
+    const resultado = await eliminarCategoria(req, res);
+    return resultado;
+  } catch (error) {
+    console.error(`Error en el endpoint DELETE /api/categorias/${req.params.categoria}:`, error);
+    return res.status(500).json({ error: 'Error al eliminar la categoría' });
+  }
+});
+
 
 // Endpoint PATCH para cambiar la visibilidad de una categoría
 router.patch('/api/categorias/:categoria/visibilidad/:visible', async (req, res) => {
