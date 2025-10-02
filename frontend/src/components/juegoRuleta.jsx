@@ -5,45 +5,70 @@ const ruletaColores = [
   "#FF3366", "#33C466", "#FF3366", "#33C466", "#25B1E1", "#25B1E1", "#FFC433", "#FFC433"
 ];
 
-function JuegoRuleta({ items, onSpinEnd }) {
+function JuegoRuleta({ items = [], onSpinEnd }) {
   const ruletaRef = useRef(null);
   const [isSpinning, setIsSpinning] = useState(false);
 
   const spin = () => {
     if (isSpinning) return;
+    if (!items || items.length === 0) return;
     setIsSpinning(true);
 
-    // Mínimo 2 vueltas completas (720 grados) + un giro extra
-    const degrees = Math.floor(Math.random() * 3600) + 720;
-    ruletaRef.current.style.transform = `rotate(${degrees}deg)`;
+    const r = Math.random();
+    let candidatos;
+
+    // 45% Perdiste, 45% Sorteo, 10% API
+    if (r < 0.45) {
+      candidatos = items.filter(it => it.nombre === "Perdiste");
+    } else if (r < 0.9) {
+      candidatos = items.filter(it => it.nombre === "Sorteo");
+    } else {
+      candidatos = items.filter(it => it.nombre !== "Perdiste" && it.nombre !== "Sorteo");
+    }
+
+    // por alguna razón está vacío
+    if (!candidatos || candidatos.length === 0) candidatos = items;
+
+    const elegido = candidatos[Math.floor(Math.random() * candidatos.length)];
+
+    let min = Number(elegido.min);
+    let max = Number(elegido.max);
+
+    // por si llegan strings o indefinidos
+    if (Number.isNaN(min) || Number.isNaN(max)) {
+      // fallback: calcular sector equidistante por índice
+      const idx = items.indexOf(elegido);
+      const segAngle = 360 / items.length;
+      min = idx * segAngle;
+      max = min + segAngle;
+    }
+
+    let targetAngle = Math.random() * (max - min) + min;
+    if (targetAngle >= 360) targetAngle -= 360; // caso rango que cruza 360 (ej: 337.5..382.5)
+
+    const spins = Math.floor(Math.random() * 3) + 4; // 4..6 vueltas
+    const finalRotation = spins * 360 + (360 - targetAngle);
+
+    // Aplicar transición y rotación
+    if (ruletaRef.current) {
+      // forzar transición
+      ruletaRef.current.style.transition = "transform 4.5s cubic-bezier(0.33, 1, 0.68, 1)";
+      ruletaRef.current.style.transform = `rotate(${finalRotation}deg)`;
+    }
 
     setTimeout(() => {
       setIsSpinning(false);
-      
-      const finalAngleCSS = degrees % 360;
-      
-      const dropAngle = (360 - finalAngleCSS) % 360;
-
-      const segmentAngle = 360 / items.length;
-      
-      const selectedItem = items.find(item => {
-        return dropAngle >= item.angulo && dropAngle < item.angulo + segmentAngle;
-      });
-
-      if (selectedItem) {
-        onSpinEnd(selectedItem.nombre);
-      } else {
-        onSpinEnd(items[0].nombre); 
-      }
+      if (typeof onSpinEnd === "function") 
+        onSpinEnd(elegido.nombre);
     }, 5000);
   };
 
   return (
-    <div className="ruleta-container">
-      <svg 
+    <div className="ruleta-container" style={{ position: "relative" }}>
+      <svg
         viewBox="0 0 700 700"
         preserveAspectRatio="xMidYMid meet"
-        fill="none" 
+        fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{ width: '100%', height: '100%' }}
       >
@@ -53,9 +78,9 @@ function JuegoRuleta({ items, onSpinEnd }) {
           <path d="M6.27837 350.597C6.67562 540.362 160.835 693.874 350.602 693.477C540.37 693.08 693.885 538.923 693.488 349.159C693.091 159.394 538.931 5.88137 349.164 6.27863C159.396 6.6759 5.88111 160.833 6.27837 350.597Z" fill="url(#paint1_linear_182_59)"/>
           <path d="M53.6155 350.498C53.958 514.119 186.879 646.483 350.503 646.14C514.127 645.797 646.493 512.879 646.15 349.257C645.807 185.636 512.886 53.2724 349.263 53.615C185.639 53.9575 53.2729 186.876 53.6155 350.498Z" fill="url(#paint2_linear_182_59)"/>
         </g>
-        
+
         {/* 2. Grupo de la ruleta que gira */}
-        <g ref={ruletaRef} id="ruleta-dinamica" className="ruleta-dinamica">          
+        <g ref={ruletaRef} id="ruleta-dinamica" className="ruleta-dinamica">
           <path d="M144.785 555.832C171.954 582.888 203.123 603.439 236.392 617.523L349.883 349.878L82.7107 464.486C96.9457 497.684 117.627 528.777 144.785 555.832Z" fill="#FF3366"/>
           <path d="M143.925 144.783C116.869 171.952 96.3181 203.121 82.2334 236.389L349.883 349.878L235.273 82.7098C202.075 96.9446 170.981 117.626 143.925 144.783Z" fill="#33C466"/>
           <path d="M554.98 143.923C527.811 116.868 496.642 96.3168 463.373 82.2323L349.883 349.878L617.055 235.269C602.82 202.072 582.138 170.978 554.98 143.923Z" fill="#FF3366"/>
@@ -65,22 +90,20 @@ function JuegoRuleta({ items, onSpinEnd }) {
           <path d="M611.968 475.71C630.369 437.458 640.644 394.56 640.549 349.258C640.454 303.956 630 261.102 611.439 222.927C613.415 227.004 615.291 231.114 617.066 235.247L349.894 349.855L617.544 463.344C615.786 467.496 613.927 471.614 611.968 475.688L611.968 475.71Z" fill="#FFC433"/>
           <path d="M82.7108 464.486L349.883 349.878L82.2333 236.389C83.9911 232.237 85.8496 228.119 87.8088 224.034C69.4078 262.287 59.1222 305.184 59.217 350.486C59.3119 395.788 69.7658 438.642 88.3268 476.817C86.3505 472.741 84.4748 468.63 82.6997 464.497L82.7108 464.486Z" fill="#FFC433"/>
           {items.map((item, index) => {
-            const numItems = items.length;
-            const segmentAngle = 360 / numItems;
-            const textMidRotation = item.angulo + segmentAngle / 2;
-            const color = ruletaColores[index]; 
-            const textContent = item.nombre.toUpperCase();
+            const mid = ((Number(item.min) + Number(item.max)) / 2) % 360;
+            const color = ruletaColores[index % ruletaColores.length];
+            const textContent = String(item.nombre).toUpperCase();
             const Y_POSITION = 180;
-  
+
             return (
               <text
-                key={item.nombre + index}
+                key={String(item.nombre) + index}
                 x="350"
-                y={Y_POSITION} 
+                y={Y_POSITION}
                 textAnchor="middle"
                 dominantBaseline="middle"
                 transform={`
-                  rotate(${textMidRotation} 350 350)
+                  rotate(${mid} 350 350)
                   translate(170, 170)
                 `}
                 className="ruleta-texto-categoria"
@@ -89,9 +112,9 @@ function JuegoRuleta({ items, onSpinEnd }) {
 
                 {textContent.split('\n').map((line, lineIndex) => (
                   <tspan 
-                    key={lineIndex} 
-                    x="350"
-                    dy={lineIndex === 0 ? "0" : "1.2em"}
+                  key={lineIndex} 
+                  x="350" 
+                  dy={lineIndex === 0 ? "0" : "1.2em"}
                   >
                     {line}
                   </tspan>
@@ -100,7 +123,7 @@ function JuegoRuleta({ items, onSpinEnd }) {
             );
           })}
         </g>
-        
+
         {/* 3. Grupo del centro y marcador estático */}
         <g id="ruleta-centro-estatico">
           <path style={{ mixBlendMode: 'multiply' }} d="M59.2169 350.486C59.553 511.014 189.961 640.875 350.491 640.539C511.022 640.203 640.885 509.797 640.549 349.269C640.213 188.741 509.805 58.8803 349.275 59.2164C188.744 59.5525 58.8809 189.958 59.2169 350.486Z" fill="url(#paint3_radial_182_59)"/>
@@ -171,9 +194,9 @@ function JuegoRuleta({ items, onSpinEnd }) {
           </linearGradient>
         </defs>
       </svg>
-      <button 
-        onClick={spin} 
-        disabled={isSpinning} 
+      <button
+        onClick={spin}
+        disabled={isSpinning}
         className="ruleta-boton-centro"
       >
       </button>

@@ -6,9 +6,6 @@ import JuegoRuleta from "../components/juegoRuleta";
 import PreguntaCard from "../components/preguntaCard";
 import "./css/Ruleta.css";
 
-// Obtén la URL de la API desde la variable de entorno
-// const API_URL = process.env.REACT_APP_API_URL; 
-
 const mezclarCategorias = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -16,6 +13,17 @@ const mezclarCategorias = (array) => {
   }
   return array;
 };
+
+const rangosAngulos = [
+  { min: 22.5, max: 67.5 },
+  { min: 67.5, max: 112.5 },
+  { min: 112.5, max: 157.5 },
+  { min: 157.5, max: 202.5 },
+  { min: 202.5, max: 247.5 },
+  { min: 247.5, max: 292.5 },
+  { min: 292.5, max: 337.5 },
+  { min: 337.5, max: 382.5 } // cierre del círculo hasta 22.5°
+];
 
 function Ruleta() {
   const navigate = useNavigate();
@@ -28,9 +36,6 @@ function Ruleta() {
 
   useEffect(() => {
     if (!dificultadElegida) {
-      console.error("No se proporcionó la dificultad en la URL.");
-      // Podrías redirigir a la página de selección de dificultad o a la Home
-      // navigate('/'); 
       setFaseDelJuego("error");
       return;
     }
@@ -41,7 +46,7 @@ function Ruleta() {
           throw new Error(`Error en la carga: ${response.statusText}`);
         }
         const data = await response.json();
-        setJuegoData(data);
+        setJuegoData(data); 
         setFaseDelJuego("ruletaCategorias");
       } catch (err) {
         console.error("No se pudo cargar la información del juego:", err);
@@ -52,18 +57,19 @@ function Ruleta() {
     fetchData();
   }, [dificultadElegida]);
 
+  if (faseDelJuego === "cargando") return <div className="loading-screen">Cargando datos del juego...</div>;
+  if (faseDelJuego === "error") return <div className="error-screen">Ocurrió un error al cargar los datos.</div>;
+
   const categoriasDesdeAPI = juegoData ? Object.keys(juegoData) : [];
+
   const categoriasAMezclar = [...categoriasDesdeAPI.slice(0, 3), "Sorteo", "Sorteo", "Perdiste", "Perdiste", "Perdiste"];
 
   // Baraja y luego asigna los ángulos
-  const categoriasConAngulos = mezclarCategorias(categoriasAMezclar).map((nombre, index, array) => {
-    const totalAngulo = 360 / array.length;
-    const angulo = (totalAngulo * index) + 22.5;
-    return {
-      nombre,
-      angulo
-    };
-  });
+  const categoriasConAngulos = mezclarCategorias(categoriasAMezclar).map((nombre, i) => ({
+    nombre,
+    min: rangosAngulos[i].min,
+    max: rangosAngulos[i].max
+  }));
 
   const volverALaRuleta = () => {
     setFaseDelJuego("ruletaCategorias");
@@ -80,34 +86,24 @@ function Ruleta() {
       return;
     }
 
-    const preguntas = juegoData.categorias[categoria][dificultadElegida];
-    if (!preguntas || preguntas.length === 0) {
-        setFaseDelJuego("ruletaCategorias"); 
-        return;
+    const preguntas = juegoData[categoria]?.[dificultadElegida] || [];
+    if (!preguntas.length) {
+      setFaseDelJuego("ruletaCategorias"); 
+      return;
     }
     
     const preguntaAleatoria = preguntas[Math.floor(Math.random() * preguntas.length)];
-    
-    const preguntaConCategoria = { ...preguntaAleatoria, categoria }; 
-    setPreguntaActual(preguntaConCategoria);
+    setPreguntaActual({ ...preguntaAleatoria, categoria });
     setFaseDelJuego("preguntasCard");
   };
     
-  if (faseDelJuego === "cargando") {
-    return <div className="loading-screen">Cargando datos del juego...</div>;
-  }
-
-  if (faseDelJuego === "error") {
-    return <div className="error-screen">Ocurrió un error al cargar los datos.</div>;
-  }
-
   return (
     <div className="game-page-container">
       {faseDelJuego === "ruletaCategorias" && (
         <div className="ruleta-fase">
-          <JuegoRuleta
-            items={categoriasConAngulos}
-            onSpinEnd={handleCategoriaSeleccionada}
+          <JuegoRuleta 
+          items={categoriasConAngulos} 
+          onSpinEnd={handleCategoriaSeleccionada}
           />
         </div>
       )}
@@ -119,19 +115,19 @@ function Ruleta() {
       {/* FASE: Ganaste Sorteo (Tarjeta de Mensaje) */}
       {faseDelJuego === "ganasteSorteo" && (
         <div className="modal-overlay">
-          <Confetti
-          width={width}
-          height={height}
+          <Confetti 
+          width={width} 
+          height={height} 
           numberOfPieces={400} // Puedes ajustar la cantidad
           recycle={false} // ¡Importante! Hace que dispare una vez y luego desaparezca
           tweenDuration={5000} // Duración del efecto (en milisegundos)
-        />
+          />
           <div className="mensaje-card sorteo-ganado">
             <img src="https://emojis.wiki/thumbs/emojis/star-struck.webp" alt="emoji felicitaciones" className="emoji"/>          
             <h1>¡Felicidades!</h1>
             <p>Has caído en la casilla "SORTEO"</p>
             <p>Estás participando por grandes premios.</p>
-          <button className="close-btn" onClick={volverALaRuleta}>Volver</button>
+            <button className="close-btn" onClick={volverALaRuleta}>Volver</button>
           </div>
         </div>
       )}
