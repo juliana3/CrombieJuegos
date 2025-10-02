@@ -1,11 +1,14 @@
 // PaginaPremio.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/premioCard.css';
 
 export default function PaginaPremio() {
   const [premio, setPremio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [noPremios, setNoPremios] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     obtenerYAsignarPremio();
@@ -22,7 +25,9 @@ export default function PaginaPremio() {
       const premios = await response.json();
       
       if (!premios || premios.length === 0) {
-        throw new Error('No hay premios disponibles');
+        setNoPremios(true);
+        setLoading(false);
+        return;
       }
 
       // Seleccionar premio aleatorio
@@ -39,7 +44,6 @@ export default function PaginaPremio() {
       if (!descontarResponse.ok) throw new Error('Error al descontar stock');
       
       setPremio(premioAleatorio);
-      setPremio(premioAleatorio);
       console.log('Premio completo:', premioAleatorio);
       console.log('URL generada:', getImageUrl(premioAleatorio.imagen));
       setLoading(false);
@@ -54,6 +58,10 @@ export default function PaginaPremio() {
     return `/api/premios/imagen/${driveId}`;
   };
 
+  const handleGoHome = () => {
+    navigate('/'); // Redirige a la ruta raíz (Home)
+  };
+
   if (loading) {
     return (
       <div className="premio-card-container">
@@ -62,6 +70,21 @@ export default function PaginaPremio() {
     );
   }
 
+  if (noPremios) {
+    return (
+      <div className="premio-card-container">
+        <div className="no-premios-content">
+          <div className="no-premios-message">
+            ⚠️ ¡Se agotaron los premios!
+          </div>
+          <button className="home-button" onClick={handleGoHome}>
+            Volver al Inicio
+          </button>
+        </div>
+        
+      </div>
+    );
+  }
   if (error) {
     return (
       <div className="premio-card-container">
@@ -73,13 +96,9 @@ export default function PaginaPremio() {
   return (
     <div className="premio-card-container">
       {/* Letrero GANASTE */}
-      <div className="ganaste-badge">
-        <div className="badge-border-animated">
-          <div className="badge-inner">
-            <h1 className="ganaste-text">¡GANASTE!</h1>
-          </div>
-        </div>
-      </div>
+
+      <img className="ganaste-badge" src="/Ganaste.svg" alt="ganaste" />
+
 
       {/* Premio */}
       <div className="premio-display">
@@ -97,23 +116,8 @@ export default function PaginaPremio() {
       </div>
 
       {/* Logo Crombie */}
-      <div className="crombie-logo">
-        <div className="logo-lines">
-          <div className="line-group">
-            <div className="line line-long"></div>
-            <div className="line line-short"></div>
-          </div>
-          <div className="line-group">
-            <div className="line line-long"></div>
-            <div className="line line-medium"></div>
-          </div>
-          <div className="line-group">
-            <div className="line line-long"></div>
-            <div className="line line-medium-short"></div>
-          </div>
-        </div>
-        <span className="crombie-text">Crombie</span>
-      </div>
+    
+      <img className="crombie-logo" src="/cropped2.svg" alt="Logo" />
     </div>
   );
 }
