@@ -127,9 +127,11 @@ function Ruleta() {
           tweenDuration={5000} // Duración del efecto (en milisegundos)
         />
           <div className="mensaje-card sorteo-ganado">
-            <button className="close-btn" onClick={volverALaRuleta}>X</button>
-            <h1>🎉 ¡Felicidades! 🎉</h1>
-            <p>¡Has caído en la casilla **SORTEO**! Estás participando por grandes premios.</p>
+            <img src="https://emojis.wiki/thumbs/emojis/star-struck.webp" alt="emoji felicitaciones" className="emoji"/>          
+            <h1>¡Felicidades!</h1>
+            <p>Has caído en la casilla "SORTEO"</p>
+            <p>Estás participando por grandes premios.</p>
+          <button className="close-btn" onClick={volverALaRuleta}>Volver</button>
           </div>
         </div>
       )}
@@ -138,9 +140,11 @@ function Ruleta() {
       {faseDelJuego === "perdisteRonda" && (
         <div className="modal-overlay">
           <div className="mensaje-card ronda-perdida">
-            <button className="close-btn" onClick={volverALaRuleta}>X</button>
-            <h1>😔 Lo Sentimos 😔</h1>
-            <p> Has caído en la casilla **PERDISTE**. La ronda ha terminado para ti.</p>
+            <img src="https://th.bing.com/th/id/R.4dfca1913a84cbb1b199ce3cab893696?rik=AX6%2fX6qe%2fNL%2fkg&pid=ImgRaw&r=0" alt="emoji perdiste" className="emoji"/>  
+            <h1>Lo Sentimos</h1>
+            <p>Has caído en la casilla "PERDISTE"</p>
+            <p>La ronda ha terminado para ti.</p>
+            <button className="close-btn" onClick={volverALaRuleta}>Volver</button>
           </div>
         </div>
       )}

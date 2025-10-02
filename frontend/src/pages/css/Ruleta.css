@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+
 .ruleta-container {
     /* Contenedor principal para centrar y dimensionar la ruleta */
     display: flex;
@@ -41,8 +43,8 @@
     border: none;;
     cursor: pointer;
     z-index: 10;
-  font-weight: bold;
-  outline: none;
+    font-weight: bold;
+    outline: none;
 }
 
 /* Estilos del texto dentro del SVG (opcional, si no usas font-size en el SVG) */
@@ -77,6 +79,7 @@
 /* 2. Tarjeta de Contenido del Mensaje */
 .mensaje-card {
     /* Dimensiones y apariencia */
+    font-family: 'Hanken Grotesk', sans-serif;
     width: 90%;
     max-width: 450px; /* Ancho máximo para desktop */
     padding: 30px;
@@ -96,23 +99,33 @@
     animation: fadeInScale 0.3s forwards;
 }
 
+.emoji{
+    height: 65px; 
+    width: auto; 
+    margin: 0 auto 0 auto; 
+    display: block;
+}
+
 .mensaje-card h1 {
+    font-family: 'Hanken Grotesk', sans-serif;
     font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: #333;
+    margin: 0; 
+    margin-bottom: 10px;
 }
 
 .mensaje-card p {
-    font-size: 1.1rem;
-    color: #555;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 1.2rem;
+    margin: 5px 0; 
 }
 
 .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
+    font-family: 'Hanken Grotesk', sans-serif;
+    margin-top: 10px;
+    background: #FFC432;
+    border: 1px;
+    padding: 10px;
+    border-radius: 20px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
