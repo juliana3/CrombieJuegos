@@ -1,10 +1,5 @@
+/* difficultyselection.css */
 .contenedor-dificultad {
-  min-height: 100vh; /* altura completa del viewport */
-  width: 100%;
-  background-image: url('fondo.svg'); /* tu fondo */
-  background-size: cover;      /* ocupa todo el contenedor */
-  background-position: center; /* centrado */
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,12 +9,6 @@
 
 .h1 {
   color: white !important;
-}
-
-.header-img-Difficulty {
-    margin: 70px;
-    margin-top: -75px;
-    width: 200px;
 }
 
 .botones-dificultad {
@@ -66,7 +55,6 @@
 
 @media (max-width: 768px) {
   .contenedor-dificultad {
-    background-image: url('fondotablet.svg');
     /* Para centrar todo el contenido (título y botones) horizontalmente en la pantalla */
     align-items: center; 
         

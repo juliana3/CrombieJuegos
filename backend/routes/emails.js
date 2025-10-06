@@ -10,6 +10,8 @@ const emailsController = require('../controllers/emailsController');
 console.log('Rutas de emails cargadas')
 
 // Ruta para guardar mails
-router.post('/emails', emailsController.guardarMail);
+router.post('/api/emails', emailsController.guardarMail);
+
+router.post('/api/sorteo', emailsController.participarEnSorteo);
 
 module.exports = router;

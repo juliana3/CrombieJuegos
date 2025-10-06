@@ -1,46 +1,9 @@
-/* Reset y altura completa */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
-input{
-  background: #d2e1e5;
-}
-
-.acepta-mails {
-  color: #d2e1e5;          /* blanco sobre fondo */
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 10px;   /* separa un poco del botón */
-  line-height: 1.4;
-}
-
-/* Contenedor principal */
-.dashboard-container {
-  min-height: 100vh;
-  width: 100%;
-  background-image: url('./public/fondo.svg'); /* tu fondo */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-/* Logo centrado arriba */
 .dashboard-logo {
   margin: 70px;
   margin-top: -75px;
   width: 200px;
 }
 
-/* Formulario centrado */
 .dashboard-form {
   display: flex;
   flex-direction: column;
@@ -48,7 +11,6 @@ input{
   width: 300px;
 }
 
-/* Inputs estilizados */
 .dashboard-form input {
   padding: 12px 16px;
   font-size: 16px;
@@ -63,7 +25,6 @@ input{
   box-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
 }
 
-/* Botón continuar */
 .continuar-button {
   padding: 14px 0;
   font-size: 18px;
@@ -86,12 +47,7 @@ input{
   transform: translateY(1px);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  .dashboard-container{
-    background-image: url('fondotablet.svg');
-  }
-
   .dashboard-logo {
     width: 150px;
     margin-bottom: 30px;

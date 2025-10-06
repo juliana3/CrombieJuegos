@@ -24,3 +24,28 @@ exports.guardarMail = async (req, res) => {
     }
 };
 
+exports.participarEnSorteo = async (req, res) => {
+    try {
+        const ultimo = await googleSheets.getUltimoEmail();
+
+        if (!ultimo || !ultimo.email) {
+            return res.status(400).json({ message: 'No hay jugador registrado.' });
+        }
+
+        const ok = await googleSheets.guardarParticipanteSorteo(
+            ultimo.email,
+            ultimo.nombre,
+            ultimo.apellido,
+            ultimo.fecha
+        );
+
+        if (ok) {
+            return res.status(200).json({ message: 'Participación registrada correctamente.' });
+        } else {
+            return res.status(500).json({ message: 'Error al guardar participación.' });
+        }
+    } catch (e) {
+        console.error('Error en participarEnSorteo:', e);
+        res.status(500).json({ message: 'Error interno del servidor.' });
+    }
+};

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const PreguntaCard = () => {
+const PreguntaCard = ({ pregunta, opciones, onSeleccionar }) => {
     return (
-        <div className="premio-card">
-            <h2>{GANASTE}</h2>
+        <div className="pregunta-card">
+            <h2>{pregunta}</h2>
             <ul>
                 {opciones.map((opcion, idx) => (
                     <li key={idx}>

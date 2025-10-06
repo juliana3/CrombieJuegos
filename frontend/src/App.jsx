@@ -1,26 +1,24 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import DifficultySelection from "./pages/DifficultySelection.jsx";
-import Dashboard from "./pages/Dashboard";
-import Ruleta from "./pages/Ruleta.jsx";
-import PremioCard from "./pages/premioCard.jsx";
-
-import Preguntas from "./pages/GestorPreguntas/gestorPreguntas.jsx";
+// src/App.jsx
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import DifficultySelection from './pages/DifficultySelection';
+import Dashboard from './pages/Dashboard';
+import Ruleta from './pages/Ruleta';
+import Configuracion from './pages/Configuracion';
+import './App.css';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/Preguntas" element={<Preguntas />} />
-      <Route path="/DifficultySelection" element={<DifficultySelection />} />
-      <Route path="/Ruleta" element={<Ruleta />} />
-      <Route path="/Dashboard" element={<Dashboard />} />
-      <Route path="/PremioCard" element={<PremioCard />} /> 
-
-
-      
-      {/* <Route path="/GestorPremios" element={<GestorPremios />} /> */}
-    </Routes>
+    <div className="app-global-container">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/configuracion" element={<Configuracion />} />
+        <Route path="/seleccion-dificultad" element={<DifficultySelection />} />
+        <Route path="/registro/:dificultad" element={<Dashboard />} />
+        <Route path="/ruleta/:dificultad" element={<Ruleta />} />
+      </Routes>
+    </div>
   );
 }
 
