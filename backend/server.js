@@ -1,14 +1,14 @@
 const express = require('express');
 const preguntasRoutes = require('./routes/preguntas'); // Importa las rutas de preguntas
 const premiosRoutes = require('./routes/premios'); // Importa las rutas de premios
-//const emailsRoutes = require('./routes/emails'); // Importa las rutas de emails (si las tienes)
+const emailsRoutes = require('./routes/emails'); // Importa las rutas de emails (si las tienes)
 const { leerPreguntas, leerPremios } = require('./utils/fileHandler');
 
 const app = express();
 const puerto = 3000;
 
 app.use(express.json());
-//app.use(emailsRoutes);
+app.use(emailsRoutes);
 app.use(preguntasRoutes);
 app.use(premiosRoutes);
 

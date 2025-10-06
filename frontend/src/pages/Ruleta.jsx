@@ -71,12 +71,19 @@ function Ruleta() {
     max: rangosAngulos[i].max
   }));
 
-  const volverALaRuleta = () => {
-    setFaseDelJuego("ruletaCategorias");
+  const irARegistro = () => {
+    navigate(`/registro/${dificultadElegida}`);
   };
 
-  const handleCategoriaSeleccionada = (categoria) => {
+  const handleCategoriaSeleccionada = async (categoria) => {
     if (categoria === "Sorteo") {
+      try {
+      const response = await fetch('/api/sorteo', { method: 'POST' });
+      const data = await response.json();
+      console.log('Respuesta del servidor:', data);
+    } catch (error) {
+      console.error('Error al registrar sorteo:', error);
+    }
       setFaseDelJuego("ganasteSorteo");
       return;
     }
@@ -127,7 +134,7 @@ function Ruleta() {
             <h1>¡Felicidades!</h1>
             <p>Has caído en la casilla "SORTEO"</p>
             <p>Estás participando por grandes premios.</p>
-            <button className="close-btn" onClick={volverALaRuleta}>Volver</button>
+            <button className="close-btn" onClick={irARegistro}>Volver</button>
           </div>
         </div>
       )}
@@ -140,7 +147,7 @@ function Ruleta() {
             <h1>Lo Sentimos</h1>
             <p>Has caído en la casilla "PERDISTE"</p>
             <p>La ronda ha terminado para ti.</p>
-            <button className="close-btn" onClick={volverALaRuleta}>Volver</button>
+            <button className="close-btn" onClick={irARegistro}>Volver</button>
           </div>
         </div>
       )}

@@ -22,7 +22,7 @@ function Dashboard() {
     const payload = { nombre, apellido, email };
 
     try {
-      const response = await fetch("/api/usuarios", {
+      const response = await fetch("/api/emails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ function Dashboard() {
       }
 
       const data = await response.json();
-      console.log("Usuario creado:", data);
+      //console.log("Usuario creado:", data);
 
       // Redirigir después de presionar continuar
       navigate(`/ruleta/${dificultadElegida}`); // Ajusta la ruta que quieras
@@ -48,7 +48,9 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
 
-      <img className="dashboard-logo" src="cropped2.svg" alt="Logo" />
+      <div className="cro">
+        <img className="cropped2-img" src="/cropped2.svg" alt="Logo" />
+      </div>
 
       <form className="dashboard-form" onSubmit={handleSubmit}>
         <input
@@ -56,21 +58,21 @@ function Dashboard() {
           placeholder="Nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
-          // required
+          required
         />
         <input
           type="text"
           placeholder="Apellido"
           value={apellido}
           onChange={(e) => setApellido(e.target.value)}
-          // required
+          required
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          // required
+          required
         />
 
         <button type="submit" className="continuar-button">

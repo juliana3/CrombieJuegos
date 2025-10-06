@@ -127,11 +127,62 @@ const guardarDatosEnSheets = async (nombre, apellido, email) => {
     }
 };
 
+const getUltimoEmail = async () => {
+    const sheetsService = await getSheetsService();
+    if (!sheetsService) return null;
 
+    try {
+        const response = await sheetsService.spreadsheets.values.get({
+            spreadsheetId: ID_HOJA_SHEETS_MAILS,
+            range: 'eventos!A:D', // columnas: Fecha | Nombre | Apellido | Email
+        });
+
+        const rows = response.data.values;
+        if (!rows || rows.length < 2) {
+            console.log('No hay registros en la hoja.');
+            return null;
+        }
+
+        const ultimaFila = rows[rows.length - 1];
+        const [fecha, nombre, apellido, email] = ultimaFila;
+
+        console.log(`Último jugador encontrado: ${nombre} ${apellido} (${email})`);
+        return { fecha, nombre, apellido, email };
+
+    } catch (e) {
+        console.error('Error al obtener el último email de Google Sheets:', e);
+        return null;
+    }
+};
+
+const guardarParticipanteSorteo = async (email, nombre = '', apellido = '', fecha = null) => {
+    const sheetsService = await getSheetsService();
+    if (!sheetsService) return false;
+
+    const fechaRegistro = fecha || new Date().toLocaleString('es-AR');
+    const values = [[fechaRegistro, nombre, apellido, email]];
+
+    try {
+        await sheetsService.spreadsheets.values.append({
+            spreadsheetId: ID_HOJA_SHEETS_MAILS, // misma hoja, distinta pestaña
+            range: 'SORTEO!A1', // se guarda en la hoja "sorteo"
+            valueInputOption: 'USER_ENTERED',
+            resource: { values },
+        });
+
+        console.log(`Participante ${nombre} ${apellido} (${email}) registrado en el sorteo.`);
+        return true;
+    } catch (e) {
+        console.error('Error al guardar participante del sorteo en Google Sheets:', e);
+        return false;
+    }
+};
 
 // Exportamos las funciones que serán utilizadas por otros módulos
 module.exports = {
     getDriveService,
     subirImagenADrive,
     guardarDatosEnSheets,
+    getUltimoEmail,
+    guardarParticipanteSorteo,
 };
