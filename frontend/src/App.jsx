@@ -5,7 +5,10 @@ import Home from './pages/Home';
 import DifficultySelection from './pages/DifficultySelection';
 import Dashboard from './pages/Dashboard';
 import Ruleta from './pages/Ruleta';
-import Configuracion from './pages/Configuracion';
+import GestorPreguntas from './pages/GestorPreguntas/GestorPreguntas';
+import Ganaste from './pages/premioCard';
+
+//import GestorPremios from './pages/GestorPremios';
 import './App.css';
 
 function App() {
@@ -13,10 +16,12 @@ function App() {
     <div className="app-global-container">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/configuracion" element={<Configuracion />} />
         <Route path="/seleccion-dificultad" element={<DifficultySelection />} />
         <Route path="/registro/:dificultad" element={<Dashboard />} />
         <Route path="/ruleta/:dificultad" element={<Ruleta />} />
+        <Route path="/gestor-preguntas" element={<GestorPreguntas />} />
+        <Route path="/ganaste" element={<Ganaste />} />
+        {/* <Route path="/gestor-premios" element={<GestorPremios />} /> */}
       </Routes>
     </div>
   );

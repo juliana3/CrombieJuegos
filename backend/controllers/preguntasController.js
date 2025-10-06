@@ -26,12 +26,30 @@ exports.listarPreguntas = async () => {
   }
 };
 
+//Lista solamente las categorias con sus nombres y visibilidad
+exports.listarCategorias = async () => {
+  try {
+    const preguntasData = await leerPreguntas();
+    // Mapeamos las categorías para devolver solo el nombre y la visibilidad
+    return Object.entries(preguntasData.categorias).map(([nombre, datos]) => ({
+      nombre,
+      visible: datos.visible
+    }));
+  } catch (error) {
+    console.error('Error en la lógica de listarCategorias:', error);
+    throw new Error('Error al intentar leer las categorías desde el controlador');
+  }
+};
+
+
 // Agrega una pregunta a una categoría y dificultad
 exports.agregarPregunta = async (req, res) => {
   const { categoria, dificultad = 'facil', pregunta, respuesta_correcta, opciones } = req.body;
 
-  if (!categoria || !pregunta || !respuesta_correcta || !Array.isArray(opciones) || opciones.length !== 4) {
-    return res.status(400).json({ error: 'Faltan campos requeridos o formato incorrecto. Esperado: categoria, dificultad, pregunta, respuesta_correcta, opciones[4].' });
+  if (!categoria || !pregunta || typeof respuesta_correcta !== 'number' || respuesta_correcta < 1 || respuesta_correcta > 4 || !Array.isArray(opciones) || opciones.length !== 4) {
+    return res.status(400).json({ 
+      error: 'Faltan campos requeridos o formato incorrecto. Esperado: categoria, dificultad, pregunta, respuesta_correcta (número 1-4), opciones[4].' 
+    });
   }
 
   const dif = dificultad.toLowerCase();
@@ -42,30 +60,73 @@ exports.agregarPregunta = async (req, res) => {
   try {
     const preguntasData = await leerPreguntas();
 
-    // Si la categoría no existe, la creamos con la estructura de niveles
-    if (!preguntasData.categorias) preguntasData.categorias = {};
-    if (!preguntasData.categorias[categoria]) {
-      preguntasData.categorias[categoria] = { facil: [], medio: [], dificil: [], visible: true };
+    // CORRECCIÓN: Si no existe el objeto 'categorias', lo creamos.
+    if (!preguntasData.categorias) {
+      preguntasData.categorias = {};
     }
 
-    // Formato interno: { pregunta, opciones: [...], respuesta_correcta }
-    const nuevaPregunta = {
-      pregunta,
-      opciones: opciones,
-      respuesta_correcta: respuesta_correcta
-    };
+    // CORRECCIÓN: Si la categoría específica no existe, la creamos con su estructura completa.
+    if (!preguntasData.categorias[categoria]) {
+      preguntasData.categorias[categoria] = { visible: true, facil: [], medio: [], dificil: [] };
+    }
 
+    const nuevaPregunta = { pregunta, opciones, respuesta_correcta };
+
+    // CORRECCIÓN: Accedemos a la estructura correcta: preguntasData.categorias[categoria]
     preguntasData.categorias[categoria][dif].push(nuevaPregunta);
 
     const ok = await guardarPreguntas(preguntasData);
     if (!ok) throw new Error('No se pudo guardar preguntas');
 
-    return res.status(201).json(nuevaPregunta);
+    // Devolver la categoría actualizada
+    return res.status(201).json(preguntasData.categorias[categoria]);
   } catch (error) {
     console.error('Error agregarPregunta:', error);
     return res.status(500).json({ error: 'Error al agregar la pregunta' });
   }
 };
+
+// Crea una nueva categoría 
+exports.crearCategoria = async (req, res) => {
+  const { categoria, visible = true } = req.body;
+
+  if (!categoria || typeof categoria !== 'string') {
+    return res.status(400).json({
+      error: 'Falta el nombre de la categoría o no es válido. Se espera un nombre de categoría como string.'
+    });
+  }
+
+  try {
+    const preguntasData = await leerPreguntas();
+
+    // Si ya existe la categoría, retornamos un error
+    if (preguntasData.categorias && preguntasData.categorias[categoria]) {
+      return res.status(400).json({ error: `La categoría '${categoria}' ya existe.` });
+    }
+
+    // Crear la nueva categoría con la estructura base
+    if (!preguntasData.categorias) {
+      preguntasData.categorias = {};
+    }
+
+    // La categoría tiene que tener una estructura con las preguntas vacías por dificultad
+    preguntasData.categorias[categoria] = { visible, facil: [], medio: [], dificil: [] };
+
+    // Guardamos los datos actualizados
+    const ok = await guardarPreguntas(preguntasData);
+    if (!ok) throw new Error('No se pudo guardar las preguntas después de crear la categoría.');
+
+    // Respondemos con la nueva categoría creada
+    return res.status(201).json(preguntasData.categorias[categoria]);
+  } catch (error) {
+    console.error('Error crearCategoria:', error);
+    return res.status(500).json({ error: 'Error al crear la categoría' });
+  }
+};
+
+
+
+
 
 // Edita una pregunta por índice en una categoría y dificultad
 // Params esperados: /preguntas/:categoria/:dificultad/:index
@@ -98,9 +159,11 @@ exports.editarPregunta = async (req, res) => {
 
     // Actualizamos campos si vienen
     if (pregunta) preguntaExistente.pregunta = pregunta;
-    if (respuesta_correcta) {
-      preguntaExistente.respuesta_correcta = respuesta_correcta;
-    }
+if (typeof respuesta_correcta === 'number' && respuesta_correcta >= 1 && respuesta_correcta <= 4) {
+  preguntaExistente.respuesta_correcta = respuesta_correcta;
+}
+
+
     if (opciones && Array.isArray(opciones) && opciones.length === 4) {
       preguntaExistente.opciones = opciones;
     }
@@ -175,6 +238,40 @@ exports.cambiarVisibilidadCategoria = async (req, res, visible) => {
     return res.status(500).json({ error: 'Error al cambiar la visibilidad de la categoría' });
   }
 };
+// En controllers/preguntasController.js
+
+exports.eliminarCategoria = async (req, res) => {
+  const { categoria } = req.params;
+
+  if (!categoria) {
+    return res.status(400).json({ error: 'Se debe especificar la categoría a eliminar' });
+  }
+
+  try {
+    const preguntasData = await leerPreguntas();
+
+    if (!preguntasData.categorias || !preguntasData.categorias[categoria]) {
+      return res.status(404).json({ error: 'Categoría no encontrada' });
+    }
+
+    // Eliminar la categoría
+    delete preguntasData.categorias[categoria];
+
+     if (Object.keys(preguntasData.categorias).length === 0) {
+       preguntasData.categorias = {};
+    }
+
+    const ok = await guardarPreguntas(preguntasData);
+    if (!ok) throw new Error('No se pudo guardar después de eliminar la categoría');
+
+    return res.json({ message: `Categoría '${categoria}' eliminada correctamente` });
+  } catch (error) {
+    console.error('Error eliminarCategoria:', error);
+    return res.status(500).json({ error: 'Error al eliminar la categoría' });
+  }
+};
+
+
 
 
 
@@ -183,5 +280,3 @@ exports.cambiarVisibilidadCategoria = async (req, res, visible) => {
 //eliminar pregunta
 
 //Cambiar estado de visibilidad de categoria
-
-
