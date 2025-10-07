@@ -18,82 +18,6 @@
   box-sizing: border-box;
 }
 
-/* TABLET: Layout vertical centrado */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .premio-card-container {
-    background-image: url('fondo_premio_tablet.svg');
-    justify-content: flex-start;
-    padding-top: 6rem;
-    gap: 0.5rem; /* ¡AJUSTE MÁXIMO! Reducido el gap vertical. */
-  }
-
-  .ganaste-badge {
-    width: 250px;
-    height: auto;
-    margin-bottom: 0.5rem; 
-    margin-left: 0.5rem;
-  }
-
-  .premio-display {
-    margin-bottom: 0;
-  }
-
-  .crombie-logo {
-   display: block !important; 
-    margin-top: -2rem; 
-    width: 200px; /* Tamaño del logo en tablet. */
-    height: auto;
-  }
-}
-
-/* DESKTOP: Layout horizontal */
-@media (min-width: 1025px) {
-  .premio-card-container {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem; /* ¡AJUSTE MÁXIMO! Reducido el gap horizontal. */
-    padding: 2rem 4rem;
-  }
-
-  .ganaste-badge {
-    width: 350px;
-    height: auto;
-    margin-bottom: 0.5rem; 
-    margin-left: 10rem;
-  }
-
-  .premio-display {
-    margin-bottom: 0;
-    margin-left: 0; 
-    margin-right: 5.5rem;
-    margin-top: 2rem;
-  }
-
-  .crombie-logo {
-    display: none; /* OCULTA EL LOGO EN DESKTOP */
-  }
-}
-
-/* Loading y Error */
-.loading-message,
-.error-message, .no-premios-message {
-    /* Mantenemos tus estilos existentes, solo revisa el padding y el color */
-    margin-bottom: 1.5rem;
-    color: white;
-    font-size: 2.5rem;
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 2rem 3rem;
-    border-radius: 1rem;
-    /* Si tienes la animación 'pulse', se mantiene */
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
 /* Letrero GANASTE */
 .ganaste-badge {
   /* ✨ CLAVE: Animación completa */
@@ -111,20 +35,6 @@
   }
 }
 
-
-
-@keyframes gradient-rotate {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 200% 50%;
-  }
-}
-
-
-
-
 /* Premio Display */
 .premio-display {
   margin-bottom: 3rem; 
@@ -139,27 +49,24 @@
   transform: scale(1.05);
 }
 
+/* --------------------------------- */
+/* ESTILOS BASE (DEFAULT) DE LA IMAGEN */
+/* --------------------------------- */
 .premio-imagen {
-  width: 560px;
+  width: 560px; /* Ancho base */
   height: auto;
   max-height: 60vh;
   object-fit: contain;
   filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .premio-imagen {
-    width: 700px;
-    max-height: 50vh;
-  }
+
+/* 🛑 ESTILO PARA IMAGEN PEQUEÑA (small-size) - Base */
+.premio-imagen.size-small {
+  width: 350px; 
+  max-width: 70vw; 
 }
 
-@media (min-width: 1025px) {
-  .premio-imagen {
-    width: 800px;
-    max-height: 90vh;
-  }
-}
 
 .premio-placeholder {
   background-color: #1f2937;
@@ -177,62 +84,21 @@
   align-self: center
 }
 
-
-@media (min-width: 1025px) {
-  .crombie-logo {
-    display: none; /* OCULTA EL LOGO EN DESKTOP */
-  }
+/* Loading y Error */
+.loading-message,
+.error-message, .no-premios-message {
+  margin-bottom: 1.5rem;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem 3rem;
+  border-radius: 1rem;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .premio-card-container {
-    background-image: url('fondo_premio_tablet.svg');
-    padding: 2rem 1rem;
-  }
-
-  
-  .premio-imagen {
-    width: 450px;
-    max-width: 90vw;
-  }
-
-  .crombie-logo {
-    display: block !important; 
-    margin-top: -2rem; 
-    width: 200px; /* Tamaño del logo en tablet. */
-    height: auto;
-  }
-
-  .premio-placeholder {
-    font-size: 1.5rem;
-    padding: 2rem;
-  }
-
-  .ganaste-badge {
-    width: 250px;
-    height: auto;
-    margin-bottom: 0.5rem; 
-    margin-left: 0.5rem;
-  }
-
-  .premio-display {
-    margin-bottom: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .premio-imagen {
-    width: 350px;
-    max-width: 85vw;
-  }
-
-
-}
-
+/* Botón Home */
 .home-button {
-  margin-top:  1.5rem;
+  margin-top: 1.5rem;
   margin-right: 0;
   background: #00bfff; /* celeste */
   color: white;
@@ -256,14 +122,158 @@
 }
 
 .no-premios-content {
-    /* Convierte este div en un contenedor Flexbox */
-    display: flex;
-    flex-direction: column; 
-    /* Centra los elementos horizontalmente */
-    align-items: center; 
-    /* Opcional: Asegura que el contenedor no ocupe todo el ancho si no es necesario */
-    max-width: 90%; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  max-width: 90%; 
+}
+
+/* Keyframes */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes gradient-rotate {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
 
+/* ================================================= */
+/* MEDIA QUERIES (RESPONSIVE DESIGN) */
+/* ================================================= */
 
+/* MOBILE PEQUEÑO (max-width: 480px) */
+@media (max-width: 480px) {
+  .premio-imagen {
+    width: 350px;
+    max-width: 85vw;
+  }
+  
+  /* 🛑 IMAGEN PEQUEÑA EN MOBILE PEQUEÑO */
+  .premio-imagen.size-small {
+    width: 280px;
+    max-width: 60vw;
+  }
+}
+
+/* MOBILE ESTÁNDAR (max-width: 768px) */
+@media (max-width: 768px) {
+  .premio-card-container {
+    background-image: url('fondo_premio_tablet.svg');
+    padding: 2rem 1rem;
+  }
+  
+  .premio-imagen {
+    width: 450px;
+    max-width: 90vw;
+  }
+
+  .crombie-logo {
+    display: block !important; 
+    margin-top: 0rem; 
+    width: 200px; 
+    height: auto;
+  }
+
+  .premio-placeholder {
+    font-size: 1.5rem;
+    padding: 2rem;
+  }
+
+  .ganaste-badge {
+    width: 250px;
+    height: auto;
+    margin-bottom: 1rem; 
+    margin-left: 0.5rem;
+  }
+
+  .premio-display {
+    margin-bottom: 2rem;
+  }
+  
+  /* 🛑 IMAGEN PEQUEÑA EN MOBILE ESTÁNDAR */
+  .premio-imagen.size-small {
+    width: 350px; /* Tamaño de la imagen pequeña en móvil */
+    max-height: 50vh;
+  }
+}
+
+/* TABLET (1024px > x > 769px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .premio-card-container {
+    background-image: url('fondo_premio_tablet.svg');
+    justify-content: flex-start;
+    padding-top: 6rem;
+    gap: 0.5rem; 
+  }
+
+  .ganaste-badge {
+    width: 250px;
+    height: auto;
+    margin-bottom: 1rem; 
+    margin-left: 0.5rem;
+  }
+
+  .premio-display {
+    margin-bottom: 0;
+  }
+
+  .crombie-logo {
+    display: block !important; 
+    margin-top: 2rem; 
+    width: 200px; 
+    height: auto;
+  }
+
+  .premio-imagen {
+    width: 700px;
+    max-height: 50vh;
+  }
+  
+  /* 🛑 IMAGEN PEQUEÑA EN TABLET */
+  .premio-imagen.size-small {
+    width: 450px; 
+    max-height: 40vh;
+  }
+}
+
+/* DESKTOP (min-width: 1025px) */
+@media (min-width: 1025px) {
+  .premio-card-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem; 
+    padding: 2rem 4rem;
+  }
+
+  .ganaste-badge {
+    width: 350px;
+    height: auto;
+    margin-bottom: 0.5rem; 
+    margin-left: 10rem;
+  }
+
+  .premio-display {
+    margin-bottom: 0;
+    margin-left: 0; 
+    margin-right: 5.5rem;
+    margin-top: 2rem;
+  }
+
+  .crombie-logo {
+    display: none; /* OCULTA EL LOGO EN DESKTOP */
+  }
+  
+  .premio-imagen {
+    width: 800px;
+    max-height: 90vh;
+  }
+  
+  /* 🛑 IMAGEN PEQUEÑA EN DESKTOP */
+  .premio-imagen.size-small {
+    width: 500px; 
+    max-height: 70vh;
+  }
+}

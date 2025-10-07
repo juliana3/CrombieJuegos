@@ -1,0 +1,253 @@
+/* === VARIABLES GLOBALES === */
+:root {
+  --font-family: 'Poppins', sans-serif;
+  --color-primary: #5a67d8;
+  --color-primary-light: #6b7cff;
+  --color-secondary: #214178;
+  --color-text: #2d3748;
+  --color-text-light: #718096;
+  --color-white: #ffffff;
+  --color-gray: #e2e8f0;
+  --shadow-light: 0 4px 10px rgba(0,0,0,0.05);
+  --shadow-medium: 0 6px 15px rgba(0,0,0,0.08);
+  --shadow-strong: 0 8px 25px rgba(0,0,0,0.12);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+}
+
+.gradient-text {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+
+  /* Gradiente animado sobre el texto */
+  background: linear-gradient(90deg, #5a67d8, #6b7cff, #9f7aea);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Animación del gradiente */
+  animation: gradient-move 8s linear infinite;
+}
+
+@keyframes gradient-move {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+
+/* === CONTENEDOR PRINCIPAL === */
+.main-gestor-premios {
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  min-height: 600px;
+  margin: 2rem auto;
+  background: rgba(255,255,255,0.099);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-medium);
+  color: var(--color-white);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  position: relative;
+}
+
+/* === TÍTULO === */
+.main-gestor-premios h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--color-primary-light);
+  padding: 10px;
+  box-shadow: rgba(10,25,47,0.7);
+}
+
+/* === BACK ARROW === */
+.back-arrow {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.back-arrow a {
+  text-decoration: none;
+  color: var(--color-white);
+  padding: 10px 15px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+.back-arrow a:hover {
+  background: rgba(250,246,246,0.09);
+}
+
+/* === LISTADO PREMIOS === */
+.lista-premios {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  width: 100%;
+}
+
+.premio-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.099);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-left 0.3s ease;
+  border-left: 5px solid transparent;
+}
+
+.premio-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-strong);
+  border-left: 5px solid var(--color-primary);
+}
+
+.nombre-premio {
+  flex: 1;
+  font-weight: 500;
+  color: var(--color-gray);
+  font-size: 1.05rem;
+}
+
+/* === ICONOS === */
+.icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #cbd5e0;
+  background: rgba(255,255,255,0.05);
+  border-radius: 36%;
+  padding: 0.6rem;
+  transition: all 0.25s ease;
+  margin: 10px;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 1px currentColor, 0 0 5px currentColor;
+}
+
+.icon.edit:hover { color: #4299e1; }
+.icon.delete:hover { color: #f56565; }
+.icon.toggle-visibility:hover { color: #38a169; }
+.icon.plus:hover { color: #48bb78; }
+.icon.minus:hover { color: #f56565; }
+
+/* === STOCK CONTROL === */
+.stock-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stock {
+  min-width: 20px;
+  text-align: center;
+}
+
+/* === BOTÓN AGREGAR === */
+.add-button {
+  margin-top: 2rem;
+  padding: 12px 35px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(90,103,216,0.3);
+}
+.add-button:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-2px);
+}
+
+/* === MODAL === */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(10,25,47,0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.099);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 30px 40px;
+  border-radius: var(--radius-md);
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideInUp 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content h2 {
+  font-size: var(--h2-size);
+  color: var(--color-white);
+  margin-bottom: 25px;
+}
+
+.modal-content label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+  color: var(--color-white);
+}
+
+.modal-content input {
+  padding: 12px 15px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray);
+  background: rgba(255,255,255,0.05);
+  color: var(--color-white);
+  font-family: var(--font-family);
+  margin-top: 5px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+.modal-content input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(90,103,216,0.3);
+}
+
+.modal-content div > button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.modal-content div > button:first-child { background: var(--color-primary); color: var(--color-white); }
+.modal-content div > button:last-child { background: var(--color-gray); color: var(--color-text); }
+.modal-content div > button:hover { transform: translateY(-2px); box-shadow: var(--shadow-light); }
+
+/* === ANIMACIONES === */
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes slideInUp { from { transform: translateY(30px); opacity:0; } to { transform: translateY(0); opacity:1; } }

@@ -9,6 +9,7 @@ export default function PaginaPremio() {
   const [error, setError] = useState(null);
   const [noPremios, setNoPremios] = useState(false);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     obtenerYAsignarPremio();
@@ -32,9 +33,12 @@ export default function PaginaPremio() {
 
       // Seleccionar premio aleatorio
       const premioAleatorio = premios[Math.floor(Math.random() * premios.length)];
+
+      //codificar el nombre del premio para la URL
+      const nombreCodificado = encodeURIComponent(premioAleatorio.nombre);
       
       // Descontar stock
-      const descontarResponse = await fetch(`/api/premios/stock/${premioAleatorio.nombre}`, {
+      const descontarResponse = await fetch(`/api/premios/stock/${nombreCodificado}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -106,7 +110,7 @@ export default function PaginaPremio() {
           <img 
             src={getImageUrl(premio.imagen)} 
             alt={premio.nombre}
-            className="premio-imagen"
+            className={`premio-imagen ${premio.nombre === 'Vaso térmico' ? 'size-small' : ''}`}
           />
         ) : (
           <div className="premio-placeholder">

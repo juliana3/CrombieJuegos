@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Ruleta from './pages/Ruleta';
 import GestorPreguntas from './pages/GestorPreguntas/GestorPreguntas';
 import Ganaste from './pages/premioCard';
+import GestorPremios from './pages/GestorPremios';
 
 //import GestorPremios from './pages/GestorPremios';
 import './App.css';
@@ -21,7 +22,7 @@ function App() {
         <Route path="/ruleta/:dificultad" element={<Ruleta />} />
         <Route path="/gestor-preguntas" element={<GestorPreguntas />} />
         <Route path="/ganaste" element={<Ganaste />} />
-        {/* <Route path="/gestor-premios" element={<GestorPremios />} /> */}
+        <Route path="/gestor-premios" element={<GestorPremios />} /> 
       </Routes>
     </div>
   );

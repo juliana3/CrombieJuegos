@@ -1,27 +1,47 @@
 .home-container {
-  min-height: 100vh; /* altura completa del viewport */
-  width: 100%;
   display: flex;
+  gap: 100px;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
+  padding: 2.5rem;
+  background: transparent; /* fondo transparente */
+  width: 90%;
+  max-width: 600px; /* ancho moderado */
+  min-height: 600px;
+  margin: 2rem auto;
+  margin-top: 0px;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ================================
+   Header
+================================= */
+.header-section {
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.header-img {
+  width: 200px;
+  height: auto;
+}
+
+/* ================================
+   Main Content - Botón central
+================================= */
 .main-content {
+  flex: 1; /* ocupa todo el espacio disponible */
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1; /* ocupa todo el espacio disponible para centrar verticalmente */
 }
-.header-img {
-    margin-top: 70px;
-    width: 200px;
-}
+
 /* Botón "Iniciar Juego" */
 .start-game-button {
-  margin-top: -70px;
-  background: #00bfff; /* celeste */
+  background: #00bfff;
   color: white;
   border: none;
   border-radius: 12px;
@@ -34,7 +54,7 @@
 }
 
 .start-game-button:hover {
-  background: #009acd; /* celeste más oscuro al hover */
+  background: #009acd;
   transform: translateY(-2px);
 }
 
@@ -42,24 +62,50 @@
   transform: translateY(1px);
 }
 
-/* =============================
-   Footer Section - Botón gestor
-============================= */
-.footer-section {
-  position: absolute;
-  bottom: 40px; /* separado del borde inferior */
+/* ================================
+   Modal Overlay
+================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  z-index: 1000;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  opacity: 0.95;
+}
+
+.modal-content .start-game-button {
+  min-width: 300px;
+}
+
+/* ================================
+   Footer Section
+================================= */
+.footer-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .gestor-button {
-  background-color: transparent; /* transparente */
+  background-color: transparent;
   color: white;
   border: 2px solid white;
   border-radius: 8px;
-  padding: 10px 24px; /* más pequeño */
+  padding: 10px 24px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -71,9 +117,9 @@
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
-/* =============================
-   Responsive Design
-============================= */
+/* ================================
+   Responsive
+================================= */
 @media (max-width: 768px) {
   .start-game-button {
     font-size: 18px;
@@ -83,5 +129,9 @@
   .gestor-button {
     font-size: 14px;
     padding: 8px 20px;
+  }
+
+  .modal-content .start-game-button {
+    min-width: 220px;
   }
 }

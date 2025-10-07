@@ -6,6 +6,10 @@ const path = require('path');
 const preguntasPath = path.join(__dirname, '../data/data.json');
 const premiosPath = path.join(__dirname, '../data/premios.json');
 
+const { Mutex } = require('async-mutex');
+const fileMutex = new Mutex(); // Un solo Mutex para proteger el archivo de premios
+
+
 
 // Lee todas las categorías y preguntas
 async function leerPreguntas() {
@@ -71,14 +75,43 @@ async function obtenerPremiosActivos() {
   }
 }
 
+async function descontarStockAtomico(nombre) {
+  // El Mutex garantiza que el código dentro de `runExclusive`
+  // se ejecuta completamente sin interrupción de otros procesos que usen este mismo Mutex.
+  const release = await fileMutex.acquire(); // Adquirir el bloqueo
 
+  try {
+    const premiosData = await leerPremios(); // LECTURA (1)
+
+    if (!premiosData[nombre]) {
+      throw new Error('Premio no encontrado');
+    }
+
+    const premio = premiosData[nombre];
+
+    if (premio.cantidad <= 0) {
+      // Usar un error específico que el controller pueda mapear al 400
+      throw new Error('Sin stock disponible'); 
+    }
+
+    premio.cantidad -= 1; // MODIFICACIÓN
+
+    await guardarPremios(premiosData); // ESCRITURA (2)
+
+    return { nombre, ...premio }; // Retornar el premio actualizado
+
+  } finally {
+    release(); // Liberar el bloqueo SIEMPRE, incluso si hay un error.
+  }
+}
 
 module.exports = {
   leerPreguntas,
   guardarPreguntas,
   leerPremios,
   guardarPremios,
-  obtenerPremiosActivos
+  obtenerPremiosActivos,
+  descontarStockAtomico
 };
 
 

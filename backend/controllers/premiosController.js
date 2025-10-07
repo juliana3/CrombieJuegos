@@ -5,7 +5,7 @@
 //activa - desactiva premios
 
 const path = require('path');
-const {leerPremios, guardarPremios, obtenerPremiosActivos} = require('../utils/fileHandler');
+const {leerPremios, guardarPremios, obtenerPremiosActivos, descontarStockAtomico} = require('../utils/fileHandler');
 const googleDrive = require('../utils/googleHandler')
 const { google } = require('googleapis');
 
@@ -235,28 +235,25 @@ exports.descontarStock = async (req, res) => {
     const { nombre } = req.params;
 
     try {
-        const premiosData = await leerPremios();
-
-        if (!premiosData[nombre]) {
-            return res.status(404).json({ message: 'Premio no encontrado' });
-        }
-
-        const premio = premiosData[nombre];
-
-        if (premio.cantidad <= 0) {
-            return res.status(400).json({ message: 'Sin stock disponible' });
-        }
-
-        premio.cantidad -= 1;
-
-        await guardarPremios(premiosData);
+        // Uso la función ATÓMICA que maneja el bloqueo
+        const premioActualizado = await descontarStockAtomico(nombre);
 
         res.json({
             message: `Se descontó 1 unidad del premio '${nombre}'.`,
-            premio: { nombre, ...premio }
+            premio: premioActualizado
         });
+
     } catch (error) {
         console.error(error);
+        
+        // Mapear los errores específicos lanzados por la función atómica al código HTTP correcto
+        if (error.message === 'Premio no encontrado') {
+            return res.status(404).json({ message: 'Premio no encontrado' });
+        }
+        if (error.message === 'Sin stock disponible') {
+            return res.status(400).json({ message: 'Sin stock disponible' }); // Este es el 400
+        }
+
         res.status(500).json({ error: 'Error al descontar stock' });
     }
 };
