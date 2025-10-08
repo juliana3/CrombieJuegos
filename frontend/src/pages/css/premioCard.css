@@ -53,9 +53,9 @@
 /* ESTILOS BASE (DEFAULT) DE LA IMAGEN */
 /* --------------------------------- */
 .premio-imagen {
-  width: 560px; /* Ancho base */
+  width: 350px; /* Ancho base */
   height: auto;
-  max-height: 60vh;
+  max-height: 40vh;
   object-fit: contain;
   filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
 }
@@ -86,7 +86,7 @@
 
 /* Loading y Error */
 .loading-message,
-.error-message, .no-premios-message {
+.error-message{
   margin-bottom: 1.5rem;
   color: white;
   font-size: 2.5rem;
@@ -97,7 +97,7 @@
 }
 
 /* Botón Home */
-.home-button, .volver-a-jugar-btn {
+.volver-a-jugar-btn {
   margin-top: 1.5rem;
   background: #00bfff;
   color: white;
@@ -111,23 +111,15 @@
   box-shadow: 0 6px 15px rgba(0, 191, 255, 0.3);
 }
 
-.home-button:hover, .volver-a-jugar-btn:hover {
+.volver-a-jugar-btn:hover {
   background: #009acd; /* celeste más oscuro al hover */
   transform: translateY(-2px);
 }
 
-.home-button:active, .volver-a-jugar-btn:active {
+.volver-a-jugar-btn:active {
   transform: translateY(1px);
 }
 
-
-
-.no-premios-content {
-  display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  max-width: 90%; 
-}
 
 .volver-a-jugar-content{
   display: flex;
@@ -174,14 +166,15 @@
   }
   
   .premio-imagen {
-    width: 450px;
+    width: 350px;
     max-width: 90vw;
+    margin-left: 1rem;
   }
 
   .crombie-logo {
     display: block !important; 
     margin-top: 0rem; 
-    width: 200px; 
+    width: 150px; 
     height: auto;
   }
 
@@ -191,9 +184,9 @@
   }
 
   .ganaste-badge {
-    width: 250px;
+    width: 200px;
     height: auto;
-    margin-bottom: 1rem; 
+    margin-bottom: 4rem; 
     margin-left: 0.5rem;
   }
 
@@ -218,7 +211,7 @@
   }
 
   .ganaste-badge {
-    width: 250px;
+    width: 200px;
     height: auto;
     margin-bottom: 1rem; 
     margin-left: 0.5rem;
@@ -229,21 +222,32 @@
   }
 
   .crombie-logo {
-    display: block !important; 
-    margin-top: 2rem; 
-    width: 200px; 
-    height: auto;
+    display: none;
   }
 
   .premio-imagen {
-    width: 700px;
+    width: 450px;
     max-height: 50vh;
+    margin-left: 2rem;
   }
   
   /* 🛑 IMAGEN PEQUEÑA EN TABLET */
   .premio-imagen.size-small {
-    width: 450px; 
+    width: 300px; 
     max-height: 40vh;
+  }
+
+  /* El botón ocupa toda la fila siguiente */
+  .volver-a-jugar-content {
+    flex-basis: 100%; /* CLAVE: fuerza al botón a ocupar toda la fila */
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .volver-a-jugar-btn {
+    margin-top: -1em;
+    margin-left: 0.5rem;
   }
 }
 
@@ -280,8 +284,8 @@
   }
   
   .premio-imagen {
-    width: 800px;
-    max-height: 90vh;
+    width: 650px;
+    max-height: 70vh;
   }
   
   .premio-imagen.size-small {

@@ -8,7 +8,6 @@ export default function PaginaPremio() {
   const [premio, setPremio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [noPremios, setNoPremios] = useState(false);
   const navigate = useNavigate();
   const { difficulty } = useGame(); 
 
@@ -63,9 +62,6 @@ export default function PaginaPremio() {
     return `/api/premios/imagen/${driveId}`;
   };
 
-  const handleGoHome = () => {
-    navigate('/'); // Redirige a la ruta raíz (Home)
-  };
   
   const handlePlayAgain = () => {
     navigate(`/registro/${difficulty}`);
@@ -80,21 +76,6 @@ export default function PaginaPremio() {
     );
   }
 
-  if (noPremios) {
-    return (
-      <div className="premio-card-container">
-        <div className="no-premios-content">
-          <div className="no-premios-message">
-            ⚠️ ¡Se agotaron los premios!
-          </div>
-          <button className="home-button" onClick={handleGoHome}>
-            Volver al Inicio
-          </button>
-        </div>
-        
-      </div>
-    );
-  }
   if (error) {
     return (
       <div className="premio-card-container">

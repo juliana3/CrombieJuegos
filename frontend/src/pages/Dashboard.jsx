@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/Dashboard.css";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -7,9 +7,35 @@ function Dashboard() {
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [showModal, setShowModal] = useState(false); // Estado para mostrar el modal
+  const [premiosDisponibles, setPremiosDisponibles] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const { dificultad: dificultadElegida } = useParams();
+
+
+  useEffect(() => {
+    verificarPremiosDisponibles();
+  }, []);
+
+  const verificarPremiosDisponibles = async () => {
+    try {
+      const response = await fetch('/api/premios/activos');
+      if (!response.ok) throw new Error('Error al verificar premios');
+      
+      const premios = await response.json();
+      
+      if (!premios || premios.length === 0) {
+        setPremiosDisponibles(false);
+      }
+      
+      setLoading(false);
+    } catch (error) {
+      console.error('Error verificando premios:', error);
+      setPremiosDisponibles(false);
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +48,7 @@ function Dashboard() {
     const payload = { nombre, apellido, email };
 
     try {
-      const response = await fetch("api/emails", {
+      const response = await fetch("/api/emails", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -36,6 +62,31 @@ function Dashboard() {
       navigate(`/ruleta/${dificultadElegida}`);
     }
   };
+  if (loading) {
+    return (
+      <div className="dashboard-container">
+        <div className="loading-premios">Verificando disponibilidad...</div>
+      </div>
+    );
+  }
+
+  if (!premiosDisponibles) {
+    return (
+      <div className="dashboard-container">
+        <div className="cro">
+          <img className="cropped2-img" src="/cropped2.svg" alt="Logo" />
+        </div>
+        <div className="no-premios-alert">
+          <h2>⚠️ Se terminaron los premios!</h2>
+          <button 
+            className="continuar-button"
+            onClick={() => navigate('/')}>
+            Volver al Inicio
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-container">
