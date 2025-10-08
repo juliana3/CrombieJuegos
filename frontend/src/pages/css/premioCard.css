@@ -97,35 +97,44 @@
 }
 
 /* Botón Home */
-.home-button {
+.home-button, .volver-a-jugar-btn {
   margin-top: 1.5rem;
-  margin-right: 0;
-  background: #00bfff; /* celeste */
+  background: #00bfff;
   color: white;
   border: none;
   border-radius: 12px;
-  padding: 20px 40px;
-  font-size: 20px;
+  padding: 15px 30px; /* CAMBIA ESTO: primer valor = alto, segundo = ancho */
+  font-size: 15px; /* CAMBIA ESTO: tamaño del texto */
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 15px rgba(0, 191, 255, 0.3);
 }
 
-.home-button:hover {
+.home-button:hover, .volver-a-jugar-btn:hover {
   background: #009acd; /* celeste más oscuro al hover */
   transform: translateY(-2px);
 }
 
-.home-button:active {
+.home-button:active, .volver-a-jugar-btn:active {
   transform: translateY(1px);
 }
+
+
 
 .no-premios-content {
   display: flex;
   flex-direction: column; 
   align-items: center; 
   max-width: 90%; 
+}
+
+.volver-a-jugar-content{
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  max-width: 90%; 
+  margin-top: 1.5rem; /* Reducido de 2rem para mejor espaciado */
 }
 
 /* Keyframes */
@@ -242,6 +251,7 @@
 @media (min-width: 1025px) {
   .premio-card-container {
     flex-direction: row;
+    flex-wrap: wrap; /* CLAVE: permite que el botón baje a la siguiente línea */
     align-items: center;
     justify-content: center;
     gap: 1rem; 
@@ -251,19 +261,22 @@
   .ganaste-badge {
     width: 350px;
     height: auto;
-    margin-bottom: 0.5rem; 
-    margin-left: 10rem;
+    margin-bottom: 0; 
+    margin-top: 5rem;
+    margin-left: 3rem;
+    flex-shrink: 0;
   }
 
   .premio-display {
     margin-bottom: 0;
     margin-left: 0; 
-    margin-right: 5.5rem;
-    margin-top: 2rem;
+    margin-right: 0;
+    margin-top: 3rem;
+    flex-shrink: 0;
   }
 
   .crombie-logo {
-    display: none; /* OCULTA EL LOGO EN DESKTOP */
+    display: none;
   }
   
   .premio-imagen {
@@ -271,9 +284,20 @@
     max-height: 90vh;
   }
   
-  /* 🛑 IMAGEN PEQUEÑA EN DESKTOP */
   .premio-imagen.size-small {
     width: 500px; 
     max-height: 70vh;
+  }
+
+  /* El botón ocupa toda la fila siguiente */
+  .volver-a-jugar-content {
+    flex-basis: 100%; /* CLAVE: fuerza al botón a ocupar toda la fila */
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .volver-a-jugar-btn {
+    margin-top: 1rem;
   }
 }

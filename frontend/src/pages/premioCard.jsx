@@ -1,6 +1,7 @@
 // PaginaPremio.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGame } from '../components/contexto/gameContext.jsx'; 
 import './css/premioCard.css';
 
 export default function PaginaPremio() {
@@ -9,7 +10,7 @@ export default function PaginaPremio() {
   const [error, setError] = useState(null);
   const [noPremios, setNoPremios] = useState(false);
   const navigate = useNavigate();
-  
+  const { difficulty } = useGame(); 
 
   useEffect(() => {
     obtenerYAsignarPremio();
@@ -65,6 +66,11 @@ export default function PaginaPremio() {
   const handleGoHome = () => {
     navigate('/'); // Redirige a la ruta raíz (Home)
   };
+  
+  const handlePlayAgain = () => {
+    navigate(`/registro/${difficulty}`);
+  };
+
 
   if (loading) {
     return (
@@ -122,6 +128,15 @@ export default function PaginaPremio() {
       {/* Logo Crombie */}
     
       <img className="crombie-logo" src="/cropped2.svg" alt="Logo" />
+
+      <div className="volver-a-jugar-content">
+        <button 
+            className="volver-a-jugar-btn" 
+            onClick={handlePlayAgain}>
+            Volver a jugar
+        </button>
+      </div>
+
     </div>
   );
 }

@@ -1,0 +1,354 @@
+/* 🎰 Contenedor principal */
+.slot-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #f1f1f1;
+}
+
+/* 🃏 Card */
+.card {
+  background: #1e1e2f;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 800px;
+}
+
+/* 🎲 Título */
+.card h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Opciones */
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.option-btn {
+  padding: 12px;
+  background: #2c2c3a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #ddd;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease-in-out;
+}
+
+.option-btn:hover {
+  background: #444;
+  color: #fff;
+}
+
+.option-btn.correct {
+  background: #28a745;
+  color: #fff;
+  border-color: var(--crombie-verde);
+}
+
+.option-btn.incorrect {
+  background: #dc3545;
+  color: #fff;
+  border-color: var(--crombie-rosa);
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Botón inicio */
+.start-btn {
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+/* Resultado */
+.result {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.result.correct {
+  color: var(--crombie-verde);
+}
+
+.result.incorrect {
+  color: var(--crombie-rosa);
+}
+
+/* Barra de progreso */
+.progress-bar {
+  background: #444;
+  border-radius: 6px;
+  height: 10px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--crombie-amarillo), var(--crombie-rosa) 71%);
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-text {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+/* ✨ Pregunta seleccionada */
+.question-box {
+  background: linear-gradient(135deg, var(--crombie-celeste), var(--crombie-verde));
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 15px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.question-box span {
+  display: block;
+  max-width: 100%;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* 🎰 Lista de preguntas girando (3 rectángulos fijos visibles) */
+.spin-list {
+  width: 100%;
+  max-width: 600px;
+  height: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Cada rectángulo fijo */
+.spin-item {
+  background: linear-gradient(135deg, var(--crombie-celeste), var(--crombie-verde));
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 15px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.spin-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+.spin-line {
+  margin: 0;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Animación de parpadeo leve al girar */
+.is-spinning .spin-item {
+  animation: flicker 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.85; transform: scale(0.98); }
+}
+
+@keyframes spinMove {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(110%);
+  }
+}
+
+/* 🔹 Responsive para tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  .slot-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .card h3 {
+    font-size: 1.3rem;
+  }
+
+  .options {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .spin-list {
+    max-width: 700px;
+    height: 240px;
+  }
+
+  .question-box,
+  .spin-item {
+    height: 75px;
+    font-size: 0.95rem;
+  }
+
+  .option-btn {
+    font-size: 0.9rem;
+  }
+}
+
+/* 🔹 Responsive para móviles (hasta 768px) */
+@media (max-width: 1024px) {
+  .slot-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .card h3 {
+    font-size: 1.3rem;
+  }
+
+  .options {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .spin-list {
+    max-width: 700px;
+    height: 240px;
+  }
+
+  .question-box,
+  .spin-item {
+    height: 75px;
+    font-size: 0.95rem;
+  }
+
+  .option-btn {
+    font-size: 0.9rem;
+  }
+}
+
+/* 🔹 Responsive para móviles (hasta 768px) */
+@media (max-width: 768px) {
+  .slot-container {
+    max-width: 95%;
+    padding: 12px;
+    margin: 10px auto;
+  }
+
+  .card {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .spin-list {
+    max-width: 100%;
+    height: 200px;
+    gap: 8px;
+  }
+
+  .question-box,
+  .spin-item {
+    height: 60px;
+    min-height: 60px;
+    max-height: 60px;
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .question-box span,
+  .spin-line {
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .option-btn {
+    font-size: 0.88rem;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .result {
+    font-size: 1.1rem;
+    margin-top: 12px;
+  }
+
+  .progress-bar {
+    height: 8px;
+  }
+
+  .progress-text {
+    font-size: 0.85rem;
+    margin-top: 6px;
+  }
+
+  .loading {
+    font-size: 0.9rem;
+  }
+}

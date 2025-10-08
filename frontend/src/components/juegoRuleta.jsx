@@ -8,59 +8,74 @@ const ruletaColores = [
 function JuegoRuleta({ items = [], onSpinEnd }) {
   const ruletaRef = useRef(null);
   const [isSpinning, setIsSpinning] = useState(false);
+  const audioRef = useRef(null);
+  const clickTimer = useRef(null);
+
+  // 🔊 Precargamos sonido
+  if (!audioRef.current) {
+    audioRef.current = new Audio("/clack.mp3");
+  }
+
+  const playClick = () => {
+    const sound = audioRef.current.cloneNode();
+    sound.play().catch(() => {});
+  };
+
+  const reproducirClicsProgresivos = (duracionTotal = 4500) => {
+    let tiempo = 0;
+    let intervalo = 60; // más rápido al inicio
+
+    const reproducir = () => {
+      playClick();
+      tiempo += intervalo;
+      intervalo += 15; // se va desacelerando
+      if (tiempo < duracionTotal) {
+        clickTimer.current = setTimeout(reproducir, intervalo);
+      }
+    };
+    reproducir();
+  };
 
   const spin = () => {
-    if (isSpinning) return;
-    if (!items || items.length === 0) return;
+    if (isSpinning || items.length === 0) return;
     setIsSpinning(true);
 
     const r = Math.random();
     let candidatos;
 
     // 45% Perdiste, 45% Sorteo, 10% API
-    if (r < 0.45) {
+    if (r < 0.20) {
       candidatos = items.filter(it => it.nombre === "Perdiste");
-    } else if (r < 0.9) {
+    } else if (r < 0.40) {
       candidatos = items.filter(it => it.nombre === "Sorteo");
     } else {
       candidatos = items.filter(it => it.nombre !== "Perdiste" && it.nombre !== "Sorteo");
     }
-
-    // por alguna razón está vacío
-    if (!candidatos || candidatos.length === 0) candidatos = items;
+    
+    if (!candidatos.length) candidatos = items;
 
     const elegido = candidatos[Math.floor(Math.random() * candidatos.length)];
+    const min = elegido.min ?? 0;
+    const max = elegido.max ?? 360;
+    const target = Math.random() * (max - min) + min;
 
-    let min = Number(elegido.min);
-    let max = Number(elegido.max);
+    const vueltas = Math.floor(Math.random() * 3) + 4; // 4..6 vueltas
+    const finalRotation = vueltas * 360 + (360 - target);
 
-    // por si llegan strings o indefinidos
-    if (Number.isNaN(min) || Number.isNaN(max)) {
-      // fallback: calcular sector equidistante por índice
-      const idx = items.indexOf(elegido);
-      const segAngle = 360 / items.length;
-      min = idx * segAngle;
-      max = min + segAngle;
-    }
+    // 🎵 Inicia sonido durante todo el giro
+    reproducirClicsProgresivos(4000);
 
-    let targetAngle = Math.random() * (max - min) + min;
-    if (targetAngle >= 360) targetAngle -= 360; // caso rango que cruza 360 (ej: 337.5..382.5)
-
-    const spins = Math.floor(Math.random() * 3) + 4; // 4..6 vueltas
-    const finalRotation = spins * 360 + (360 - targetAngle);
-
-    // Aplicar transición y rotación
     if (ruletaRef.current) {
-      // forzar transición
       ruletaRef.current.style.transition = "transform 4.5s cubic-bezier(0.33, 1, 0.68, 1)";
       ruletaRef.current.style.transform = `rotate(${finalRotation}deg)`;
     }
 
+    // ⏳ Al finalizar el giro:
     setTimeout(() => {
+      clearTimeout(clickTimer.current);
       setIsSpinning(false);
-      if (typeof onSpinEnd === "function") 
-        onSpinEnd(elegido.nombre);
-    }, 5000);
+      if (onSpinEnd) onSpinEnd(elegido.nombre);
+    }, 4700);
   };
 
   return (
@@ -68,7 +83,6 @@ function JuegoRuleta({ items = [], onSpinEnd }) {
       <svg
         viewBox="0 0 700 700"
         preserveAspectRatio="xMidYMid meet"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{ width: '100%', height: '100%' }}
       >

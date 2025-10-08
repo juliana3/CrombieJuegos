@@ -11,6 +11,36 @@
             "Un servidor web"
           ],
           "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Qué es CSS?",
+          "opciones": [
+            "Un lenguaje de programación",
+            "Un lenguaje de marcado",
+            "Una hoja de estilos",
+            "Un servidor web"
+          ],
+          "respuesta_correcta": "3"
+        },
+        {
+          "pregunta": "¿Qué es JavaScript?",
+          "opciones": [
+            "Un lenguaje de programación",
+            "Un lenguaje de marcado",
+            "Una hoja de estilos",
+            "Un servidor web"
+          ],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿Qué etiqueta se usa para insertar una imagen en HTML?",
+          "opciones": [
+            "<img>",
+            "<image>",
+            "<src>",
+            "<picture>"
+          ],
+          "respuesta_correcta": "1"
         }
       ],
       "medio": [
@@ -70,7 +100,47 @@
             "Argentina"
           ],
           "respuesta_correcta": "4"
-        }
+        },
+        {
+          "pregunta": "¿Qué tipo de productos fabrica Crombie?",
+          "opciones": [
+            "Ropa de lujo",
+            "Electrónica",
+            "Automóviles",
+            "Alimentos"
+          ],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿Cuál es el eslogan de Crombie?",
+          "opciones": [
+            "Elegancia y estilo",
+            "Calidad y tradición",
+            "Moda para todos",
+            "Innovación y diseño"
+          ],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Qué tipo de prendas es más conocido Crombie?",
+          "opciones": [
+            "Trajes y abrigos",
+            "Ropa deportiva",
+            "Ropa casual",
+            "Ropa de trabajo"
+          ],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿En qué ciudad se fundó Crombie?",
+          "opciones": [
+            "Londres",
+            "Edimburgo",
+            "Manchester",
+            "Birmingham"
+          ],
+          "respuesta_correcta": "2"
+        } 
       ],
       "medio": [
         {
@@ -130,6 +200,36 @@
             "4"
           ],
           "respuesta_correcta": 2
+        },
+        {
+          "pregunta": "¿Qué es una API?",
+          "opciones": [
+            "Una base de datos",
+            "Un servidor web",
+            "Una interfaz de programación de aplicaciones",
+            "Un lenguaje de programación"
+          ],
+          "respuesta_correcta": "3"
+        },
+        {
+          "pregunta": "¿Qué es Node.js?",
+          "opciones": [
+            "Un lenguaje de programación",
+            "Un entorno de ejecución para JavaScript en el servidor",
+            "Un framework de CSS",
+            "Una base de datos"
+          ],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Qué es una base de datos?",
+          "opciones": [
+            "Un sistema para almacenar y gestionar datos",
+            "Un lenguaje de programación",
+            "Un servidor web",
+            "Una interfaz de usuario"
+          ],
+          "respuesta_correcta": "1"
         }
       ],
       "medio": [],
