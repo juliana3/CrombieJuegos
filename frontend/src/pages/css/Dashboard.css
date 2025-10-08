@@ -1,36 +1,125 @@
-.dashboard-logo {
-  margin: 70px;
-  margin-top: -75px;
-  width: 200px;
+/* ===== CENTRADO GLOBAL Y RESET SCROLL ===== */
+
+
+/* Contenedor principal */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  background: transparent;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  min-height: 80vh; /* Se ajusta a la pantalla pero con margen */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(186, 175, 175, 0.2);
+  color: #fff;
+  padding: 2.5rem;
+  box-sizing: border-box;
 }
 
+/* Estilo para el logo */
+.cro {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem; /* Espacio debajo del logo */
+}
+
+.cropped2-img {
+  width: 200px;
+  height: auto;
+}
+
+/* Formulario */
 .dashboard-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 300px;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 350px;
 }
 
+/* Estilo de los campos de entrada */
 .dashboard-form input {
-  padding: 12px 16px;
+  padding: 12px 18px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  outline: none;
-  transition: all 0.3s ease;
+  background-color: #2a2e3b; /* Fondo oscuro para inputs */
+  color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.dashboard-form input::placeholder {
+  color: #fff; /* Cambia este color por el que quieras */
+  opacity: 0.8; /* Asegura que el color se vea bien */
+}
+
+/* Interacción cuando el input está enfocado */
 .dashboard-form input:focus {
-  border-color: #00bfff;
-  box-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+  border-color: #00bfff; /* Resaltado en azul claro */
+  box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+  outline: none;
 }
 
+/* Estilo para el checkbox */
+.dashboard-form label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #ccc;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.4;
+}
+
+/* Estilo moderno del checkbox */
+.dashboard-form input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e6e6e6;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60% 60%;
+}
+
+/* Estado no marcado: sin fondo */
+.dashboard-form input[type="checkbox"] {
+  background-image: none;
+}
+
+/* Estado marcado: fondo de color + SVG tick en el centro */
+.dashboard-form input[type="checkbox"]:checked {
+  background-color: #47c918;
+  border-color: #e6e6e6;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ffffff' d='M9.2 16.2L4.5 11.5 3.1 12.9l6.1 6.1 12-12L20.6 6z'/></svg>");
+}
+
+/* foco accesible */
+.dashboard-form input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,191,255,0.16);
+}
+
+
+
+/* Botón de "Continuar" */
 .continuar-button {
   padding: 14px 0;
   font-size: 18px;
   font-weight: 700;
   color: white;
-  background-color: #00bfff;
+  background-color: #00bfff; /* Azul claro */
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -38,28 +127,153 @@
   box-shadow: 0 6px 15px rgba(0, 191, 255, 0.3);
 }
 
+/* Efecto hover para el botón */
 .continuar-button:hover {
-  background-color: #009acd;
-  transform: translateY(-2px);
+  background-color: #009acd; /* Azul más oscuro */
+  transform: translateY(-2px); /* Eleva el botón al hacer hover */
 }
 
+/* Efecto active para el botón */
 .continuar-button:active {
-  transform: translateY(1px);
+  transform: translateY(1px); /* Aplana el botón al hacer click */
 }
 
+
+/* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
-  .dashboard-logo {
-    width: 150px;
-    margin-bottom: 30px;
+  .cro {
+    margin-bottom: 1rem;
+  }
+
+  .dashboard-container {
+    padding: 1.5rem;
   }
 
   .dashboard-form {
-    width: 80%;
-    gap: 16px;
+    gap: 1rem;
+  }
+
+  .dashboard-form input {
+    font-size: 14px;
   }
 
   .continuar-button {
     font-size: 16px;
     padding: 12px 0;
   }
+}
+
+/* === Modal de Términos y Condiciones === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrado horizontal y vertical */
+}
+
+.modal-content {
+  background-color: #000000;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  color: white;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+  max-height: 80vh; /* limita altura */
+  overflow-y: auto; /* scroll interno visible */
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+  font-size: 24px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 1.5rem;
+  color: #ccc;
+}
+
+.close-button {
+  background: transparent;
+  background-color: #59595993;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #cd0000;
+}
+
+/* Botón "?" (info) mejorado */
+.info-button {
+  margin-left: 4px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #00bfff, #009acd);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 191, 255, 0.4);
+}
+
+.info-button:hover {
+  background: linear-gradient(145deg, #009acd, #0077b6);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
+}
+
+.info-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px rgba(0, 191, 255, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Estilo para el scrollbar del modal */
+.modal-content::-webkit-scrollbar {
+  width: 12px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 3px solid #000;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
 }

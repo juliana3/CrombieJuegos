@@ -1,53 +1,44 @@
 import React, { useState } from "react";
-import "./css/Dashboard.css"; // CSS separado para estilos
-import { useNavigate, useParams } from "react-router-dom"; 
+import "./css/Dashboard.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Dashboard() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // Estado para mostrar el modal
 
-  const { dificultad: dificultadElegida } = useParams(); 
+  const navigate = useNavigate();
+  const { dificultad: dificultadElegida } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!dificultadElegida) {
-        console.error("Error: Dificultad no encontrada en la URL.");
-        // Opcional: navigate('/'); para reiniciar el flujo
-        return; 
+      console.error("Error: Dificultad no encontrada en la URL.");
+      return;
     }
 
     const payload = { nombre, apellido, email };
 
     try {
-      const response = await fetch("/api/emails", {
+      const response = await fetch("api/emails", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
+      if (!response.ok) throw new Error("Error en la solicitud");
 
       const data = await response.json();
-      //console.log("Usuario creado:", data);
-
-      // Redirigir después de presionar continuar
-      navigate(`/ruleta/${dificultadElegida}`); // Ajusta la ruta que quieras
+      navigate(`/ruleta/${dificultadElegida}`);
     } catch (error) {
-      // console.error("Error al enviar los datos:", error);
       navigate(`/ruleta/${dificultadElegida}`);
     }
   };
 
   return (
     <div className="dashboard-container">
-
       <div className="cro">
         <img className="cropped2-img" src="/cropped2.svg" alt="Logo" />
       </div>
@@ -56,29 +47,63 @@ function Dashboard() {
         <input
           type="text"
           placeholder="Nombre"
+          required
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
-          required
         />
         <input
           type="text"
           placeholder="Apellido"
+          required
           value={apellido}
           onChange={(e) => setApellido(e.target.value)}
-          required
         />
         <input
           type="email"
           placeholder="Email"
+          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
+
+        <label>
+          <input type="checkbox" required />
+          Acepto los términos y condiciones.
+          <button
+            type="button"
+            className="info-button"
+            onClick={() => setShowModal(true)}
+          >
+            ?
+          </button>
+        </label>
 
         <button type="submit" className="continuar-button">
           Continuar
         </button>
       </form>
+
+      {showModal && (
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Términos y Condiciones</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            </p>
+            <button className="close-button" onClick={() => setShowModal(false)}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
