@@ -159,7 +159,7 @@ export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers
         }
       } else {
         // ❌ Respuesta incorrecta - Perdió
-        console.log("Respuesta incorrecta. Navegando a /perdiste"); // 🆕 Debug
+        console.log("Respuesta incorrecta. Navegando a /registro"); // 🆕 Debug
         
         // Notificar al padre (si existe la función)
         if (onQuestionComplete) {
@@ -167,7 +167,7 @@ export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers
         }
         
         setTimeout(() => {
-          navigate("/perdiste");
+          navigate(`/registro/${difficulty}`);
         }, 2000);
       }
     }, 2000);

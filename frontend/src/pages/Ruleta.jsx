@@ -61,12 +61,12 @@ function Ruleta() {
   }, [dificultadElegida]);
 
    useEffect(() => {
-    if (faseDelJuego === "preguntasCard") {
-      // ✅ CORRECTO: La navegación se ejecuta AHORA después del renderizado.
-      navigate("/slot-juego");
-    }
-    // El efecto se dispara solo cuando 'faseDelJuego' cambia.
-  }, [faseDelJuego, navigate]); 
+    if (faseDelJuego === "preguntasCard") {
+     // ✅ CORRECTO: La navegación se ejecuta AHORA después del renderizado.
+      navigate("/slot-juego");
+    } 
+    // El efecto se dispara solo cuando 'faseDelJuego' cambia.
+  }, [faseDelJuego, navigate]); 
 
   if (faseDelJuego === "cargando") return <div className="loading-screen">Cargando datos del juego...</div>;
   if (faseDelJuego === "error") return <div className="error-screen">Ocurrió un error al cargar los datos.</div>;

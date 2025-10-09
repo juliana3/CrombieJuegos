@@ -1,6 +1,6 @@
 /* 🎰 Contenedor principal */
 .slot-container {
-  max-width: 700px;
+  width: 700px;
   margin: 20px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -211,7 +211,7 @@
 }
 
 /* 🔹 Responsive para tablets (768px - 1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .slot-container {
     max-width: 90%;
     padding: 15px;
@@ -246,41 +246,6 @@
   }
 }
 
-/* 🔹 Responsive para móviles (hasta 768px) */
-@media (max-width: 1024px) {
-  .slot-container {
-    max-width: 90%;
-    padding: 15px;
-  }
-
-  .card {
-    padding: 18px;
-  }
-
-  .card h3 {
-    font-size: 1.3rem;
-  }
-
-  .options {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .spin-list {
-    max-width: 700px;
-    height: 240px;
-  }
-
-  .question-box,
-  .spin-item {
-    height: 75px;
-    font-size: 0.95rem;
-  }
-
-  .option-btn {
-    font-size: 0.9rem;
-  }
-}
 
 /* 🔹 Responsive para móviles (hasta 768px) */
 @media (max-width: 768px) {
