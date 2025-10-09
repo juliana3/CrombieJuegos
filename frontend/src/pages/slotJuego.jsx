@@ -5,278 +5,303 @@ import { useGame } from "../components/contexto/gameContext.jsx";
 import "./css/slotJuego.css";
 
 export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers }) {
-  // 1. DECLARACIÓN DE TODOS LOS HOOKS (Incondicionalmente)
-  const { difficulty } = useGame();
-  const navigate = useNavigate();
+  // 1. DECLARACIÓN DE TODOS LOS HOOKS (Incondicionalmente)
+  const { difficulty } = useGame();
+  const navigate = useNavigate();
 
-  // 📦 Estados principales
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isSpinning, setIsSpinning] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [spinningQuestions, setSpinningQuestions] = useState(["", "", ""]);
-  const [hasStarted, setHasStarted] = useState(false);
-  const [usedQuestions, setUsedQuestions] = useState([]);
-  const [localCorrectCount, setLocalCorrectCount] = useState(0); // 🆕 Estado local
+  // 📦 Estados principales
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [spinningQuestions, setSpinningQuestions] = useState(["", "", ""]);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [usedQuestions, setUsedQuestions] = useState([]);
+  const [localCorrectCount, setLocalCorrectCount] = useState(0); // 🆕 Estado local
 
-  // ⏱ Referencia para el intervalo
-  const spinIntervalRef = useRef(null);
+  // 🆕 1. DECLARACIÓN DE AUDIO
+  const { aciertoSonido, errorSonido, spinSonido } = useMemo(() => {
+    const spinAudio = new Audio("/slotmachine.mp3"); 
+    spinAudio.loop = true;
+    
+    return {
+      aciertoSonido: new Audio("/acierto-pasapalabra.mp3"),
+      errorSonido: new Audio("/wrong.mp3"),
+      spinSonido: spinAudio,
+    };
+  }, []);
 
-  // 🧩 Lógica de preparación
-  const dificultadNormalizada =
-    difficulty === "intermedio" ? "medio" : difficulty || "facil";
-  const categoriaSeleccionada = "Frontend";
+  // ⏱ Referencia para el intervalo
+  const spinIntervalRef = useRef(null);
 
-  // 🎯 Calculamos las preguntas disponibles (useMemo para estabilidad)
-  const questions = useMemo(() => {
-    return (
-      data?.[categoriaSeleccionada]?.[dificultadNormalizada]?.map((q) => ({
-        question: q.pregunta,
-        options: q.opciones,
-        correctAnswer: parseInt(q.respuesta_correcta, 10) - 1,
-      })) || []
-    );
-  }, [data, dificultadNormalizada, categoriaSeleccionada]);
+  // 🧩 Lógica de preparación
+  const dificultadNormalizada =
+    difficulty === "intermedio" ? "medio" : difficulty || "facil";
+  const categoriaSeleccionada = "Frontend";
 
-  // 🎰 Inicia la animación del slot (useCallback)
-  const startSlotMachine = useCallback(() => {
-    if (isSpinning || questions.length === 0) return;
+  // 🎯 Calculamos las preguntas disponibles (useMemo para estabilidad)
+  const questions = useMemo(() => {
+    return (
+      data?.[categoriaSeleccionada]?.[dificultadNormalizada]?.map((q) => ({
+        question: q.pregunta,
+        options: q.opciones,
+        correctAnswer: parseInt(q.respuesta_correcta, 10) - 1,
+      })) || []
+    );
+  }, [data, dificultadNormalizada, categoriaSeleccionada]);
 
-    setHasStarted(true);
-    setIsSpinning(true);
-    setCurrentQuestion(null);
-    setSelectedAnswer(null);
-    setShowResult(false);
+  // 🎰 Inicia la animación del slot (useCallback)
+  const startSlotMachine = useCallback(() => {
+    if (isSpinning || questions.length === 0) return;
 
-    // Lógica del giro
-    spinIntervalRef.current = setInterval(() => {
-      const randomQuestions = Array.from({ length: 3 }, () => {
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        return questions[randomIndex].question;
-      });
-      setSpinningQuestions(randomQuestions);
-    }, 100);
+    setHasStarted(true);
+    setIsSpinning(true);
+    setCurrentQuestion(null);
+    setSelectedAnswer(null);
+    setShowResult(false);
+    
+    // INICIO DEL SONIDO DE GIRO
+    spinSonido.play();
 
-    // Detiene el giro y selecciona la pregunta final (2 segundos después)
-    setTimeout(() => {
-      clearInterval(spinIntervalRef.current);
-      setIsSpinning(false);
+    // Lógica del giro
+    spinIntervalRef.current = setInterval(() => {
+      const randomQuestions = Array.from({ length: 3 }, () => {
+        const randomIndex = Math.floor(Math.random() * questions.length);
+        return questions[randomIndex].question;
+      });
+      setSpinningQuestions(randomQuestions);
+    }, 100);
 
-      // Seleccionar una pregunta que NO se haya usado
-      let randomIndex;
-      let finalQuestion;
-      let attempts = 0;
-      const maxAttempts = questions.length * 2;
+    // Detiene el giro y selecciona la pregunta final (2 segundos después)
+    setTimeout(() => {
+      clearInterval(spinIntervalRef.current);
+      setIsSpinning(false);
+      
+      // DETENER Y REINICIAR EL SONIDO DE GIRO
+      spinSonido.pause();
+      spinSonido.currentTime = 0; // Para que empiece desde el inicio en la próxima tirada
 
-      do {
-        randomIndex = Math.floor(Math.random() * questions.length);
-        finalQuestion = questions[randomIndex];
-        attempts++;
-      } while (
-        usedQuestions.includes(finalQuestion.question) && 
-        attempts < maxAttempts
-      );
+      // Seleccionar una pregunta que NO se haya usado
+      let randomIndex;
+      let finalQuestion;
+      let attempts = 0;
+      const maxAttempts = questions.length * 2;
 
-      setCurrentQuestion(finalQuestion);
-      setUsedQuestions(prev => [...prev, finalQuestion.question]);
+      do {
+        randomIndex = Math.floor(Math.random() * questions.length);
+        finalQuestion = questions[randomIndex];
+        attempts++;
+      } while (
+        usedQuestions.includes(finalQuestion.question) && 
+        attempts < maxAttempts
+      );
 
-      setSpinningQuestions([
-        "Pregunta final seleccionada...",
-        finalQuestion.question,
-        "¡A responder!",
-      ]);
-    }, 2000);
-  }, [isSpinning, questions, usedQuestions]);
+      setCurrentQuestion(finalQuestion);
+      setUsedQuestions(prev => [...prev, finalQuestion.question]);
 
-  // 🔹 useEffect 1: Fetch de datos
-  useEffect(() => {
-    const fetchPreguntas = async () => {
-      try {
-        const res = await fetch("/api/preguntas");
-        const json = await res.json();
-        setData(json); 
-      } catch (err) {
-        console.error("Error al obtener preguntas:", err);
-        setData(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPreguntas();
-  }, []);
+      setSpinningQuestions([
+        "Pregunta final seleccionada...",
+        finalQuestion.question,
+        "¡A responder!",
+      ]);
+    }, 2000);
+  }, [isSpinning, questions, usedQuestions, spinSonido]);
 
-  // 🎬 useEffect 2: Lanza la máquina automáticamente al montar
-  useEffect(() => {
-    if (!loading && questions.length > 0 && !hasStarted) {
-      const timer = setTimeout(() => {
-        startSlotMachine();
-      }, 100);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [loading, questions.length, hasStarted, startSlotMachine]);
-  
-  // 🧠 Maneja selección de respuestas
-  const handleAnswerSelect = (answerIndex) => {
-    if (selectedAnswer !== null || !currentQuestion) return;
+  // 🔹 useEffect 1: Fetch de datos
+  useEffect(() => {
+    const fetchPreguntas = async () => {
+      try {
+        const res = await fetch("/api/preguntas");
+        const json = await res.json();
+        setData(json); 
+      } catch (err) {
+        console.error("Error al obtener preguntas:", err);
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPreguntas();
+  }, []);
 
-    setSelectedAnswer(answerIndex);
-    const correct = answerIndex === currentQuestion.correctAnswer;
-    setIsCorrect(correct);
-    setShowResult(true);
+  // 🎬 useEffect 2: Lanza la máquina automáticamente al montar
+  useEffect(() => {
+    if (!loading && questions.length > 0 && !hasStarted) {
+      const timer = setTimeout(() => {
+        startSlotMachine();
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [loading, questions.length, hasStarted, startSlotMachine]);
+  
+  // 🧠 Maneja selección de respuestas
+  const handleAnswerSelect = (answerIndex) => {
+    if (selectedAnswer !== null || !currentQuestion) return;
 
-    console.log("Respuesta:", correct ? "Correcta" : "Incorrecta"); // 🆕 Debug
+    setSelectedAnswer(answerIndex);
+    const correct = answerIndex === currentQuestion.correctAnswer;
+    setIsCorrect(correct);
+    setShowResult(true);
 
-    // Espera 2 segundos y toma acción
-    setTimeout(() => {
-      if (correct) {
-        // ✅ Respuesta correcta
-        const newCorrectCount = localCorrectCount + 1;
-        setLocalCorrectCount(newCorrectCount);
-        
-        console.log(`Respuestas correctas: ${newCorrectCount}/3`); // 🆕 Debug
-        
-        // Notificar al padre (si existe la función)
-        if (onQuestionComplete) {
-          onQuestionComplete(true);
-        }
-        
-        if (newCorrectCount === 3) {
-          // 🎉 Ganó el juego
-          console.log("¡GANASTE! Navegando a /ganaste"); // 🆕 Debug
-          setTimeout(() => {
-            navigate("/ganaste");
-          }, 1000);
-        } else {
-          // 🔄 Continuar con otra pregunta
-          console.log("Iniciando nueva pregunta..."); // 🆕 Debug
-          setTimeout(() => {
-            startSlotMachine();
-          }, 1000);
-        }
-      } else {
-        // ❌ Respuesta incorrecta - Perdió
-        console.log("Respuesta incorrecta. Navegando a /registro"); // 🆕 Debug
-        
-        // Notificar al padre (si existe la función)
-        if (onQuestionComplete) {
-          onQuestionComplete(false);
-        }
-        
-        setTimeout(() => {
-          navigate(`/registro/${difficulty}`);
-        }, 2000);
-      }
-    }, 2000);
-  };
+    if (correct) {
+      aciertoSonido.play().catch(e => console.error("Error al reproducir acierto:", e));
+    } else {
+      errorSonido.play().catch(e => console.error("Error al reproducir error:", e));
+    }
+    
+    console.log("Respuesta:", correct ? "Correcta" : "Incorrecta"); // 🆕 Debug
 
-  // 🧹 Limpieza al desmontar
-  useEffect(() => {
-    return () => {
-      if (spinIntervalRef.current) {
-        clearInterval(spinIntervalRef.current);
-      }
-    };
-  }, []);
+    // Espera 2 segundos y toma acción
+    setTimeout(() => {
+      if (correct) {
+        // ✅ Respuesta correcta
+        const newCorrectCount = localCorrectCount + 1;
+        setLocalCorrectCount(newCorrectCount);
+        
+        console.log(`Respuestas correctas: ${newCorrectCount}/3`); // 🆕 Debug
+        
+        // Notificar al padre (si existe la función)
+        if (onQuestionComplete) {
+          onQuestionComplete(true);
+        }
+        
+        if (newCorrectCount === 3) {
+          // 🎉 Ganó el juego
+          console.log("¡GANASTE! Navegando a /ganaste"); // 🆕 Debug
+          setTimeout(() => {
+            navigate("/ganaste");
+          }, 1000);
+        } else {
+          // 🔄 Continuar con otra pregunta
+          console.log("Iniciando nueva pregunta..."); // 🆕 Debug
+          setTimeout(() => {
+            startSlotMachine();
+          }, 1000);
+        }
+      } else {
+        // ❌ Respuesta incorrecta - Perdió
+        console.log("Respuesta incorrecta. Navegando a /registro"); // 🆕 Debug
+        
+        // Notificar al padre (si existe la función)
+        if (onQuestionComplete) {
+          onQuestionComplete(false);
+        }
+        
+        setTimeout(() => {
+          navigate(`/registro/${difficulty}`);
+        }, 2000);
+      }
+    }, 2000);
+  };
 
-  // 2. RENDERIZADO CONDICIONAL TEMPRANO (Carga y Error)
-  if (loading) {
-    return (
-      <div className="slot-container">
-        <div className="card">
-          <p>Cargando preguntas...</p>
-        </div>
-      </div>
-    );
-  }
+  // 🧹 Limpieza al desmontar
+  useEffect(() => {
+    return () => {
+      if (spinIntervalRef.current) {
+        clearInterval(spinIntervalRef.current);
+      }
+    };
+  }, []);
 
-  if (!data || questions.length === 0) {
-    return (
-      <div className="slot-container">
-        <div className="card">
-          <p>No hay suficientes preguntas disponibles para la dificultad seleccionada 😢</p>
-        </div>
-      </div>
-    );
-  }
+  // 2. RENDERIZADO CONDICIONAL TEMPRANO (Carga y Error)
+  if (loading) {
+    return (
+      <div className="slot-container">
+        <div className="card">
+          <p>Cargando preguntas...</p>
+        </div>
+      </div>
+    );
+  }
 
-  // 3. RENDERIZADO PRINCIPAL
-  return (
-    <div className="slot-container">
-      <div className="card">
-        <h3>Slot Machine de Preguntas</h3>
+  if (!data || questions.length === 0) {
+    return (
+      <div className="slot-container">
+        <div className="card">
+          <p>No hay suficientes preguntas disponibles para la dificultad seleccionada 😢</p>
+        </div>
+      </div>
+    );
+  }
 
-        {isSpinning ? (
-          // RAMA 1: MODO GIRO (3 cajas grandes)
-          <>
-            <p className="loading">Seleccionando pregunta...</p>
-            <div className={`spin-list ${isSpinning ? "is-spinning" : ""}`}>
-              {spinningQuestions.map((text, index) => (
-                <div key={index} className="spin-item">
-                  <div className="spin-content">
-                    {text && <p className="spin-line">{text}</p>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : currentQuestion ? (
-          // RAMA 2: MODO RESPUESTA (1 caja pequeña + 4 botones)
-          <>
-            <div className="question-box">
-              <span>{currentQuestion.question}</span>
-            </div>
+  // 3. RENDERIZADO PRINCIPAL
+  return (
+    <div className="slot-container">
+      <div className="card">
+        <h3>Slot Machine de Preguntas</h3>
 
-            <div className="options">
-              {currentQuestion.options.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleAnswerSelect(index)}
-                  disabled={selectedAnswer !== null}
-                  className={`option-btn
-                    ${
-                      selectedAnswer === index &&
-                      index === currentQuestion.correctAnswer
-                        ? "correct"
-                        : ""
-                    }
-                    ${
-                      selectedAnswer === index &&
-                      index !== currentQuestion.correctAnswer
-                        ? "incorrect"
-                        : ""
-                    }
-                  `}
-                >
-                  {String.fromCharCode(65 + index)}. {option}
-                </button>
-              ))}
-            </div>
+        {isSpinning ? (
+          // RAMA 1: MODO GIRO (3 cajas grandes)
+          <>
+            <p className="loading">Seleccionando pregunta...</p>
+            <div className={`spin-list ${isSpinning ? "is-spinning" : ""}`}>
+              {spinningQuestions.map((text, index) => (
+                <div key={index} className="spin-item">
+                  <div className="spin-content">
+                    {text && <p className="spin-line">{text}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : currentQuestion ? (
+          // RAMA 2: MODO RESPUESTA (1 caja pequeña + 4 botones)
+          <>
+            <div className="question-box">
+              <span>{currentQuestion.question}</span>
+            </div>
 
-            {showResult && (
-              <div className={`result ${isCorrect ? "correct" : "incorrect"}`}>
-                {isCorrect ? "¡Correcto! 🎉" : "Lo siento, perdiste 😢"}
-              </div>
-            )}
-          </>
-        ) : (
-          // RAMA 3: Estado inicial (se mostrará brevemente)
-          <p className="loading">Preparando pregunta...</p>
-        )}
-      </div>
+            <div className="options">
+              {currentQuestion.options.map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleAnswerSelect(index)}
+                  disabled={selectedAnswer !== null}
+                  className={`option-btn
+                    ${
+                      selectedAnswer === index &&
+                      index === currentQuestion.correctAnswer
+                        ? "correct"
+                        : ""
+                    }
+                    ${
+                      selectedAnswer === index &&
+                      index !== currentQuestion.correctAnswer
+                        ? "incorrect"
+                        : ""
+                    }
+                  `}
+                >
+                  {String.fromCharCode(65 + index)}. {option}
+                </button>
+              ))}
+            </div>
 
-      <div className="card">
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${(localCorrectCount / 3) * 100}%` }}
-          />
-        </div>
-        <p className="progress-text">{localCorrectCount}/3 respuestas correctas</p>
-      </div>
-    </div>
-  );
+            {showResult && (
+              <div className={`result ${isCorrect ? "correct" : "incorrect"}`}>
+                {isCorrect ? "¡Correcto! 🎉" : "Lo siento, perdiste 😢"}
+              </div>
+            )}
+          </>
+        ) : (
+          // RAMA 3: Estado inicial (se mostrará brevemente)
+          <p className="loading">Preparando pregunta...</p>
+        )}
+      </div>
+
+      <div className="card">
+        <div className="progress-bar">
+          <div
+            className="progress-fill"
+            style={{ width: `${(localCorrectCount / 3) * 100}%` }}
+          />
+        </div>
+        <p className="progress-text">{localCorrectCount}/3 respuestas correctas</p>
+      </div>
+    </div>
+  );
 }

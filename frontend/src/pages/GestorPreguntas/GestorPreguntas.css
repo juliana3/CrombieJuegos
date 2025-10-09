@@ -209,11 +209,11 @@ body {
 .icon-ver, .icon-agregar, .icon-editar, .icon-mostrar,
 .icon-ocultar, .icon-eliminar {
   cursor: pointer;
-  font-size: 1.5rem; /* más grandes */
+  font-size: 2.5rem; /* más grandes */
   color: #cbd5e0; /* gris claro */
   background: rgba(255, 255, 255, 0.05);
   border-radius: 36%;
-  padding: 0.6rem;
+  padding: 0.5rem;
   transition: all 0.25s ease;
 }
 
@@ -331,9 +331,11 @@ body {
 }
 .modal-content li .icon {
   color: var(--color-text-light);
+  font-size: 2.5rem;
 }
 .modal-content li .icon-borrar {
   color: var(--color-text-light);
+  font-size: 1.5rem;
 }
 
 
@@ -414,3 +416,5 @@ body {
   from { transform: translateY(30px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+

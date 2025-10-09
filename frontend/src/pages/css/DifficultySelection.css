@@ -1,37 +1,41 @@
-/* difficultyselection.css */
+/* DifficultySelection.css */
 .contenedor-dificultad {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
   position: relative;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .h1 {
   color: white !important;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  margin-top: 0;
 }
 
 .botones-dificultad {
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    
-    /* ✅ REDUCE EL ESPACIO: 20px es mucho más razonable que 100px */
-    gap: 20px; 
-    
-    /* Añade un margen para separar el grupo de botones del título */
-    margin-top: 40px; 
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .boton-facil,
 .boton-intermedio,
 .boton-dificil {
-  background: #00bfff; /* celeste */
+  background: #00bfff;
   color: white;
   border: none;
   border-radius: 12px;
-  min-width: 400px;
+  width: 100%;
+  max-width: 400px;
   padding: 15px 50px;
   font-size: 20px;
   font-weight: 700;
@@ -43,7 +47,7 @@
 .boton-facil:hover,
 .boton-intermedio:hover,
 .boton-dificil:hover {
-  background: #009acd; /* celeste más oscuro al hover */
+  background: #009acd;
   transform: translateY(-2px);
 }
 
@@ -53,45 +57,128 @@
   transform: translateY(1px);
 }
 
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 48px;
+  height: 48px;
+  font-size: 1.8rem;
+  
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  
+  z-index: 1000;
+  transition: all 0.3s ease;
+  
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.back-arrow:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+  .h1 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+  }
+  
+  .botones-dificultad {
+    max-width: 500px;
+  }
+  
+  .boton-facil,
+  .boton-intermedio,
+  .boton-dificil {
+    max-width: 350px;
+    font-size: 19px;
+    padding: 14px 40px;
+  }
+}
+
+/* Móviles */
 @media (max-width: 768px) {
   .contenedor-dificultad {
-    /* Para centrar todo el contenido (título y botones) horizontalmente en la pantalla */
-    align-items: center; 
-        
-    /* Ajusta o elimina el padding lateral si lo tenías para desktop */
-    padding-left: 0;
-    padding-right: 0;
-        
-    /* Puedes usar position: fixed; si quieres que el fondo ocupe la ventana completa */
-    position: fixed; 
-    }
-  .botones-dificultad {
-    /* Para centrar los botones individuales dentro de este contenedor */
-    align-items: center;
-        
-    /* Opcional: Centrar el contenedor de botones si tiene ancho limitado */
-    margin: 0 auto; 
+    padding: 15px;
   }
+  
   .h1 {
-    color: white !important;
-    text-align: center;
-    font-size: 2.5rem; 
-    
-    /* 1. Establece el posicionamiento relativo */
-    position: relative; 
-    
-    /* 2. Mueve la posición de la caja hacia arriba */
-    top: -50px; /* Ajusta este valor (ej: -50px) para subirlo */
-    
-    /* Mantenemos el margen inferior para separarlo de los botones */
-    margin-bottom: 40px; 
+    font-size: 2rem;
+    margin-bottom: 40px;
+    margin-top: 60px; /* Espacio para la flecha */
   }
+  
+  .botones-dificultad {
+    max-width: 100%;
+    gap: 15px;
+  }
+  
   .boton-facil,
   .boton-intermedio,
   .boton-dificil {
     font-size: 18px;
     padding: 16px 28px;
-    /* Si quieres que NO se estiren al 100% de ancho: */
-     width: auto; 
+    max-width: 300px;
+  }
+  
+  .back-arrow {
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .h1 {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+  }
+  
+  .boton-facil,
+  .boton-intermedio,
+  .boton-dificil {
+    font-size: 16px;
+    padding: 14px 24px;
+    max-width: 280px;
+  }
+  
+  .back-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .h1 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .boton-facil,
+  .boton-intermedio,
+  .boton-dificil {
+    font-size: 15px;
+    padding: 12px 20px;
+    max-width: 100%;
   }
 }
