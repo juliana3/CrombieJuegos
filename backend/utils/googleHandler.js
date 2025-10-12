@@ -9,8 +9,19 @@ dotenv.config();
 // Carga de credenciales y variables de entorno
 // La ruta ahora se construye dinámicamente usando la variable de entorno SERVICE_ACCOUNT_FILE
 const SERVICE_ACCOUNT_FILE = path.join(__dirname, '..', 'juego-mkt-4d9468404a43.json');
+const fs = require('fs');
 const DRIVE_SCOPES = ['https://www.googleapis.com/auth/drive'];
 const SHEETS_SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
+
+console.log('🔍 Ruta de credenciales:', SERVICE_ACCOUNT_FILE);
+console.log('🔍 __dirname es:', __dirname);
+console.log('🔍 ¿Existe el archivo?:', fs.existsSync(SERVICE_ACCOUNT_FILE));
+
+if (fs.existsSync(SERVICE_ACCOUNT_FILE)) {
+    console.log('✅ Archivo de credenciales encontrado');
+} else {
+    console.error('❌ NO se encontró el archivo de credenciales');
+}
 
 // IDs de carpetas y hojas de cálculo. Ahora se obtienen de las variables de entorno.
 const ID_CARPETA_FOTOS_PREMIOS = process.env.ID_CARPETA_FOTOS_PREMIOS;
@@ -91,9 +102,16 @@ const getSheetsService = async () => {
 };
 
 // Función para guardar datos en Google Sheets
+// Función para guardar datos en Google Sheets
 const guardarDatosEnSheets = async (nombre, apellido, email) => {
+    
     const sheetsService = await getSheetsService();
-    if (!sheetsService) return false;
+    if (!sheetsService) {
+        console.error('❌ No se pudo obtener el servicio de Sheets');
+        return false;
+    }
+    
+    console.log('✅ Servicio de Sheets obtenido correctamente');
 
     // Obtener la fecha actual en formato 'dd/mm/yyyy'
     const today = new Date();
@@ -112,18 +130,20 @@ const guardarDatosEnSheets = async (nombre, apellido, email) => {
         values,
     };
 
+    console.log('📊 Datos a guardar:', values);
+
     try {
-        await sheetsService.spreadsheets.values.append({
+        const result = await sheetsService.spreadsheets.values.append({
             spreadsheetId: ID_HOJA_SHEETS_MAILS,
             range: 'eventos!A1', // Escribe en la primera fila disponible de la hoja
             valueInputOption: 'USER_ENTERED',
             resource,
         });
-        console.log(`Datos del usuario ${nombre} ${apellido} guardados en Google Sheets.`);
+        console.log(`✅ Datos del usuario ${nombre} ${apellido} guardados en Google Sheets.`);
         return true;
     } catch (e) {
-        console.log(`Error al guardar los datos en Google Sheets:`, e);
-        console.error(`Error al guardar los datos en Google Sheets:`, e);
+        console.log(`❌ Error al guardar los datos en Google Sheets:`, e.message);
+        console.error(`❌ Error completo:`, e);
         return false;
     }
 };

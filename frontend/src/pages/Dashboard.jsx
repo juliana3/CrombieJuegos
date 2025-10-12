@@ -51,7 +51,7 @@ function Dashboard() {
     setIsSubmitting(true); // Activar el estado de "enviando"
 
     try {
-      const response = await fetch("http://localhost:3000/emails", {
+      const response = await fetch("/api/emails", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
