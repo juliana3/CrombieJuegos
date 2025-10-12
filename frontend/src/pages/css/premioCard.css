@@ -109,6 +109,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 15px rgba(0, 191, 255, 0.3);
+  margin-left: 3.5rem;
 }
 
 .volver-a-jugar-btn:hover {
@@ -174,6 +175,7 @@
   .crombie-logo {
     display: block !important; 
     margin-top: 0rem; 
+    margin-left: 7rem;
     width: 150px; 
     height: auto;
   }
@@ -187,7 +189,7 @@
     width: 200px;
     height: auto;
     margin-bottom: 4rem; 
-    margin-left: 0.5rem;
+    margin-left: 6rem;
   }
 
   .premio-display {
@@ -214,7 +216,7 @@
     width: 200px;
     height: auto;
     margin-bottom: 1rem; 
-    margin-left: 0.5rem;
+    margin-left: 9rem;
   }
 
   .premio-display {
@@ -228,7 +230,7 @@
   .premio-imagen {
     width: 450px;
     max-height: 50vh;
-    margin-left: 2rem;
+    margin-left: 1.5rem;
   }
   
   /* 🛑 IMAGEN PEQUEÑA EN TABLET */
@@ -246,8 +248,8 @@
   }
   
   .volver-a-jugar-btn {
-    margin-top: -1em;
-    margin-left: 0.5rem;
+    margin-top: 2rem;
+    margin-left: 3rem;
   }
 }
 
@@ -266,16 +268,16 @@
     width: 350px;
     height: auto;
     margin-bottom: 0; 
-    margin-top: 5rem;
-    margin-left: 3rem;
+    margin-top: 12rem;
+    margin-left: 5rem;
     flex-shrink: 0;
   }
 
   .premio-display {
     margin-bottom: 0;
-    margin-left: 0; 
+    margin-left: 30rem; 
     margin-right: 0;
-    margin-top: 3rem;
+    margin-top: -15rem;
     flex-shrink: 0;
   }
 
@@ -302,6 +304,69 @@
   }
   
   .volver-a-jugar-btn {
-    margin-top: 1rem;
+    margin-top: -1rem;
+    margin-left: 7rem;
   }
+}
+
+/* ================================================= */
+/* ANIMACIÓN DE ENTRADA UNIFICADA (Para React) */
+/* ================================================= */
+
+/* Estado inicial: Oculto y escalado */
+.premio-card-content-hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    /* Deshabilita cualquier click mientras está oculto */
+    pointer-events: none; 
+}
+
+/* Estado final: Visible con animación */
+.premio-card-content-visible {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    pointer-events: all; 
+}
+
+/* Aplicamos la clase principal para que todos los hijos hereden la transición */
+.premio-card-container > * {
+    /* Aseguramos que la transición aplique a todos los elementos clave */
+    /* !important puede ser necesario si otras reglas tienen mayor especificidad */
+    transition: all 0.5s ease-out !important; 
+}
+
+/* ================================================= */
+/* SPINNER DE CARGA (Para la imagen) */
+/* ================================================= */
+
+/* Contenedor que centra el spinner */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Asegura que esté por encima del fondo */
+    background-color: rgba(0, 0, 0, 0.3); /* Fondo semitransparente */
+}
+
+/* Estilo del spinner (el círculo que gira) */
+.loading-spinner-circle {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3; /* Color de fondo */
+    border-top: 5px solid #00bfff; /* Color del spinner (tu color celeste) */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* Aplica la animación */
+    margin-left: 12rem;
+}
+
+/* Keyframes para la rotación */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
