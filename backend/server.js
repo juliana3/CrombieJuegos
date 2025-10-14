@@ -15,6 +15,10 @@ app.use(emailsRoutes);
 app.use(preguntasRoutes);
 app.use(premiosRoutes);
 
+// Health check para Docker
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
 
 
 // Levantar el servidor

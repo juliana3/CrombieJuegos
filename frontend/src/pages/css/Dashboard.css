@@ -140,7 +140,7 @@
 
 
 /* Ajustes para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .cro {
     margin-bottom: 1rem;
   }

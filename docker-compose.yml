@@ -1,40 +1,32 @@
-version: '3.8'
-
 services:
-  # Backend - Express
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-    container_name: game_backend
-    restart: unless-stopped
-    environment:
-      NODE_ENV: production
-      PORT: 3000
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+      dockerfile: Dockerfile.prod
+    container_name: game_backend_prod
+    restart: always
+    env_file:
+      - ./backend/.env
+    expose:
+      - "3000"
     networks:
       - app_network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # Frontend - React (Vite)
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    container_name: game_frontend
-    restart: unless-stopped
-    environment:
-      VITE_API_URL: http://localhost:3000
+      dockerfile: Dockerfile.prod
+    container_name: game_frontend_prod
+    restart: always
     ports:
-      - "5173:5173"
+      - "80:80"
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     networks:
       - app_network
 

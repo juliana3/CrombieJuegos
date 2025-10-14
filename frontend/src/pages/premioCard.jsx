@@ -20,11 +20,7 @@ export default function PaginaPremio() {
     obtenerYAsignarPremio();
   }, []);
 
-  useEffect(() => {
-    if (premio && !loading) {
-      premioSonido.play();
-    }
-  }, [premio, loading, premioSonido]);
+
 
   const obtenerYAsignarPremio = async () => {
     try {
@@ -79,6 +75,9 @@ export default function PaginaPremio() {
 
   const handleImageLoad = () => {
     setImagenCargada(true);
+    setTimeout(() => {
+      premioSonido.play();
+    }, 800); // Retraso para que el sonido no se superponga con la carga
   };
 
   //Aplica la visibilidad en base al estado de la imagen.
@@ -120,7 +119,6 @@ export default function PaginaPremio() {
                 <div className="loading-overlay">
                     <div className="loading-content-centered"> 
                         <div className="loading-spinner-circle"></div> 
-                        {/* Cambié el mensaje para reflejar la acción */}
                         <div className="loading-message" style={{marginTop: '20px'}}>Eligiendo premio...</div>
                     </div>
                 </div>

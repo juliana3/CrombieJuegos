@@ -63,6 +63,24 @@ function GestorPreguntas() {
     fetchPreguntas();
   }, []);
 
+  // Contar categorías visibles
+  const categoriasVisibles = categorias.filter(cat => cat.visible);
+  const tieneMinimoCategorias = categoriasVisibles.length === 3;
+
+  // Bloquear salida si no hay 3 visibles
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (!tieneMinimoCategorias) {
+        event.preventDefault();
+        event.returnValue = "Debes tener 3 categorías visibles antes de salir.";
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [tieneMinimoCategorias]);
+
   // toggle visibilidad
   const toggleVisible = (nombre, visible) => {
     fetch(`/api/categorias/${nombre}/visibilidad/${!visible}`, {
@@ -230,9 +248,15 @@ const agregarCategoria = (e) => {
   return (
     <div>
      <div className="volver">
+      {tieneMinimoCategorias ? (
     <a href="/">
       <GiFastBackwardButton /> 
     </a>
+    ) : (
+          <p style={{ color: "red", fontWeight: "bold", margin: "10px 0" }}>
+            Debes tener 3 categorías visibles para continuar.
+          </p>
+        )}
   </div>
       <div className="nombre">
          <GradientText animationSpeed={12}>

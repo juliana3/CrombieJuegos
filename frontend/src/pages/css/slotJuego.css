@@ -248,7 +248,7 @@
 
 
 /* 🔹 Responsive para móviles (hasta 768px) */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .slot-container {
     max-width: 95%;
     padding: 12px;

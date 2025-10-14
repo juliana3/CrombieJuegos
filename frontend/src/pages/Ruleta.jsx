@@ -71,9 +71,21 @@ function Ruleta() {
   if (faseDelJuego === "cargando") return <div className="loading-screen">Cargando datos del juego...</div>;
   if (faseDelJuego === "error") return <div className="error-screen">Ocurrió un error al cargar los datos.</div>;
 
-  const categoriasDesdeAPI = juegoData ? Object.keys(juegoData) : [];
+  const categoriasDesdeAPI = juegoData
+    ? Object.entries(juegoData)
+        .filter(([_, datos]) => datos.visible === true)
+        .map(([nombre]) => nombre)
+        .slice(0, 3)
+    : [];
 
-  const categoriasAMezclar = [...categoriasDesdeAPI.slice(0, 3), "Sorteo", "Sorteo", "Perdiste", "Perdiste", "Perdiste"];
+  const categoriasAMezclar = [
+    ...categoriasDesdeAPI,
+    "Sorteo",
+    "Sorteo",
+    "Perdiste",
+    "Perdiste",
+    "Perdiste"
+  ];
 
   // Baraja y luego asigna los ángulos
   const categoriasConAngulos = mezclarCategorias(categoriasAMezclar).map((nombre, i) => ({

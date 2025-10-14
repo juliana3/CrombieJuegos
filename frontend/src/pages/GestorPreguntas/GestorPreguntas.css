@@ -11,6 +11,8 @@
   --color-bg: #f4f7fc;
   --color-white: #ffffff;
   --color-gray: #e2e8f0;
+  --color-danger: #f56565;
+  --color-danger-hover: #e53e3e;
 
   /* Sombras */
   --shadow-light: 0 4px 10px rgba(0,0,0,0.05);
@@ -48,9 +50,8 @@ body {
   color: var(--color-primary-light);
   text-align: center;
   margin: 20px 0 30px 0;
-   box-shadow:rgba(10, 25, 47, 0.7);
-   padding: 10px;
-   
+  box-shadow:rgba(10, 25, 47, 0.7);
+  padding: 10px;
 }
 
 /* === CONTENEDOR === */
@@ -58,24 +59,13 @@ body {
   max-width: 400px;
   margin: 0 auto;
   padding: 1.5rem;
-  
-  /* fondo semitransparente (blanco con opacidad) */
   background: rgba(255, 255, 255, 0.099);
-  
-  /* sombra más suave y con transparencia */
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  
-  /* bordes redondeados */
   border-radius: var(--radius-md);
-  
-  /* opcional: un borde muy sutil con color degradado o traslúcido */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  
-  /* para “cortar” el fondo dentro del borde si el fondo interior debe mostrarse */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-
 
 /* === BOTÓN VOLVER === */
 .volver {
@@ -85,8 +75,7 @@ body {
   text-decoration: none;
   font-weight: 600;
   color: var(--color-white);
-    background: rgba(253, 253, 253, 0);
-
+  background: rgba(253, 253, 253, 0);
   padding: 10px 18px;
   border-radius: var(--radius-sm);
   transition: all 0.3s ease;
@@ -100,12 +89,11 @@ body {
 .agregar-categorias {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Título a la izquierda, icono a la derecha */
+  justify-content: space-between;
   margin-bottom: 15px;
   padding: 0 5px;
 }
 
-/* Texto "Categorías" */
 .agregar-categorias p {
   font-size: var(--h3-size);
   font-weight: 600;
@@ -117,28 +105,23 @@ body {
   gap: 8px;
 }
 
-/* Ícono de agregar categoría */
 .icon-agregar-categoria {
-  font-size: 1.6rem;
+  font-size: 2.0rem;
   cursor: pointer;
-  color: #48bb78; /* verde inicial */
-  background: rgba(72, 187, 120, 0.1); /* circulito suave */
+  color: #48bb78;
+  background: rgba(72, 187, 120, 0.1);
   border-radius: 50%;
   padding: 6px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Hover con efecto "glow" */
 .icon-agregar-categoria:hover {
-  transform: scale(1.15) rotate(90deg); /* animación divertida */
-  color: #38a169; /* verde más intenso */
+  transform: scale(1.15) rotate(90deg);
+  color: #38a169;
   background: rgba(72, 187, 120, 0.2);
   box-shadow: 0 0 5px #48bb78, 0 0 10px rgba(72, 187, 120, 0.6);
 }
-
-
-
 
 /* === LISTADO DE CATEGORÍAS === */
 .categorias > p {
@@ -146,15 +129,14 @@ body {
   font-weight: 600;
   margin-left: 120px;
   color: hsl(191, 50%, 60%);
-  /*border-bottom: 1px solid var(--color-gray);*/
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
 
 .categorias ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .categoria-item {
@@ -162,30 +144,23 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-    /* fondo semitransparente (blanco con opacidad) */
   background: rgba(255, 255, 255, 0.099);
-  
-  /* sombra más suave y con transparencia */
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  
-  /* bordes redondeados */
   border-radius: var(--radius-md);
-  
-  /* opcional: un borde muy sutil con color degradado o traslúcido */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  
-  /* para “cortar” el fondo dentro del borde si el fondo interior debe mostrarse */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   margin-bottom: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   border-left: 5px solid transparent;
 }
+
 .categoria-item:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-strong);
   border-left: 5px solid var(--color-primary);
 }
+
 .categoria-item span {
   font-size: 1.05rem;
   font-weight: 500;
@@ -203,21 +178,20 @@ body {
 .acciones-pregunta {
   display: flex;
   align-items: center;
-  gap: 15px; /* Espacio entre el ícono de editar y el de borrar */
+  gap: 15px;
 }
 
 .icon-ver, .icon-agregar, .icon-editar, .icon-mostrar,
 .icon-ocultar, .icon-eliminar {
   cursor: pointer;
-  font-size: 2.5rem; /* más grandes */
-  color: #cbd5e0; /* gris claro */
+  font-size: 2.5rem;
+  color: #cbd5e0;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 36%;
   padding: 0.5rem;
   transition: all 0.25s ease;
 }
 
-/* Hover general */
 .icon-ver:hover,
 .icon-agregar:hover,
 .icon-editar:hover,
@@ -229,36 +203,32 @@ body {
   box-shadow: 0 0 1px currentColor, 0 0 5px currentColor;
 }
 
-/* Colores específicos con glow */
 .icon-ver:hover {
-  color: #9f7aea; /* púrpura */
+  color: #9f7aea;
 }
 
 .icon-agregar:hover {
-  color: #48bb78; /* verde */
+  color: #48bb78;
 }
 
 .icon-editar:hover {
-  color: #4299e1; /* azul */
+  color: #4299e1;
 }
 
 .icon-mostrar:hover {
-  color: #38a169; /* verde oscuro */
+  color: #38a169;
 }
 
 .icon-ocultar:hover {
-  color: #f6ad55; /* naranja */
+  color: #f6ad55;
 }
 
 .icon-eliminar:hover {
-  color: #f56565; /* rojo */
+  color: #f56565;
 }
 
-
-
-/* === MODAL === */
+/* === MODAL GENERAL === */
 .modal {
-  
   position: fixed;
   top: 0;
   left: 0;
@@ -272,6 +242,7 @@ body {
   z-index: 1000;
   animation: fadeIn 0.3s ease;
 }
+
 .modal-content {
   
   /* fondo semitransparente (blanco con opacidad) */
@@ -287,24 +258,11 @@ body {
   overflow-y: auto;
   animation: slideInUp 0.4s ease;
 }
-.modal-content h3 {
-    font-size: var(--h2-size);
-  color: var(--color-white);
-  margin-bottom: 25px;
-}
-.modal-content h4 {
-  
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--color-gray);
-  margin: 20px 0 10px;
-  
+
+.modal.modal-confirmacion {
+  z-index: 1001; /* Asegura que el modal de confirmación esté por encima del modal general */
 }
 
-
-
-/* === LISTADO EN MODAL === */
 .modal-content ul {
   list-style: none;
   padding: 0;
@@ -331,14 +289,10 @@ body {
 }
 .modal-content li .icon {
   color: var(--color-text-light);
-  font-size: 2.5rem;
 }
 .modal-content li .icon-borrar {
   color: var(--color-text-light);
-  font-size: 1.5rem;
 }
-
-
 
 .modal-content li .icon:hover {
   color: var(--color-primary);
@@ -347,64 +301,111 @@ body {
   color: #9a0202;
 }
 
-/* === FORMULARIOS EN MODAL === */
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.modal-content label {
-  margin: 1px;
-  font-size: 0.95rem;
-  font-weight: 00;
+
+.modal-content h3 {
+  font-size: var(--h2-size);
   color: var(--color-white);
-}
-.modal-content input,
-.modal-content select {
-  
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid var(--color-gray);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-base);
-  font-family: var(--font-family);
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-.modal-content input:focus,
-.modal-content select:focus {
-  
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(90,103,216,0.3);
+  margin-bottom: 25px;
 }
 
-/* === FOOTER MODAL === */
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 25px;
-  padding-top: 20px;
-  border-top: 1px solid var(--color-gray);
+.modal-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-gray);
+  margin: 20px 0 10px;
 }
-.modal-footer button {
+
+/* === ⭐ MODAL DE CONFIRMACIÓN DE ELIMINACIÓN === */
+.modal-confirmacion-content {
+  max-width: 450px;
+  text-align: center;
+  padding: 35px 40px;
+}
+
+.modal-confirmacion-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-confirmacion-icon {
+  font-size: 3.5rem;
+  color: var(--color-danger);
+  background: rgba(245, 101, 101, 0.15);
+  padding: 20px;
+  border-radius: 50%;
+  animation: pulseIcon 2s ease-in-out infinite;
+}
+
+.modal-confirmacion .modal-confirmacion-botones .btn-eliminar {
+  background-color: #9a0202; 
+  color: var(--color-white);
+  border: none;
   padding: 10px 20px;
   border-radius: var(--radius-sm);
-  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  border: none;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
-.modal-footer button:first-child {
-  background: var(--color-primary);
+
+.modal-confirmacion .modal-confirmacion-botones .btn-cancelar {
+  background-color: #4299e1; 
   color: var(--color-white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.modal-footer button:last-child {
-  background: var(--color-gray);
-  color: var(--color-text);
+
+@keyframes pulseIcon {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 101, 101, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 15px rgba(245, 101, 101, 0);
+  }
 }
-.modal-footer button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-light);
+
+.modal-confirmacion-content h3 {
+  font-size: 1.8rem;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.modal-confirmacion-texto {
+  font-size: 1.05rem;
+  color: var(--color-gray);
+  line-height: 1.6;
+  margin: 20px 0 15px;
+}
+
+.modal-confirmacion-texto strong {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.modal-confirmacion-advertencia {
+  font-size: 0.9rem;
+  color: var(--color-danger);
+  font-weight: 500;
+  margin-bottom: 30px;
+  padding: 10px;
+  background: rgba(245, 101, 101, 0.1);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-danger);
+}
+
+.modal-confirmacion-botones {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }
  
 /* === ANIMACIONES === */
@@ -416,5 +417,3 @@ body {
   from { transform: translateY(30px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-
-
