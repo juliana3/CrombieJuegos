@@ -13,6 +13,20 @@ const fs = require('fs');
 const DRIVE_SCOPES = ['https://www.googleapis.com/auth/drive'];
 const SHEETS_SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
+// --- Carga de credenciales ---
+let credentials;
+
+// Si estás en producción (por ejemplo en Vercel)
+if (process.env.GOOGLE_SERVICE_ACCOUNT) {
+  // La variable viene como JSON string desde las Environment Variables
+  credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+} else {
+  // En desarrollo local, seguís usando el archivo físico
+  const SERVICE_ACCOUNT_FILE = path.join(__dirname, '..', 'juego-mkt-4d9468404a43.json');
+  credentials = JSON.parse(fs.readFileSync(SERVICE_ACCOUNT_FILE, 'utf8'));
+}
+
+
 console.log('🔍 Ruta de credenciales:', SERVICE_ACCOUNT_FILE);
 console.log('🔍 __dirname es:', __dirname);
 console.log('🔍 ¿Existe el archivo?:', fs.existsSync(SERVICE_ACCOUNT_FILE));
