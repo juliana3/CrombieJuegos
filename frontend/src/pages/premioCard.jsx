@@ -8,6 +8,8 @@ export default function PaginaPremio() {
   const [premio, setPremio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imagenCargada, setImagenCargada] = useState(false); 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { difficulty } = useGame(); 
@@ -27,7 +29,7 @@ export default function PaginaPremio() {
       setLoading(true);
       
       // Obtener premios activos
-      const response = await fetch('/api/premios/activos');
+      const response = await fetch(`${API_BASE_URL}/premios/activos`);
       if (!response.ok) throw new Error('Error al obtener premios');
       
       const premios = await response.json();
@@ -44,7 +46,7 @@ export default function PaginaPremio() {
       const nombreCodificado = encodeURIComponent(premioAleatorio.nombre);
       
       // Descontar stock
-      const descontarResponse = await fetch(`/api/premios/stock/${nombreCodificado}`, {
+      const descontarResponse = await fetch(`${API_BASE_URL}/premios/stock/${nombreCodificado}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -65,7 +67,7 @@ export default function PaginaPremio() {
 
   const getImageUrl = (driveId) => {
     if (!driveId) return null;
-    return `/api/premios/imagen/${driveId}`;
+    return `${API_BASE_URL}/premios/imagen/${driveId}`;
   };
 
   

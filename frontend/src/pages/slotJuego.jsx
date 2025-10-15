@@ -20,6 +20,7 @@ export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers
   const [spinningQuestions, setSpinningQuestions] = useState(["", "", ""]);
   const [hasStarted, setHasStarted] = useState(false);
   const [usedQuestions, setUsedQuestions] = useState([]);
+  const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
   const [localCorrectCount, setLocalCorrectCount] = useState(0); // 🆕 Estado local
 
   // 🆕 1. DECLARACIÓN DE AUDIO
@@ -114,7 +115,7 @@ export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
-        const res = await fetch("/api/preguntas");
+        const res = await fetch(`${API_BASE_URL}/preguntas`);
         const json = await res.json();
         setData(json); 
       } catch (err) {

@@ -32,7 +32,8 @@ function Ruleta() {
   const [juegoData, setJuegoData] = useState(null);
   const [error, setError] = useState(null);
   const [preguntaActual, setPreguntaActual] = useState(null);
-  const { width, height } = useWindowSize(); 
+  const { width, height } = useWindowSize();
+  const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'; 
 
   const ganarSonido = new Audio("/Ganaste.mp3");
   const perderSonido = new Audio("/Loserrrrr.mp3");
@@ -44,7 +45,7 @@ function Ruleta() {
     }
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/preguntas'); 
+        const response = await fetch(`${API_BASE_URL}/preguntas`); 
         if (!response.ok) {
           throw new Error(`Error en la carga: ${response.statusText}`);
         }
@@ -101,7 +102,7 @@ function Ruleta() {
   const handleCategoriaSeleccionada = async (categoria) => {
     if (categoria === "Sorteo") {
       try {
-      const response = await fetch('/api/sorteo', { method: 'POST' });
+      const response = await fetch(`${API_BASE_URL}/sorteo`, { method: 'POST' });
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
     } catch (error) {

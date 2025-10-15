@@ -15,6 +15,7 @@ function Dashboard() {
 
   const navigate = useNavigate();
   const { dificultad: dificultadElegida } = useParams();
+  const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     verificarPremiosDisponibles();
@@ -22,7 +23,7 @@ function Dashboard() {
 
   const verificarPremiosDisponibles = async () => {
     try {
-      const response = await fetch('/api/premios/activos');
+      const response = await fetch(`${API_BASE_URL}/premios/activos`);
       if (!response.ok) throw new Error('Error al verificar premios');
       
       const premios = await response.json();
@@ -51,7 +52,7 @@ function Dashboard() {
     setIsSubmitting(true); // Activar el estado de "enviando"
 
     try {
-      const response = await fetch("/api/emails", {
+      const response = await fetch(`${API_BASE_URL}/emails`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
