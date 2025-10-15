@@ -115,7 +115,7 @@ export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/preguntas`);
+        const res = await fetch(`${API_BASE_URL}/api/preguntas`);
         const json = await res.json();
         setData(json); 
       } catch (err) {

@@ -45,7 +45,7 @@ function Ruleta() {
     }
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/preguntas`); 
+        const response = await fetch(`${API_BASE_URL}/api/preguntas`); 
         if (!response.ok) {
           throw new Error(`Error en la carga: ${response.statusText}`);
         }
@@ -102,7 +102,7 @@ function Ruleta() {
   const handleCategoriaSeleccionada = async (categoria) => {
     if (categoria === "Sorteo") {
       try {
-      const response = await fetch(`${API_BASE_URL}/sorteo`, { method: 'POST' });
+      const response = await fetch(`${API_BASE_URL}/api/sorteo`, { method: 'POST' });
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
     } catch (error) {

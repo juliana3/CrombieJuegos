@@ -29,7 +29,7 @@ export default function PaginaPremio() {
       setLoading(true);
       
       // Obtener premios activos
-      const response = await fetch(`${API_BASE_URL}/premios/activos`);
+      const response = await fetch(`${API_BASE_URL}/api/premios/activos`);
       if (!response.ok) throw new Error('Error al obtener premios');
       
       const premios = await response.json();
@@ -46,7 +46,7 @@ export default function PaginaPremio() {
       const nombreCodificado = encodeURIComponent(premioAleatorio.nombre);
       
       // Descontar stock
-      const descontarResponse = await fetch(`${API_BASE_URL}/premios/stock/${nombreCodificado}`, {
+      const descontarResponse = await fetch(`${API_BASE_URL}/api/premios/stock/${nombreCodificado}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ export default function PaginaPremio() {
 
   const getImageUrl = (driveId) => {
     if (!driveId) return null;
-    return `${API_BASE_URL}/premios/imagen/${driveId}`;
+    return `${API_BASE_URL}/api/premios/imagen/${driveId}`;
   };
 
   

@@ -34,7 +34,7 @@ function GestorPremios() {
   async function fetchPremios() {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/premios`);
+      const res = await fetch(`${API_BASE_URL}/api/premios`);
       if (!res.ok) throw new Error("No se pudieron cargar los premios");
 
       const data = await res.json();
@@ -74,7 +74,7 @@ function GestorPremios() {
   const toggleVisible = async (nombre, activoActual) => {
     const nuevoValor = !activoActual; // lo que queremos poner
     try {
-      const res = await fetch(`${API_BASE_URL}/premios/estado/${encodeURIComponent(nombre)}/${nuevoValor}`, {
+      const res = await fetch(`${API_BASE_URL}/api/premios/estado/${encodeURIComponent(nombre)}/${nuevoValor}`, {
         method: "PUT",
       });
 
@@ -109,7 +109,7 @@ function GestorPremios() {
 
   const modificarCantidad = async (nombre, nuevaCantidad) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/premios/cantidad/${encodeURIComponent(nombre)}/${nuevaCantidad}`, {
+      const res = await fetch(`${API_BASE_URL}/api/premios/cantidad/${encodeURIComponent(nombre)}/${nuevaCantidad}`, {
         method: "PATCH",
       });
 
@@ -142,7 +142,7 @@ function GestorPremios() {
     setPremios(prev.filter(p => p.nombre !== nombre)); // actualizar frontend
 
     try {
-      const res = await fetch(`${API_BASE_URL}/premios/eliminar/${encodeURIComponent(nombre)}`, { method: "DELETE" });
+      const res = await fetch(`${API_BASE_URL}/api/premios/eliminar/${encodeURIComponent(nombre)}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Error al eliminar");
     } catch {
       setPremios(prev); // revertir cambios si falla
@@ -158,7 +158,7 @@ function GestorPremios() {
     if (newFotoFile) form.append("imagen-premio", newFotoFile);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/premios/crear}`, {
+      const res = await fetch(`${API_BASE_URL}/api/premios/crear}`, {
         method: "POST",
         body: form, 
       });
@@ -200,14 +200,14 @@ function GestorPremios() {
           form.append("nuevoNombre", editPremio.nombre);
         }
 
-        res = await fetch(`${API_BASE_URL}/premios/editar/${encodeURIComponent(id)}`, {
+        res = await fetch(`${API_BASE_URL}/api/premios/editar/${encodeURIComponent(id)}`, {
           method: "PUT",
           body: form
         });
 
       } else {
         // JSON si solo cambias el nombre
-        res = await fetch(`${API_BASE_URL}/premios/editar/${encodeURIComponent(id)}`, {
+        res = await fetch(`${API_BASE_URL}/api/premios/editar/${encodeURIComponent(id)}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ nuevoNombre: nombre }), // <- coincide con backend
