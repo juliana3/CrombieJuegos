@@ -9,6 +9,16 @@ const { leerPreguntas, leerPremios } = require('./utils/fileHandler');
 
 const app = express();
 const puerto = 3000;
+const VERCEL_FRONTEND_URL = 'https://crombie-juegos.vercel.app/'; 
+const corsOptions = {
+  // Configura el único origen permitido
+  origin: VERCEL_FRONTEND_URL, 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(emailsRoutes);
