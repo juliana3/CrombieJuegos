@@ -186,14 +186,18 @@ function GestorPremios() {
     if (!editPremio) return;
     const { id, nombre } = editPremio;
 
+
     try {
       let res;
 
       if (editFotoFile) {
         // FormData si hay nueva imagen
         const form = new FormData();
-        form.append("nuevoNombre", nombre); // <- coincide con backend
         form.append("imagen-premio", editFotoFile);
+
+        if (editPremio.id !== editPremio.nombre){
+          form.append("nuevoNombre", editPremio.nombre);
+        }
 
         res = await fetch(`/api/premios/editar/${encodeURIComponent(id)}`, {
           method: "PUT",
