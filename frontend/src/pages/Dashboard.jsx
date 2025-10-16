@@ -97,7 +97,7 @@ function Dashboard() {
   }
     
   const manejarVolver = () => {
-    navigate(-1); // Vuelve a la página anterior
+    navigate('/'); // Vuelve a la página anterior
   };
 
   return (
