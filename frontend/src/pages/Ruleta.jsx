@@ -122,7 +122,7 @@ function Ruleta() {
     let dificultad = dificultadElegida.toLowerCase();
     if (dificultad === "intermedio") dificultad = "medio";
 
-    const preguntas = juegoData[categoria]?.[dificultad] || [];"
+    const preguntas = juegoData[categoria]?.[dificultad] || [];
     if (!preguntas.length) {
       setFaseDelJuego("ruletaCategorias"); 
       return;
