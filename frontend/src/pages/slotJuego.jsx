@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { useNavigate } from "react-router-dom";
 import { useGame } from "../components/contexto/gameContext.jsx";
 import "./css/slotJuego.css";
+import { useLocation } from "react-router-dom";
+
 
 export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers }) {
   // 1. DECLARACIÓN DE TODOS LOS HOOKS (Incondicionalmente)
@@ -41,7 +43,9 @@ export default function QuestionSlotMachine({ onQuestionComplete, correctAnswers
   // 🧩 Lógica de preparación
   const dificultadNormalizada =
     difficulty === "intermedio" ? "medio" : difficulty || "facil";
-  const categoriaSeleccionada = "Frontend";
+  const location = useLocation();
+  const categoriaSeleccionada = location.state?.categoria;
+
 
   // 🎯 Calculamos las preguntas disponibles (useMemo para estabilidad)
   const questions = useMemo(() => {
