@@ -44,9 +44,9 @@ function JuegoRuleta({ items = [], onSpinEnd }) {
     let candidatos;
 
     // 45% Perdiste, 45% Sorteo, 10% API
-    if (r < 0.40) {
+    if (r < 0.30) {
       candidatos = items.filter(it => it.nombre === "Perdiste");
-    } else if (r < 0.80) {
+    } else if (r < 0.60) {
       candidatos = items.filter(it => it.nombre === "Sorteo");
     } else {
       candidatos = items.filter(it => it.nombre !== "Perdiste" && it.nombre !== "Sorteo");
