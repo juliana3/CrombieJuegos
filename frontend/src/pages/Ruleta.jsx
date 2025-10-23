@@ -66,9 +66,7 @@ function Ruleta() {
       navigate("/slot-juego", { state: { categoria: preguntaActual.categoria } });
     }
   }, [faseDelJuego, preguntaActual, navigate]);
- 
-    // El efecto se dispara solo cuando 'faseDelJuego' cambia.
-  }, [faseDelJuego, navigate]); 
+
 
   if (faseDelJuego === "cargando") return <div className="loading-screen">Cargando datos del juego...</div>;
   if (faseDelJuego === "error") return <div className="error-screen">Ocurrió un error al cargar los datos.</div>;
