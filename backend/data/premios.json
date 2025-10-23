@@ -3,22 +3,23 @@
     "Botella": {
       "activo": true,
       "cantidad": 1,
-      "imagen": "1n1zSHrG_Ujs_DUYz2x_8YWjh5N3ZSxEq"
+      "imagen": "1B-uiMWtMQtGjwpx2CL9NzSCa_hP9PB7F"
     },
-    "Remera + bolso": {
+    "bolso": {
       "activo": true,
       "cantidad": 0,
-      "imagen": "1q_I80Du_qvTGN5kHu1LwuHVTzLvdSslV"
+      "imagen": "1onHBQiQ8-elg9pQv-9VXy2fZQZaBBIfV"
     },
-    "Buzo": {
+    "Remera": {
       "activo": false,
       "cantidad": 0,
-      "imagen": "1wKoTdKcQXuQ7fNfCtQ72TDXXXV9ZYh71"
+      "imagen": "13R1VqM-VPuWWhgrZpW-f6XIcmRt0v4Tt"
     },
     "Vaso térmico": {
       "activo": true,
       "cantidad": 0,
-      "imagen": "1Y-de0CxhGLMBsRz_EeiLcBgIuKfVR678"
+      "imagen": "1iaC9SzkhbsO4ysAn90avkp6iBd5lU6ch"
     }
   }
+}
 }
