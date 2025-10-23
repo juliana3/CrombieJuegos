@@ -158,7 +158,7 @@ function GestorPremios() {
     if (newFotoFile) form.append("imagen-premio", newFotoFile);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/premios/crear}`, {
+      const res = await fetch(`${API_BASE_URL}/api/premios/crear`, {
         method: "POST",
         body: form, 
       });
