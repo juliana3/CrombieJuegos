@@ -1,239 +1,260 @@
 {
   "categorias": {
     "Frontend": {
-      "facil": [
+      "facil": [],
+      "medio": [
         {
-          "pregunta": "¿Qué es HTML?",
+          "pregunta": "¿Qué significa HTML?",
           "opciones": [
-            "Un lenguaje de programación",
-            "Un lenguaje de marcado",
-            "Un tipo de base de datos",
-            "Un servidor web"
+            "Lenguaje de Marcado de Hipertexto",
+            "Lenguaje Moderno de Alta Tecnología",
+            "Lenguaje de Marcado de Hipervínculos y Texto",
+            "Lenguaje de Marcado de Herramientas para el Hogar"
           ],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿Qué significa \"CPU\"?",
+          "opciones": [
+            "Unidad Central de Procesamiento",
+            "Unidad Personal de Computadora",
+            "Unidad Central de Programa",
+            "Unidad de Procesamiento de Computadora"
+          ],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿Qué protocolo se utiliza para enviar un correo electrónico?",
+          "opciones": ["FTP", "SMTP", "HTTP", "TCP"],
           "respuesta_correcta": "2"
         },
         {
-          "pregunta": "¿Qué es CSS?",
-          "opciones": [
-            "Un lenguaje de programación",
-            "Un lenguaje de marcado",
-            "Una hoja de estilos",
-            "Un servidor web"
-          ],
+          "pregunta": "¿Cuál es la representación binaria del número decimal 10?",
+          "opciones": ["1010", "1100", "1001", "0110"],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿Cuál de los siguientes es un tipo de memoria no volátil?",
+          "opciones": ["RAM", "Caché", "ROM", "Registros"],
           "respuesta_correcta": "3"
         },
         {
-          "pregunta": "¿Qué es JavaScript?",
+          "pregunta": "¿Cuál es el propósito principal de un sistema operativo?",
           "opciones": [
-            "Un lenguaje de programación",
-            "Un lenguaje de marcado",
-            "Una hoja de estilos",
-            "Un servidor web"
-          ],
-          "respuesta_correcta": "1"
-        },
-        {
-          "pregunta": "¿Qué etiqueta se usa para insertar una imagen en HTML?",
-          "opciones": [
-            "<img>",
-            "<image>",
-            "<src>",
-            "<picture>"
-          ],
-          "respuesta_correcta": "1"
-        }
-      ],
-      "medio": [
-        {
-          "pregunta": "¿Qué es el DOM?",
-          "opciones": [
-            "El código fuente de una página",
-            "La estructura de un sitio web",
-            "Una interfaz de programación",
-            "Un objeto en JavaScript"
+            "Proporcionar una interfaz de procesamiento de texto",
+            "Gestionar los recursos de hardware y software",
+            "Conectarse a internet",
+            "Ejecutar análisis de antivirus"
           ],
           "respuesta_correcta": "2"
         },
         {
-          "pregunta": "¿Qué es React?",
+          "pregunta": "¿Cuál es la principal diferencia entre TCP y UDP?",
           "opciones": [
-            "Un framework de CSS",
-            "Una librería de JavaScript para construir interfaces de usuario",
-            "Un lenguaje de programación",
-            "Una base de datos"
-          ],
-          "respuesta_correcta": "2"
-        }
-      ],
-      "dificil": [
-        {
-          "pregunta": "¿Qué significa JSX en React?",
-          "opciones": [
-            "JavaScript XML",
-            "JavaScript Extension",
-            "JSON Standard Exchange",
-            "JavaScript eXtension"
-          ],
-          "respuesta_correcta": "1"
-        },
-        {
-          "pregunta": "¿Qué es el Virtual DOM en React?",
-          "opciones": [
-            "Una representación de la interfaz de usuario en memoria",
-            "El DOM real del navegador",
-            "El servidor donde se almacenan los archivos",
-            "Una herramienta de diseño gráfico"
-          ],
-          "respuesta_correcta": "1"
-        }
-      ],
-      "visible": true
-    },
-    "Crombie": {
-      "facil": [
-        {
-          "pregunta": "¿En qué país tiene su sede principal Crombie?",
-          "opciones": [
-            "Estados Unidos",
-            "Reino Unido",
-            "Canadá",
-            "Argentina"
+            "TCP no está orientado a la conexión, mientras que UDP sí lo está.",
+            "TCP proporciona comprobación y recuperación de errores, mientras que UDP no.",
+            "UDP es más rápido que TCP pero no ofrece garantía de entrega.",
+            "Tanto B como C son correctas."
           ],
           "respuesta_correcta": "4"
         },
         {
-          "pregunta": "¿Qué tipo de productos fabrica Crombie?",
+          "pregunta": "Un proceso se encuentra en un estado de \"interbloqueo\" (deadlock) cuando:",
           "opciones": [
-            "Ropa de lujo",
-            "Electrónica",
-            "Automóviles",
-            "Alimentos"
+            "Dos o más procesos están bloqueados para siempre, cada uno esperando un recurso que posee otro.",
+            "Ha sido terminado por el sistema operativo debido a un error.",
+            "Está esperando que se complete una operación de E/S.",
+            "Se está ejecutando en modo kernel en lugar de modo usuario."
           ],
           "respuesta_correcta": "1"
         },
         {
-          "pregunta": "¿Cuál es el eslogan de Crombie?",
+          "pregunta": "¿Cuál es el rol del Protocolo de Resolución de Direcciones (ARP)?",
           "opciones": [
-            "Elegancia y estilo",
-            "Calidad y tradición",
-            "Moda para todos",
-            "Innovación y diseño"
+            "Encontrar la dirección IP correspondiente a una dirección MAC dada.",
+            "Encontrar la dirección MAC correspondiente a una dirección IP dada en una red local.",
+            "Enrutar paquetes entre diferentes redes.",
+            "Resolver un nombre de dominio a una dirección IP."
           ],
           "respuesta_correcta": "2"
         },
         {
-          "pregunta": "¿Qué tipo de prendas es más conocido Crombie?",
-          "opciones": [
-            "Trajes y abrigos",
-            "Ropa deportiva",
-            "Ropa casual",
-            "Ropa de trabajo"
-          ],
-          "respuesta_correcta": "1"
-        },
-        {
-          "pregunta": "¿En qué ciudad se fundó Crombie?",
-          "opciones": [
-            "Londres",
-            "Edimburgo",
-            "Manchester",
-            "Birmingham"
-          ],
-          "respuesta_correcta": "2"
+          "pregunta": "En el contexto de las API RESTful, ¿qué método(s) HTTP se consideran idempotentes?",
+          "opciones": ["POST", "GET", "PUT y PATCH", "Tanto GET como PUT"],
+          "respuesta_correcta": "4"
         }
       ],
+      "dificil": [],
+      "visible": true
+    },
+    "Crombie": {
+      "facil": [],
       "medio": [
         {
-          "pregunta": "¿Quién es el fundador de Crombie?",
-          "opciones": [
-            "John Crombie",
-            "James Crombie",
-            "William Crombie",
-            "Mark Crombie"
-          ],
+          "pregunta": "¿Cuál fue la última ciudad de Estados Unidos que visitó el equipo de Crombie?",
+          "opciones": ["Houston", "Las vegas", "Washington", "Miami"],
           "respuesta_correcta": "1"
         },
         {
-          "pregunta": "¿Qué tipo de tejidos son más conocidos en las prendas de Crombie?",
-          "opciones": [
-            "Lana",
-            "Seda",
-            "Algodón",
-            "Poliéster"
-          ],
-          "respuesta_correcta": "1"
-        }
-      ],
-      "dificil": [
+          "pregunta": "¿En qué año se fundó Crombie?",
+          "opciones": ["2007", "2010", "2005", "2000"],
+          "respuesta_correcta": "3"
+        },
         {
-          "pregunta": "¿En qué año fue fundada Crombie?",
-          "opciones": [
-            "1823",
-            "1872",
-            "1910",
-            "1955"
-          ],
+          "pregunta": "Nuestro aniversario es en...",
+          "opciones": ["Agosto", "Julio", "Abril", "Mayo"],
+          "respuesta_correcta": "4"
+        },
+        {
+          "pregunta": "¿Qué marca de indumentaria deportiva trabajó con nosotros?",
+          "opciones": ["Puma", "Nike", "Adidas", "Under Armour"],
           "respuesta_correcta": "1"
         },
         {
-          "pregunta": "¿Qué tipo de clientes suele atender Crombie principalmente?",
+          "pregunta": "¿Cómo se llama la certificación anual que avala que tenemos una buena cultura de trabajo?",
           "opciones": [
-            "Grandes empresas",
-            "Clientes minoristas de lujo",
-            "Gobiernos",
-            "Escuelas y universidades"
+            "Excellent company certified",
+            "Great place to work",
+            "Good place to work",
+            "Best company ever"
           ],
           "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Cúal es el requisito indispensable para ingresar a la Crombie Code Academy?",
+          "opciones": [
+            "Experiencia laboral",
+            "Inglés",
+            "Computadora",
+            "Ser de Santa Fe"
+          ],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Cómo se llama el CEO de Crombie?",
+          "opciones": ["Antonio", "Walter", "Mariano", "Martín"],
+          "respuesta_correcta": "3"
+        },
+        {
+          "pregunta": "¿Con qué plataforma se capacitan los crombiers?",
+          "opciones": ["Coder House", "Udemy", "Domestik", "Crehana"],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Cuál es la metodología ágil que utilizamos en Crombie?",
+          "opciones": [
+            "Scrum",
+            "Crystal",
+            "Disciplined Agile",
+            "Lean Software Development"
+          ],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿A qué se dedica Crombie?",
+          "opciones": [
+            "Desarrollo de software a medida",
+            "Desarrollo de plataformas ecommerce",
+            "Desarrollo de soluciones de IA generativa",
+            "Todas son correctas"
+          ],
+          "respuesta_correcta": "4"
         }
       ],
+      "dificil": [],
       "visible": true
     },
     "Backend": {
-      "visible": true,
-      "facil": [
+      "facil": [],
+      "medio": [
         {
-          "pregunta": "Que es tal",
-          "opciones": [
-            "1",
-            "2",
-            "7",
-            "4"
-          ],
-          "respuesta_correcta": 2
+          "pregunta": "¿Cuál de los siguientes NO es un tipo de dato primitivo en Java?",
+          "opciones": ["int", "float", "string", "char"],
+          "respuesta_correcta": "3"
         },
         {
-          "pregunta": "¿Qué es una API?",
+          "pregunta": "¿Cuál es el rol de un compilador?",
           "opciones": [
-            "Una base de datos",
-            "Un servidor web",
-            "Una interfaz de programación de aplicaciones",
-            "Un lenguaje de programación"
+            "Ejecutar código línea por línea",
+            "Convertir código fuente en código máquina",
+            "Encontrar y corregir todos los errores en un programa",
+            "Gestionar la memoria de la computadora"
+          ],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "Una estructura de datos de tipo cola (queue) opera de qué manera?",
+          "opciones": [
+            "Último en Entrar, Primero en Salir (LIFO)",
+            "Primero en Entrar, Primero en Salir (FIFO)",
+            "Primero en Entrar, Último en Salir (FILO)",
+            "Entrada Aleatoria, Salida Aleatoria (RIRO)"
+          ],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "¿Qué comando de SQL se utiliza para recuperar datos de una base de datos?",
+          "opciones": ["GET", "SELECT", "RETRIEVE", "OPEN"],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "En notación Big O, ¿cuál es la complejidad temporal de un algoritmo de búsqueda binaria en un arreglo ordenado?",
+          "opciones": ["O(n)", "O(log n)", "O(n^2)", "O(1)"],
+          "respuesta_correcta": "2"
+        },
+        {
+          "pregunta": "En programación orientada a objetos, ¿cuál es el concepto de agrupar datos y los métodos que operan sobre esos datos en una sola unidad?",
+          "opciones": [
+            "Herencia",
+            "Polimorfismo",
+            "Encapsulamiento",
+            "Abstracción"
           ],
           "respuesta_correcta": "3"
         },
         {
-          "pregunta": "¿Qué es Node.js?",
+          "pregunta": "En el contexto de bases de datos, ¿qué significa ACID?",
           "opciones": [
-            "Un lenguaje de programación",
-            "Un entorno de ejecución para JavaScript en el servidor",
-            "Un framework de CSS",
-            "Una base de datos"
+            "Atomicidad, Consistencia, Aislamiento, Durabilidad",
+            "Disponibilidad, Concurrencia, Integridad, Durabilidad",
+            "Atomicidad, Concurrencia, Aislamiento, Durabilidad",
+            "Disponibilidad, Consistencia, Integridad, Durabilidad"
+          ],
+          "respuesta_correcta": "1"
+        },
+        {
+          "pregunta": "¿Qué estructura de datos se utiliza típicamente para implementar una cola de prioridad eficiente?",
+          "opciones": [
+            "Pila (Stack)",
+            "Montículo (Heap)",
+            "Lista Enlazada (Linked List)",
+            "Tabla Hash (Hash Table)"
           ],
           "respuesta_correcta": "2"
         },
         {
-          "pregunta": "¿Qué es una base de datos?",
+          "pregunta": "¿Cuál de los siguientes algoritmos de ordenamiento NO es un ordenamiento basado en comparación y puede ser más rápido que O(n log n) en algunos casos?",
           "opciones": [
-            "Un sistema para almacenar y gestionar datos",
-            "Un lenguaje de programación",
-            "Un servidor web",
-            "Una interfaz de usuario"
+            "Ordenamiento por Mezcla (Merge Sort)",
+            "Ordenamiento Rápido (Quick Sort)",
+            "Ordenamiento por Montículo (Heap Sort)",
+            "Ordenamiento Radix (Radix Sort)"
+          ],
+          "respuesta_correcta": "4"
+        },
+        {
+          "pregunta": "En criptografía, ¿cuál es la diferencia clave entre el cifrado simétrico y el asimétrico?",
+          "opciones": [
+            "El simétrico utiliza la misma clave para el cifrado y el descifrado, mientras que el asimétrico utiliza una clave pública y una privada.",
+            "El cifrado asimétrico es siempre más rápido que el cifrado simétrico.",
+            "El cifrado simétrico se usa para firmas digitales, mientras que el asimétrico se usa para la confidencialidad de los datos.",
+            "No hay una diferencia fundamental; los términos son intercambiables."
           ],
           "respuesta_correcta": "1"
         }
       ],
-      "medio": [],
-      "dificil": []
+      "dificil": [],
+      "visible": true
     }
   }
 }
