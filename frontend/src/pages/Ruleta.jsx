@@ -62,10 +62,11 @@ function Ruleta() {
   }, [dificultadElegida]);
 
    useEffect(() => {
-    if (faseDelJuego === "preguntasCard") {
-     // ✅ CORRECTO: La navegación se ejecuta AHORA después del renderizado.
-      navigate("/slot-juego");
-    } 
+      if (faseDelJuego === "preguntasCard" && preguntaActual) {
+      navigate("/slot-juego", { state: { categoria: preguntaActual.categoria } });
+    }
+  }, [faseDelJuego, preguntaActual, navigate]);
+ 
     // El efecto se dispara solo cuando 'faseDelJuego' cambia.
   }, [faseDelJuego, navigate]); 
 
